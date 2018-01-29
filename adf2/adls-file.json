@@ -1,0 +1,14 @@
+{
+    "name": "ADLS-File",
+    "properties": {
+        "type": "AzureDataLakeStoreFile",
+        "linkedServiceName":{
+            "referenceName": "ADLS-Connection",
+            "type": "LinkedServiceReference"
+        },
+        "typeProperties": {
+            "folderPath": "data/stage/mtseu/sales/summary/2016/01/",
+            "fileName": "lines_01.txt"
+        }
+    }
+}

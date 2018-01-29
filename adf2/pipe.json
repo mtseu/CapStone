@@ -1,0 +1,67 @@
+{
+    "name": "pipeline2",
+    "properties": {
+        "activities": [
+            {
+                "name": "CopyFile",
+                "type": "Copy",
+                "dependsOn": [],
+                "policy": {
+                    "timeout": "0.00:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 40
+                },
+                "typeProperties": {
+                    "source": {
+                        "type": "AzureDataLakeStoreSource",
+                        "recursive": true
+                    },
+                    "sink": {
+                        "type": "BlobSink",
+                        "copyBehavior": "MergeFiles"
+                    },
+                    "enableStaging": false,
+                    "cloudDataMovementUnits": 0
+                },
+                "inputs": [
+                    {
+                        "referenceName": "ADLS-File",
+                        "type": "DatasetReference",
+                        "parameters": {}
+                    }
+                ],
+                "outputs": [
+                    {
+                        "referenceName": "Blob-File",
+                        "type": "DatasetReference",
+                        "parameters": {}
+                    }
+                ]
+            },
+            {
+                "name": "U-SQL",
+                "type": "DataLakeAnalyticsU-SQL",
+                "dependsOn": [],
+                "policy": {
+                    "timeout": "7.00:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 40
+                },
+                "typeProperties": {
+                    "scriptPath": {
+                        "value":"u-sql/adlaUSQL",
+                        "type": "Expression"
+                    },
+                    "scriptLinkedService": {
+                        "referenceName": "Blob-Connection",
+                        "type": "LinkedServiceReference"
+                    }
+                },
+                "linkedServiceName": {
+                    "referenceName": "ADLA-Connection",
+                    "type": "LinkedServiceReference"
+                }
+            }
+        ]
+    }
+}

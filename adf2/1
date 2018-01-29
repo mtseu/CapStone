@@ -1,0 +1,29 @@
+master.dbo.sp_lineitems()
+
+
+                    "scriptPath": {
+                        "value":"@pipeline().parameters.script",
+                        "type": "Expression"
+                    },
+                    "scriptLinkedService": {
+                        "referenceName": "Blob-Connection",
+                        "type": "LinkedServiceReference"
+                    }
+
+                    "script" : "master.dbo.sp_lineitems()"
+
+        "parameters":{
+            "script" : { "type": "String" }
+        }
+
+a correct scriptPath and scriptLinkedService are specified in action definition.
+This can be checked on UI be clicking "Edit" on "Script" tab: script shows up.
+
+However triggering pipeline always fails with the following error:
+{
+    "errorCode": "2103",
+    "message": "ScriptPath should not be null",
+    "failureType": "UserError",
+    "target": "U-SQL"
+}
+

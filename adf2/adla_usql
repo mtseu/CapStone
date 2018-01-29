@@ -1,0 +1,25 @@
+@sales =
+EXTRACT OrderID int,
+        OrderLineID int,
+        StockItemID int,
+        StockItemName string,
+        Quantity int,
+        UnitPrice decimal,
+        LineTotal decimal
+FROM "data/stage/mtseu/sales/summary/2016/01/lines_01.txt"
+USING Extractors.Tsv(skipFirstNRows: 1);
+
+@lineitems =
+SELECT OrderID,
+       OrderLineID,
+       StockItemID,
+       StockItemName,
+       Quantity,
+       UnitPrice,
+       LineTotal
+FROM @sales;
+
+OUTPUT @lineitems
+    TO "data/stage/mtseu/sales/summary/lines_test.txt"
+    ORDER BY OrderID, OrderLineID
+    USING Outputters.Tsv();
