@@ -27,3 +27,16 @@ However triggering pipeline always fails with the following error:
     "target": "U-SQL"
 }
 
+hey hey
+
+You are planning to use continuous integration practices during development.
+
+Which three phrases of the development pipeline may be impacted by this decision?
+
+
+automated acceptance testing
+build and unit testing
+development
+release
+user acceptance testing
+version control

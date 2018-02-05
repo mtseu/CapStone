@@ -1,0 +1,24 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "resources": [
+        {
+            "type": "Microsoft.DataFactory/factories/linkedServices",
+            "apiVersion": "2017-09-01-preview",
+            "name": "adf-v2-arm/ADLS-Connection-IR",
+            "properties": {
+                "type": "AzureDataLakeStore",
+                "typeProperties": {
+                    "dataLakeStoreUri": "https://edapadls.azuredatalakestore.net/webhdfs/v1",
+                    "tenant": "b41b72d0-4e9f-4c26-8a69-f949f367c91d",
+                    "subscriptionId": "19943e49-6cfd-47dc-b8aa-22032d5b2703",
+                    "resourceGroupName": "azure-training-shared"
+                },
+                "connectVia": {
+                    "referenceName": "East-US-2-IR",
+                    "type": "IntegrationRuntimeReference"
+                }
+            }
+        }
+    ]
+}

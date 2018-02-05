@@ -1,0 +1,38 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+      "dataFactoryName": {
+        "value": "adf-v2-arm"
+      },    
+      "dataFactoryLocation": {
+        "value": "East US"
+      },
+      "storageAccountName": {
+        "value": "mtseustorage"
+      },
+      "storageAccountKey": {
+        "reference": {
+            "keyVault": {
+                "id": "/subscriptions/19943e49-6cfd-47dc-b8aa-22032d5b2703/resourceGroups/msq-private-mtseu/providers/Microsoft.KeyVault/vaults/mtseu-keys"
+            },
+            "secretName": "mtseu-storage-key"
+        }
+      },
+      "inputBlobContainer": {
+        "value": "adf-data"
+      },
+      "inputBlobFolder": {
+        "value": "data"
+      },
+      "inputBlobName": {
+        "value": "tst.txt"
+      },
+      "outputFolder": {
+        "value": "data/stage/mtseu"
+      },
+      "outputFileName": {
+        "value": "output-tst.txt"
+      }
+    }
+  }

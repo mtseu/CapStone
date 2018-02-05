@@ -7,10 +7,11 @@
             "tenant": "b41b72d0-4e9f-4c26-8a69-f949f367c91d",
             "subscriptionId": "19943e49-6cfd-47dc-b8aa-22032d5b2703",
             "resourceGroupName": "msq-private-mtseu"
+        },
+        "connectVia": {
+            "referenceName": "East-US-2-IR",
+            "type": "IntegrationRuntimeReference"
         }
-    },
-    "connectVia": {
-        "referenceName": "East-US-2-IR",
-        "type": "IntegrationRuntimeReference"
     }
+    
 }
