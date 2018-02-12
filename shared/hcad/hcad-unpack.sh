@@ -66,8 +66,8 @@ mkdir $WDIR; az storage blob download -c ${CONTAINER} --account-name "edapblob" 
 upload jur_exempt
 upload jur_exempt_cd
 upload jur_exemption_dscr
-upload jur_tax_district_exempt_value
-upload jur_tax_district_percent_rate
+upload jur_tax_dist_exempt_value
+upload jur_tax_dist_percent_rate
 upload jur_value
 
 if [ $YEAR == "2017" ]
