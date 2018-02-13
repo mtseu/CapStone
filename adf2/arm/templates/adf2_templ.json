@@ -60,6 +60,12 @@
             "metadata": {
                 "description": "Name of the output file/blob."
             }
+        },
+        "scriptPath": {
+            "type": "string",
+            "metadata": {
+                "description": "Path for U-SQL script"
+            }
         }
     },
     "variables": {
@@ -71,7 +77,8 @@
         "blob-conn": "Blob-Connection",
         "inputDatasetName": "Blob-File",
         "outputDatasetName": "ADLS-File",
-        "pipelineName": "copy-from-blob-to-adls"
+        "pipelineName": "copy-from-blob-to-adls",
+        "factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('dataFactoryName'))]"
     },
     "resources": [
         {
@@ -83,190 +90,223 @@
                 "loggingStorageAccountName": "[parameters('storageAccountName')]",
                 "loggingStorageAccountKey": "[parameters('storageAccountKey')]"
             },
-            "resources": [
-                {
-                    "type": "integrationRuntimes",
-                    "name": "[variables('integrationRuntimeName')]",
-                    "dependsOn": [
-                        "[parameters('dataFactoryName')]"
-                    ],
-                    "apiVersion": "2017-09-01-preview",
-                    "properties": {
-                        "type": "Managed",
-                        "typeProperties": {
-                            "computeProperties": {
-                                "location": "East US 2"
-                            }
-                        }
-                    }
-                },
-                {
-                    "type": "linkedservices",
-                    "name": "[variables('adla-conn')]",
-                    "dependsOn": [
-                        "[parameters('dataFactoryName')]"
-                    ],
-                    "apiVersion": "2017-09-01-preview",
-                    "properties": {
-                        "type": "AzureDataLakeAnalytics",
-                        "typeProperties": {
-                            "accountName": "edapadla",
-                            "tenant": "b41b72d0-4e9f-4c26-8a69-f949f367c91d",
-                            "subscriptionId": "19943e49-6cfd-47dc-b8aa-22032d5b2703",
-                            "resourceGroupName": "azure-training-shared"
-                        }
-                    }
-                },
-                {
-                    "type": "linkedservices",
-                    "name": "[variables('adls-conn-defaultIR')]",
-                    "dependsOn": [
-                        "[parameters('dataFactoryName')]"
-                    ],
-                    "apiVersion": "2017-09-01-preview",
-                    "properties": {
-                        "type": "AzureDataLakeStore",
-                        "typeProperties": {
-                            "dataLakeStoreUri": "https://edapadls.azuredatalakestore.net/webhdfs/v1",
-                            "tenant": "b41b72d0-4e9f-4c26-8a69-f949f367c91d",
-                            "subscriptionId": "19943e49-6cfd-47dc-b8aa-22032d5b2703",
-                            "resourceGroupName": "azure-training-shared"
-                        }
-                    }
-                },
-                {
-                    "type": "linkedservices",
-                    "name": "[variables('adls-conn-managedIR')]",
-                    "dependsOn": [
-                        "[parameters('dataFactoryName')]",
-                        "[variables('integrationRuntimeName')]"
-                    ],
-                    "apiVersion": "2017-09-01-preview",
-                    "properties": {
-                        "type": "AzureDataLakeStore",
-                        "typeProperties": {
-                            "dataLakeStoreUri": "https://edapadls.azuredatalakestore.net/webhdfs/v1",
-                            "tenant": "b41b72d0-4e9f-4c26-8a69-f949f367c91d",
-                            "subscriptionId": "19943e49-6cfd-47dc-b8aa-22032d5b2703",
-                            "resourceGroupName": "msq-private-mtseu"
-                        },
-                        "connectVia": {
-                            "referenceName": "[variables('integrationRuntimeName')]",
-                            "type": "IntegrationRuntimeReference"
-                        }
-                    }
-                },
-                {
-                    "type": "linkedservices",
-                    "name": "[variables('blob-conn')]",
-                    "dependsOn": [
-                        "[parameters('dataFactoryName')]"
-                    ],
-                    "apiVersion": "2017-09-01-preview",
-                    "properties": {
-                        "type": "AzureStorage",
-                        "typeProperties": {
-                            "connectionString": {
-                                "type": "SecureString",
-                                "value": "[concat('DefaultEndpointsProtocol=https;AccountName=mtseustorage;AccountKey=',parameters('storageAccountKey'))]"
-                            }
-                        }
-                    }
-                },               
-                {
-                    "type": "datasets",
-                    "name": "[variables('inputDatasetName')]",
-                    "dependsOn": [
-                        "[parameters('dataFactoryName')]",
-                        "[variables('blob-conn')]"
-                    ],
-                    "apiVersion": "2017-09-01-preview",
-                    "properties": {
-                        "type": "AzureBlob",
-                        "typeProperties": {
-                            "folderPath": "[concat(parameters('inputBlobContainer'), '/', parameters('inputBlobFolder'))]",
-                            "fileName": "[parameters('inputBlobName')]"
-                        },
-                        "linkedServiceName": {
-                            "referenceName": "[variables('blob-conn')]",
-                            "type": "LinkedServiceReference"
-                        }
-                    }
-                },
-                {
-                    "type": "datasets",
-                    "name": "[variables('outputDatasetName')]",
-                    "dependsOn": [
-                        "[parameters('dataFactoryName')]",
-                        "[variables('adls-conn')]"
-                    ],
-                    "apiVersion": "2017-09-01-preview",
-                    "properties": {
-                        "type": "AzureDataLakeStoreFile",
-                        "typeProperties": {
-                            "folderPath": "[parameters('outputFolder')]",
-                            "fileName": "[parameters('outputFileName')]"
-                        },
-                        "linkedServiceName": {
-                            "referenceName": "[variables('adls-conn')]",
-                            "type": "LinkedServiceReference"
-                        }
-                    }
-                },
-                {
-                    "type": "pipelines",
-                    "name": "[variables('pipelineName')]",
-                    "dependsOn": [
-                        "[parameters('dataFactoryName')]",
-                        "[variables('inputDatasetName')]",
-                        "[variables('outputDatasetName')]",
-                        "[variables('adls-conn')]",
-                        "[variables('blob-conn')]"
-                    ],
-                    "apiVersion": "2017-09-01-preview",
-                    "properties": {
-                        "activities": [
-                            {
-                                "name": "CopyFile",
-                                "type": "Copy",
-                                "dependsOn": [],
-                                "policy": {
-                                    "timeout": "0.00:00:00",
-                                    "retry": 0,
-                                    "retryIntervalInSeconds": 40
-                                },
-                                "typeProperties": {
-                                    "source": {
-                                        "type": "BlobSource",
-                                        "recursive": true
-                                    },
-                                    "sink": {
-                                        "type": "AzureDataLakeStoreSink",
-                                        "copyBehavior": "PreserveHierarchy"
-                                    },
-                                    "enableStaging": false,
-                                    "cloudDataMovementUnits": 0
-                                },
-                                "inputs": [
-                                    {
-                                        "referenceName": "[variables('inputDatasetName')]",
-                                        "type": "DatasetReference",
-                                        "parameters": {}
-                                    }
-                                ],
-                                "outputs": [
-                                    {
-                                        "referenceName": "[variables('outputDatasetName')]",
-                                        "type": "DatasetReference",
-                                        "parameters": {}
-                                    }
-                                ]
-                            }
-                        ]
+            "identity" :{
+                "type": "SystemAssigned"
+            },
+            "resources": []
+        },
+        {
+            "type": "Microsoft.DataFactory/factories/integrationRuntimes",
+            "name": "[concat(parameters('dataFactoryName'), '/', variables('integrationRuntimeName'))]",
+            "dependsOn": [
+                "[variables('factoryId')]"
+            ],
+            "apiVersion": "2017-09-01-preview",
+            "properties": {
+                "type": "Managed",
+                "typeProperties": {
+                    "computeProperties": {
+                        "location": "East US 2"
                     }
                 }
-            ]
+            }
+        },
+        {
+            "type": "Microsoft.DataFactory/factories/linkedServices",
+            "name": "[concat(parameters('dataFactoryName'), '/', variables('adla-conn'))]",
+            "dependsOn": [
+                "[variables('factoryId')]"
+            ],
+            "apiVersion": "2017-09-01-preview",
+            "properties": {
+                "type": "AzureDataLakeAnalytics",
+                "typeProperties": {
+                    "accountName": "edapadla",
+                    "tenant": "b41b72d0-4e9f-4c26-8a69-f949f367c91d",
+                    "subscriptionId": "19943e49-6cfd-47dc-b8aa-22032d5b2703",
+                    "resourceGroupName": "azure-training-shared",
+                    "servicePrincipalId": "[reference(variables('factoryId'), '2017-09-01-preview', 'Full').identity.principalId]",
+                    "servicePrincipalKey": "_"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.DataFactory/factories/linkedServices",
+            "name": "[concat(parameters('dataFactoryName'), '/', variables('adls-conn-defaultIR'))]",
+            "dependsOn": [
+                "[variables('factoryId')]"
+            ],
+            "apiVersion": "2017-09-01-preview",
+            "properties": {
+                "type": "AzureDataLakeStore",
+                "typeProperties": {
+                    "dataLakeStoreUri": "https://edapadls.azuredatalakestore.net/webhdfs/v1",
+                    "tenant": "b41b72d0-4e9f-4c26-8a69-f949f367c91d",
+                    "subscriptionId": "19943e49-6cfd-47dc-b8aa-22032d5b2703",
+                    "resourceGroupName": "azure-training-shared"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.DataFactory/factories/linkedServices",
+            "name": "[concat(parameters('dataFactoryName'), '/', variables('adls-conn-managedIR'))]",
+            "dependsOn": [
+                "[variables('factoryId')]",
+                "[concat(variables('factoryId'), '/integrationRuntimes/', variables('integrationRuntimeName'))]"
+            ],
+            "apiVersion": "2017-09-01-preview",
+            "properties": {
+                "type": "AzureDataLakeStore",
+                "typeProperties": {
+                    "dataLakeStoreUri": "https://edapadls.azuredatalakestore.net/webhdfs/v1",
+                    "tenant": "b41b72d0-4e9f-4c26-8a69-f949f367c91d",
+                    "subscriptionId": "19943e49-6cfd-47dc-b8aa-22032d5b2703",
+                    "resourceGroupName": "azure-training-shared"
+                },
+                "connectVia": {
+                    "referenceName": "[variables('integrationRuntimeName')]",
+                    "type": "IntegrationRuntimeReference"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.DataFactory/factories/linkedServices",
+            "name": "[concat(parameters('dataFactoryName'), '/', variables('blob-conn'))]",
+            "dependsOn": [
+                "[variables('factoryId')]"
+            ],
+            "apiVersion": "2017-09-01-preview",
+            "properties": {
+                "type": "AzureStorage",
+                "typeProperties": {
+                    "connectionString": {
+                        "type": "SecureString",
+                        "value": "[concat('DefaultEndpointsProtocol=https;AccountName=',parameters('storageAccountName'),';AccountKey=',parameters('storageAccountKey'))]"
+                    }
+                }
+            }
+        },
+        {
+            "type": "Microsoft.DataFactory/factories/datasets",
+            "name": "[concat(parameters('dataFactoryName'), '/', variables('inputDatasetName'))]",
+            "dependsOn": [
+                "[variables('factoryId')]",
+                "[concat(variables('factoryId'), '/linkedServices/', variables('blob-conn'))]"
+            ],
+            "apiVersion": "2017-09-01-preview",
+            "properties": {
+                "type": "AzureBlob",
+                "typeProperties": {
+                    "folderPath": "[concat(parameters('inputBlobContainer'), '/', parameters('inputBlobFolder'))]",
+                    "fileName": "[parameters('inputBlobName')]"
+                },
+                "linkedServiceName": {
+                    "referenceName": "[variables('blob-conn')]",
+                    "type": "LinkedServiceReference"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.DataFactory/factories/datasets",
+            "name": "[concat(parameters('dataFactoryName'), '/', variables('outputDatasetName'))]",
+            "dependsOn": [
+                "[variables('factoryId')]",
+                "[concat(variables('factoryId'), '/linkedServices/', variables('adls-conn'))]"
+            ],
+            "apiVersion": "2017-09-01-preview",
+            "properties": {
+                "type": "AzureDataLakeStoreFile",
+                "typeProperties": {
+                    "folderPath": "[parameters('outputFolder')]",
+                    "fileName": "[parameters('outputFileName')]"
+                },
+                "linkedServiceName": {
+                    "referenceName": "[variables('adls-conn')]",
+                    "type": "LinkedServiceReference"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.DataFactory/factories/pipelines",
+            "name": "[concat(parameters('dataFactoryName'), '/', variables('pipelineName'))]",
+            "dependsOn": [
+                "[variables('factoryId')]",
+                "[concat(variables('factoryId'), '/datasets/', variables('inputDatasetName'))]",
+                "[concat(variables('factoryId'), '/datasets/', variables('outputDatasetName'))]",
+                "[concat(variables('factoryId'), '/linkedServices/', variables('adls-conn'))]",
+                "[concat(variables('factoryId'), '/linkedServices/', variables('blob-conn'))]"
+            ],
+            "apiVersion": "2017-09-01-preview",
+            "properties": {
+                "activities": [
+                    {
+                        "name": "CopyFile",
+                        "type": "Copy",
+                        "dependsOn": [],
+                        "policy": {
+                            "timeout": "0.00:00:00",
+                            "retry": 0,
+                            "retryIntervalInSeconds": 40
+                        },
+                        "typeProperties": {
+                            "source": {
+                                "type": "BlobSource",
+                                "recursive": true
+                            },
+                            "sink": {
+                                "type": "AzureDataLakeStoreSink",
+                                "copyBehavior": "PreserveHierarchy"
+                            },
+                            "enableStaging": false,
+                            "cloudDataMovementUnits": 0
+                        },
+                        "inputs": [
+                            {
+                                "referenceName": "[variables('inputDatasetName')]",
+                                "type": "DatasetReference",
+                                "parameters": {}
+                            }
+                        ],
+                        "outputs": [
+                            {
+                                "referenceName": "[variables('outputDatasetName')]",
+                                "type": "DatasetReference",
+                                "parameters": {}
+                            }
+                        ]
+                    },
+                    {
+                        "name": "U-SQL",
+                        "type": "DataLakeAnalyticsU-SQL",
+                        "dependsOn": [],
+                        "policy": {
+                            "timeout": "7.00:00:00",
+                            "retry": 0,
+                            "retryIntervalInSeconds": 40
+                        },
+                        "typeProperties": {
+                            "scriptPath": {
+                                "value":"[parameters('scriptPath')]",
+                                "type": "Expression"
+                            },
+                            "scriptLinkedService": {
+                                "referenceName": "[variables('blob-conn')]",
+                                "type": "LinkedServiceReference"
+                            }
+                        },
+                        "linkedServiceName": {
+                            "referenceName": "[variables('adla-conn')]",
+                            "type": "LinkedServiceReference"
+                        }
+                    }                    
+                ]
+            }
         }
     ],
-    "outputs": {}
+    "outputs": {
+        "myOutput": {
+            "value": "[reference('Microsoft.DataFactory/factories/adf-v2-arm', '2017-09-01-preview', 'Full')]",
+            "type": "object"
+        }
+    }
 }

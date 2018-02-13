@@ -6,7 +6,7 @@
         "value": "adf-v2-arm"
       },    
       "dataFactoryLocation": {
-        "value": "East US"
+        "value": "East US 2"
       },
       "storageAccountName": {
         "value": "mtseustorage"
@@ -33,6 +33,9 @@
       },
       "outputFileName": {
         "value": "output-tst.txt"
+      },
+      "scriptPath": {
+        "value": "u-sql/adla_tst.usql"
       }
     }
   }
