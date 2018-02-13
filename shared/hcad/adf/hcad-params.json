@@ -1,0 +1,37 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+      "dataFactoryName": {
+        "value": "hcad-adf-load"
+      },    
+      "dataFactoryLocation": {
+        "value": "East US 2"
+      },
+      "storageAccountName": {
+        "value": "mtseustorage"
+      },
+      "storageAccountKey": {
+        "reference": {
+            "keyVault": {
+                "id": "/subscriptions/19943e49-6cfd-47dc-b8aa-22032d5b2703/resourceGroups/azure-training-shared/providers/Microsoft.KeyVault/vaults/edap-keys"
+            },
+            "secretName": "edap-blob-key1"
+        }
+      },
+      "servicePrincipalId": {
+          "value": "3e651c9a-6f6a-44d7-aa1e-be74a7a375dd"
+      },
+      "servicePrincipalKey": {
+        "reference": {
+            "keyVault": {
+                "id": "/subscriptions/19943e49-6cfd-47dc-b8aa-22032d5b2703/resourceGroups/azure-training-shared/providers/Microsoft.KeyVault/vaults/edap-keys"
+            },
+            "secretName": "azure-app-key"
+        }
+      },
+      "inputBlobContainer": {
+        "value": "hcad-all"
+      }
+    }
+  }

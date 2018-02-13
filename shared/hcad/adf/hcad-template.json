@@ -1,0 +1,181 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "dataFactoryName": {
+           "type": "string",
+           "metadata": {
+                "description": "Name of the Data Factory"
+            }
+        },
+        "dataFactoryLocation": {
+            "type": "string",
+            "allowedValues": [
+                "East US",
+                "East US 2"
+            ],
+            "defaultValue": "East US 2",
+            "metadata": {
+                "description": "Location of the data factory. Currently, only East US and East US 2 are supported. "
+            }
+        },        
+        "storageAccountName": {
+            "type": "string",
+            "metadata": {
+                 "description": "Name of the Storage Account"
+             }
+        },
+        "storageAccountKey": {
+            "type": "string",
+            "metadata": {
+                 "description": "Storage account access key"
+             }
+        },
+        "servicePrincipalId": {
+            "type": "string",
+            "metadata": {
+                "description": "id of the compute principal"
+            }
+        },
+        "servicePrincipalKey": {
+            "type": "securestring",
+            "metadata": {
+                "description": "key of the compute principal"
+            }
+        },
+        "inputBlobContainer": {
+            "type": "string",
+            "metadata": {
+                "description": "source blob container name"
+            }
+        }
+ 
+    },
+    "variables": {
+        "blob-conn": "Blob-Connection",
+        "factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('dataFactoryName'))]",
+        "inputDatasetName": "initial-blob",
+        "hdi-conn": "HDI-Connection",
+        "pipelineName": "load-hcad-data-pipeline"
+    },
+    "resources": [
+        {
+            "name": "[parameters('dataFactoryName')]",
+            "apiVersion": "2017-09-01-preview",
+            "type": "Microsoft.DataFactory/factories",
+            "location": "[parameters('dataFactoryLocation')]",
+            "properties": {
+                "loggingStorageAccountName": "[parameters('storageAccountName')]",
+                "loggingStorageAccountKey": "[parameters('storageAccountKey')]"
+            },
+            "identity" :{
+                "type": "SystemAssigned"
+            },
+            "resources": []
+        },
+        {
+            "type": "Microsoft.DataFactory/factories/linkedServices",
+            "name": "[concat(parameters('dataFactoryName'), '/', variables('hdi-conn'))]",
+            "dependsOn": [
+                "[variables('factoryId')]"
+            ],
+            "apiVersion": "2017-09-01-preview",
+            "properties": {
+                "type": "HDInsightOnDemand",
+                "typeProperties": {
+                  "clusterType": "hadoop",
+                  "clusterSize": 3,
+                  "timeToLive": "00:15:00",
+                  "hostSubscriptionId": "[subscription().subscriptionId]",
+                  "servicePrincipalId": "[parameters('servicePrincipalId')]",
+                  "servicePrincipalKey": {
+                    "value": "[parameters('servicePrincipalKey')]",
+                    "type": "SecureString"
+                  },
+                  "tenant": "[subscription().tenantId]",
+                  "clusterResourceGroup": "azure-training-shared",
+                  "version": "3.6",
+                  "osType": "Linux",
+                  "linkedServiceName": {
+                    "referenceName": "[variables('blob-conn')]",
+                    "type": "LinkedServiceReference"
+                  }
+                }
+            }
+        },
+        {
+            "type": "Microsoft.DataFactory/factories/linkedServices",
+            "name": "[concat(parameters('dataFactoryName'), '/', variables('blob-conn'))]",
+            "dependsOn": [
+                "[variables('factoryId')]"
+            ],
+            "apiVersion": "2017-09-01-preview",
+            "properties": {
+                "type": "AzureStorage",
+                "typeProperties": {
+                    "connectionString": {
+                        "type": "SecureString",
+                        "value": "[concat('DefaultEndpointsProtocol=https;AccountName=',parameters('storageAccountName'),';AccountKey=',parameters('storageAccountKey'))]"
+                    }
+                }
+            }
+        },
+        {
+            "type": "Microsoft.DataFactory/factories/datasets",
+            "name": "[concat(parameters('dataFactoryName'), '/', variables('inputDatasetName'))]",
+            "dependsOn": [
+                "[variables('factoryId')]",
+                "[concat(variables('factoryId'), '/linkedServices/', variables('blob-conn'))]"
+            ],
+            "apiVersion": "2017-09-01-preview",
+            "properties": {
+                "type": "AzureBlob",
+                "typeProperties": {
+                    "folderPath": "[concat(parameters('inputBlobContainer'), '/', 'inputBlobFolder')]",
+                    "fileName": "inputBlobName"
+                },
+                "linkedServiceName": {
+                    "referenceName": "[variables('blob-conn')]",
+                    "type": "LinkedServiceReference"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.DataFactory/factories/pipelines",
+            "name": "[concat(parameters('dataFactoryName'), '/', variables('pipelineName'))]",
+            "dependsOn": [
+                "[variables('factoryId')]",
+                "[concat(variables('factoryId'), '/linkedServices/', variables('blob-conn'))]",
+                "[concat(variables('factoryId'), '/linkedServices/', variables('hdi-conn'))]"
+            ],
+            "apiVersion": "2017-09-01-preview",
+            "properties": {
+                "activities": [
+                    {
+                        "name": "Add-SNAPSHOT_YEAR-Column",
+                        "description": "append a SNAPSHOT_YEAR column to each table",
+                        "type": "HDInsightHive",
+                        "linkedServiceName": {
+                            "referenceName": "[variables('hdi-conn')]",
+                            "type": "LinkedServiceReference"
+                        },
+                        "typeProperties": {
+                            "scriptLinkedService": {
+                                "referenceName": "[variables('blob-conn')]",
+                                "type": "LinkedServiceReference"
+                            },
+                            "scriptPath": "scripts/hive/add-snapshot_year.hql",
+                            "getDebugInfo": "Failure",
+                            "arguments": [
+                            ],
+                            "defines": {
+                                "src_tab_location": "[concat('wasb://', parameters('inputBlobContainer'))]"
+                            }
+                        }   
+                    }
+                ]
+            }
+        }
+    ],
+    "outputs": {}
+}
