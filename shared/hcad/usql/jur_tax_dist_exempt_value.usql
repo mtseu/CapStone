@@ -1,0 +1,11 @@
+ 
+ @data = 
+ EXTRACT the_row string, year string 
+ FROM "wasb://hcad-all@edapblob/{year}/jur_tax_dist_exempt_value.txt" 
+ USING Extractors.Text(delimiter: '\u0001', encoding: Encoding.[UTF8]); 
+  
+ @yeared = SELECT String.Concat(the_row, "\t", year) AS yeared_row FROM @data; 
+  
+ OUTPUT @yeared 
+     TO "adl://edapadls.azuredatalake.net/data/stage/mtseu/hcad/jur_tax_dist_exempt_value.txt" 
+     USING Outputters.Text(quoting: false, delimiter: '\u0001'); 
