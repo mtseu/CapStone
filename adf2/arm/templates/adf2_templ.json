@@ -66,7 +66,44 @@
             "metadata": {
                 "description": "Path for U-SQL script"
             }
+        },
+        "adlaPrincipalId": {
+            "type": "string",
+            "metadata": {
+                "description": "Principal ID"
+            }
+        },
+        "adlaPrincipalKey": {
+            "type": "string",
+            "metadata": {
+                "description": "Principal Key"
+            }
+        },
+        "hdiPrincipalId": {
+            "type": "string",
+            "metadata": {
+                "description": "Principal Key for HDI cluster"
+            }
+        },
+        "hdiPrincipalKey": {
+            "type": "string",
+            "metadata": {
+                "description": "Principal Key for HDI cluster"
+            }
+        },
+        "hdiCertificate": {
+            "type": "string",
+            "metadata": {
+                "description": "Certificate to access ADLS"
+            }
+        },
+        "hdiCertificatePassword": {
+            "type": "string",
+            "metadata": {
+                "description": "Password for HDI Certificate"
+            }
         }
+
     },
     "variables": {
         "integrationRuntimeName": "East-US-2-IR",
@@ -75,6 +112,7 @@
         "adls-conn": "[variables('adls-conn-managedIR')]",
         "adla-conn": "ADLA-Connection",
         "blob-conn": "Blob-Connection",
+        "hdi-conn": "HDI-Connection",
         "inputDatasetName": "Blob-File",
         "outputDatasetName": "ADLS-File",
         "pipelineName": "copy-from-blob-to-adls",
@@ -125,8 +163,8 @@
                     "tenant": "b41b72d0-4e9f-4c26-8a69-f949f367c91d",
                     "subscriptionId": "19943e49-6cfd-47dc-b8aa-22032d5b2703",
                     "resourceGroupName": "azure-training-shared",
-                    "servicePrincipalId": "[reference(variables('factoryId'), '2017-09-01-preview', 'Full').identity.principalId]",
-                    "servicePrincipalKey": "_"
+                    "servicePrincipalId": "[parameters('adlaPrincipalId')]",
+                    "servicePrincipalKey": "[parameters('adlaPrincipalKey')]"
                 }
             }
         },
@@ -186,6 +224,136 @@
                 }
             }
         },
+        {
+            "type": "Microsoft.DataFactory/factories/linkedServices",
+            "name": "[concat(parameters('dataFactoryName'), '/', variables('hdi-conn'))]",
+            "apiVersion": "2017-09-01-preview",
+            "dependsOn": [
+                "[variables('factoryId')]",
+                "[variables('blob-conn')]"
+            ],
+            "properties": {
+                "type": "HDInsightOnDemand",
+                "typeProperties": {
+                    "clusterType": "hadoop",
+                    "clusterSize": 1,
+                    "timeToLive": "00:05:00",
+                    "coreConfiguration": {
+                        "fs.adl.oauth2.access.token.provider.type": "ClientCredential", 
+                        "fs.adl.oauth2.client.id": "[parameters('hdiPrincipalId')]", 
+                        "fs.adl.oauth2.credential": "[parameters('hdiPrincipalKey')]", 
+                        "fs.adl.oauth2.refresh.url": "https://login.microsoftonline.com/b41b72d0-4e9f-4c26-8a69-f949f367c91d/oauth2/token"                                 
+                    },
+                    "hostSubscriptionId": "19943e49-6cfd-47dc-b8aa-22032d5b2703",
+                    "servicePrincipalId": "[parameters('hdiPrincipalId')]",
+                    "servicePrincipalKey": {
+                        "value": "[parameters('hdiPrincipalKey')]",
+                        "type": "SecureString"
+                    },
+                    "tenant": "b41b72d0-4e9f-4c26-8a69-f949f367c91d",
+                    "clusterResourceGroup": "msq-hdinsight-team-a",
+                    "version": "3.6",
+                    "osType": "Linux",
+                    "linkedServiceName": {
+                        "referenceName": "[variables('blob-conn')]",
+                        "type": "LinkedServiceReference"
+                    },
+                    "tier": "standard",
+                    "clusterDefinition": {
+                        "kind": "HADOOP",
+                        "configurations": {
+                            "gateway": {
+                                "restAuthCredential.isEnabled": true,
+                                "restAuthCredential.username": "admin",
+                                "restAuthCredential.password": "admin"
+                            },
+                            "core-site": {
+                                "fs.defaultFS": "adl://home",
+                                "dfs.adls.home.hostname": "edapadls.azuredatalakestore.net",
+                                "dfs.adls.home.mountpoint": "/clusters/mtseu-hdi-on-demand/",
+                                "fs.adl.oauth2.access.token.provider.type": "ClientCredential", 
+                                "fs.adl.oauth2.client.id": "[parameters('hdiPrincipalId')]", 
+                                "fs.adl.oauth2.credential": "[parameters('hdiPrincipalKey')]", 
+                                "fs.adl.oauth2.refresh.url": "https://login.microsoftonline.com/b41b72d0-4e9f-4c26-8a69-f949f367c91d/oauth2/token"                                 
+                            },
+                            "clusterIdentity": {
+                                "clusterIdentity.applicationId": "[parameters('hdiPrincipalId')]",
+                                "clusterIdentity.certificate": "[base64(parameters('hdiCertificate'))]",
+                                "clusterIdentity.aadTenantId": "https://login.windows.net/b41b72d0-4e9f-4c26-8a69-f949f367c91d",
+                                "clusterIdentity.resourceUri": "https://management.core.windows.net/",
+                                "clusterIdentity.certificatePassword": "[parameters('hdiCertificatePassword')]"
+                            }
+                        }
+                    },
+                    "storageProfile": {
+                        "storageaccounts": [
+                            {
+                                "name": "mtseublob.blob.core.windows.net",
+                                "isDefault": false,
+                                "container": "blank",
+                                "key": "[parameters('storageAccountKey')]"
+                            }
+                        ]
+                    },
+                    "computeProfile": {
+                        "roles": [
+                            {
+                                "name": "headnode",
+                                "minInstanceCount": 1,
+                                "targetInstanceCount": 2,
+                                "hardwareProfile": {
+                                    "vmSize": "Standard_D3_V2"
+                                },
+                                "osProfile": {
+                                    "linuxOperatingSystemProfile": {
+                                        "username": "admin",
+                                        "password": "admin"
+                                    }
+                                },
+                                "virtualNetworkProfile": null,
+                                "scriptActions": []
+                            },
+                            {
+                                "name": "workernode",
+                                "minInstanceCount": 1,
+                                "targetInstanceCount": 1,
+                                "hardwareProfile": {
+                                    "vmSize": "Small"
+                                },
+                                "osProfile": {
+                                    "linuxOperatingSystemProfile": {
+                                        "username": "admin",
+                                        "password": "admin"
+                                    }
+                                },
+                                "virtualNetworkProfile": null,
+                                "scriptActions": []
+                            },
+                            {
+                                "name": "zookeepernode",
+                                "minInstanceCount": 1,
+                                "targetInstanceCount": 3,
+                                "hardwareProfile": {
+                                    "vmSize": "Small"
+                                },
+                                "osProfile": {
+                                    "linuxOperatingSystemProfile": {
+                                        "username": "admin",
+                                        "password": "admin"
+                                    }
+                                },
+                                "virtualNetworkProfile": null,
+                                "scriptActions": []
+                            }
+                        ]
+                    }
+                },
+                "connectVia": {
+                    "referenceName": "[variables('integrationRuntimeName')]",
+                    "type": "IntegrationRuntimeReference"
+                }
+            }
+        },        
         {
             "type": "Microsoft.DataFactory/factories/datasets",
             "name": "[concat(parameters('dataFactoryName'), '/', variables('inputDatasetName'))]",
@@ -298,15 +466,26 @@
                             "referenceName": "[variables('adla-conn')]",
                             "type": "LinkedServiceReference"
                         }
-                    }                    
+                    },
+                    {
+                        "name": "Hive Activity",
+                        "description": "description",
+                        "type": "HDInsightHive",
+                        "linkedServiceName": {
+                            "referenceName": "[variables('hdi-conn')]",
+                            "type": "LinkedServiceReference"
+                        },
+                        "typeProperties": {
+                            "scriptLinkedService": {
+                                "referenceName": "[variables('blob-conn')]",
+                                "type": "LinkedServiceReference"
+                            },
+                            "scriptPath": "scripts/trans.hql",
+                            "getDebugInfo": "Failure"
+                        }   
+                    }                                        
                 ]
             }
         }
-    ],
-    "outputs": {
-        "myOutput": {
-            "value": "[reference('Microsoft.DataFactory/factories/adf-v2-arm', '2017-09-01-preview', 'Full')]",
-            "type": "object"
-        }
-    }
+    ]
 }
