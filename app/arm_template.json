@@ -1,0 +1,242 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "factoryName": {
+            "type": "string",
+            "defaultValue": "CapStoneADF"
+        },
+        "dataFactoryLocation": {
+            "type": "string",
+            "defaultValue": "EastUS2"
+        },
+        "storageAccountName": {
+            "type": "string",
+            "defaultValue": "edapblob"
+        },
+        "storageAccountKey": {
+            "type": "securestring"
+        },
+        "adlsAccountName": {
+            "type": "string",
+            "defaultValue": "edapadls"
+        },
+        "principalId": {
+            "type": "string"
+        },
+        "principalKey": {
+            "type": "securestring"
+        },
+        "teamResourceGroupName" : {
+            "type": "string",
+            "defaultValue": "msq-hdinsight-team-a"
+        },
+        "sharedResourceGroupName" : {
+            "type": "string",
+            "defaultValue": "azure-training-shared"
+        },
+        "rawDir": {
+            "type": "string",
+            "defaultValue": "/data/raw"
+        }
+    },
+    "variables": {
+        "factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]",
+        "blob-conn": "BlobConnection",
+        "adls-conn": "ADLSConnection",
+        "tcad-ext-dataset": "TcadSrcFile",
+        "tcad-raw-dataset": "TcadRawFile",
+        "tcad-ext-container": "tcad",
+        "raw-data-dir": "[concat(parameters('rawDir'), '/', parameters('teamResourceGroupName'))]"
+    },
+    "resources": [
+        {
+            "name": "[parameters('factoryName')]",
+            "apiVersion": "2017-09-01-preview",
+            "type": "Microsoft.DataFactory/factories",
+            "location": "[parameters('dataFactoryLocation')]",
+            "properties": {
+                "loggingStorageAccountName": "[parameters('storageAccountName')]",
+                "loggingStorageAccountKey": "[parameters('storageAccountKey')]"
+            },
+            "identity" :{
+                "type": "SystemAssigned"
+            },
+            "resources": []
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/', variables('blob-conn'))]",
+            "type": "Microsoft.DataFactory/factories/linkedServices",
+            "apiVersion": "2017-09-01-preview",
+            "properties": {
+                "type": "AzureStorage",
+                "typeProperties": {
+                    "connectionString": {
+                        "type": "SecureString",
+                        "value": "[concat('DefaultEndpointsProtocol=https;AccountName=',parameters('storageAccountName'),';AccountKey=',parameters('storageAccountKey'))]"
+                    }
+                }
+            },
+            "dependsOn": [
+                "[variables('factoryId')]"
+            ]
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/', variables('adls-conn'))]",
+            "type": "Microsoft.DataFactory/factories/linkedServices",
+            "apiVersion": "2017-09-01-preview",
+            "properties": {
+                "type": "AzureDataLakeStore",
+                "typeProperties": {
+                    "dataLakeStoreUri": "[concat('https://', parameters('adlsAccountName'), '.azuredatalakestore.net/webhdfs/v1')]",
+                    "tenant": "[subscription().tenantId]",
+                    "subscriptionId": "[subscription().subscriptionId]",
+                    "resourceGroupName": "[parameters('sharedResourceGroupName')]",
+                    "servicePrincipalId": "[parameters('principalId')]",
+                    "servicePrincipalKey": "[parameters('principalKey')]"
+                }
+            },
+            "dependsOn": [
+                "[variables('factoryId')]"
+            ]
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/', variables('tcad-ext-dataset'))]",
+            "type": "Microsoft.DataFactory/factories/datasets",
+            "apiVersion": "2017-09-01-preview",
+            "properties": {
+                "linkedServiceName": {
+                    "referenceName": "[variables('blob-conn')]",
+                    "type": "LinkedServiceReference"
+                },
+                "parameters": {
+                    "FileName": {
+                        "type": "String"
+                    }, 
+                    "FolderPath": {
+                        "type": "String"
+                    }
+                },
+                "type": "AzureBlob",
+                "typeProperties": {
+                    "fileName": {
+                        "value": "@{dataset().FileName}",
+                        "type": "Expression"
+                    },
+                    "folderPath": {
+                        "value": "@{dataset().FolderPath}",
+                        "type": "Expression"
+                    }
+                }
+            },
+            "dependsOn": [
+                "[concat(variables('factoryId'), '/linkedServices/', variables('blob-conn'))]"
+            ]
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/', variables('tcad-raw-dataset'))]",
+            "type": "Microsoft.DataFactory/factories/datasets",
+            "apiVersion": "2017-09-01-preview",
+            "properties": {
+                "linkedServiceName": {
+                    "referenceName": "[variables('adls-conn')]",
+                    "type": "LinkedServiceReference"
+                },
+                "parameters": {
+                    "FileName": {
+                        "type": "String"
+                    }
+                },
+                "type": "AzureDataLakeStoreFile",
+                "typeProperties": {
+                    "fileName": {
+                        "value": "@{dataset().FileName}",
+                        "type": "Expression"
+                    },
+                    "folderPath": "[concat(variables('raw-data-dir'), '/tcad')]"
+                }
+            },
+            "dependsOn": [
+                "[concat(variables('factoryId'), '/linkedServices/', variables('adls-conn'))]"
+            ]
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/fetch-tcad-data')]",
+            "type": "Microsoft.DataFactory/factories/pipelines",
+            "apiVersion": "2017-09-01-preview",
+            "properties": {
+                "activities": [
+                    {
+                        "name": "for-each-file",
+                        "type": "ForEach",
+                        "dependsOn": [],
+                        "typeProperties": {
+                            "items": { 
+                                "value": "@pipeline().parameters.FileList",
+                                "type": "Expression"
+                            },
+                            "activities": [
+                                {
+                                    "name": "CopyTCadFile",
+                                    "type": "Copy",
+                                    "dependsOn": [],
+                                    "policy": {
+                                        "timeout": "7.00:00:00",
+                                        "retry": 0,
+                                        "retryIntervalInSeconds": 30
+                                    },
+                                    "typeProperties": {
+                                        "source": {
+                                            "type": "BlobSource",
+                                            "recursive": true
+                                        },
+                                        "sink": {
+                                            "type": "AzureDataLakeStoreSink"
+                                        },
+                                        "enableStaging": false,
+                                        "cloudDataMovementUnits": 0
+                                    },
+                                    "inputs": [
+                                        {
+                                            "referenceName": "[variables('tcad-ext-dataset')]",
+                                            "type": "DatasetReference",
+                                            "parameters": {
+                                                "FileName": "@item()",
+                                                "FolderPath": "[variables('tcad-ext-container')]"
+                                            }
+                                        }
+                                    ],
+                                    "outputs": [
+                                        {
+                                            "referenceName": "[variables('tcad-raw-dataset')]",
+                                            "type": "DatasetReference",
+                                            "parameters": {
+                                                "FileName": "@item()"
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "parameters": {
+                    "FileList": {
+                        "type": "String",
+                        "defaultValue": "[ createArray('ABS_SUBD.TXT', 'AGENT.TXT', 'APPR_HDR.TXT', 'ARB.TXT', 'ARBITRATION.TXT', 'COUNTRY.TXT', 'ENTITY.TXT', 'IMP_ATR.TXT', 'IMP_DET.TXT', 'IMP_INFO.TXT', 'LAND_DET.TXT', 'LAWSUIT.TXT', 'MOBILE_HOME_INFO.TXT', 'PROP.TXT', 'PROP_ENT.TXT', 'STATE_CD.TXT', 'TOTALS.TXT', 'UDI.TXT')]"
+                    }
+                }
+            },
+            "dependsOn": [
+                "[concat(variables('factoryId'), '/datasets/', variables('tcad-ext-dataset'))]",
+                "[concat(variables('factoryId'), '/datasets/', variables('tcad-raw-dataset'))]"
+            ]
+        }
+    ],
+    "outputs": {
+        "dynvault":{ 
+            "value": "[concat(subscription().id,'/resourceGroups/azure-training-shared/providers/Microsoft.KeyVault/vaults/edap-keys')]",
+            "type": "string"
+        }
+    }
+}

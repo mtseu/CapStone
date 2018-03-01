@@ -1,0 +1,46 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "factoryName": {
+            "value": "CapStoneADFTeamA"
+        },
+        "dataFactoryLocation": {
+            "value": "EastUS2"
+        },
+        "storageAccountName": {
+            "value": "edapblob"
+        },
+        "storageAccountKey": {
+            "reference": {
+                "keyVault": {
+                    "id": "/subscriptions/19943e49-6cfd-47dc-b8aa-22032d5b2703/resourcegroups/azure-training-shared/providers/Microsoft.KeyVault/vaults/edap-keys"
+                },
+                "secretName": "edapblob-key1"
+            }
+        },
+        "adlsAccountName": {
+            "value": "edapadls"
+        },
+        "principalId": {
+            "value": "f796f337-22d4-4e99-bed5-a2646b91611e"
+        },
+        "principalKey": {
+            "reference": {
+                "keyVault": {
+                    "id": "/subscriptions/19943e49-6cfd-47dc-b8aa-22032d5b2703/resourcegroups/azure-training-shared/providers/Microsoft.KeyVault/vaults/edap-keys"
+                },
+                "secretName": "edap-sp-key"
+            }
+        },
+        "teamResourceGroupName" : {
+            "value": "msq-hdinsight-team-a"
+        },
+        "sharedResourceGroupName" : {
+            "value": "azure-training-shared"
+        },
+        "rawDir": {
+            "value": "/data/raw"
+        }
+    }
+}
