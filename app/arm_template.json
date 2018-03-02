@@ -38,6 +38,9 @@
         "rawDir": {
             "type": "string",
             "defaultValue": "/data/raw"
+        },
+        "envName" : {
+            "type": "string"
         }
     },
     "variables": {
@@ -113,6 +116,9 @@
                     "FileName": {
                         "type": "String"
                     }, 
+                    "FileExt": {
+                        "type": "String"
+                    }, 
                     "FolderPath": {
                         "type": "String"
                     }
@@ -120,7 +126,7 @@
                 "type": "AzureBlob",
                 "typeProperties": {
                     "fileName": {
-                        "value": "@{dataset().FileName}",
+                        "value": "@{dataset().FileName}@{dataset().FileExt}",
                         "type": "Expression"
                     },
                     "folderPath": {
@@ -145,15 +151,30 @@
                 "parameters": {
                     "FileName": {
                         "type": "String"
+                    },
+                    "FileExt": {
+                        "type": "String"
+                    },
+                    "FolderRoot": {
+                        "type": "String"
+                    },
+                    "SOR": {
+                        "type": "String"
+                    },
+                    "Env": {
+                        "type": "String"
+                    },
+                    "Snapshot" : {
+                        "type" : "String"
                     }
                 },
                 "type": "AzureDataLakeStoreFile",
                 "typeProperties": {
                     "fileName": {
-                        "value": "@{dataset().FileName}",
+                        "value": "@{dataset().FileName}@{dataset().FileExt}",
                         "type": "Expression"
                     },
-                    "folderPath": "[concat(variables('raw-data-dir'), '/tcad')]"
+                    "folderPath": "@{concat(dataset().FolderRoot, '/', dataset().Env, '/', dataset().SOR, '/', dataset().Snapshot, '/', dataset().FileName)}"
                 }
             },
             "dependsOn": [
@@ -202,6 +223,7 @@
                                             "type": "DatasetReference",
                                             "parameters": {
                                                 "FileName": "@item()",
+                                                "FileExt" : ".TXT",
                                                 "FolderPath": "[variables('tcad-ext-container')]"
                                             }
                                         }
@@ -211,7 +233,12 @@
                                             "referenceName": "[variables('tcad-raw-dataset')]",
                                             "type": "DatasetReference",
                                             "parameters": {
-                                                "FileName": "@item()"
+                                                "FileName": "@item()",
+                                                "FileExt" : ".TXT",
+                                                "FolderRoot": "[variables('raw-data-dir')]",
+                                                "SOR": "tcad",
+                                                "Env": "[parameters('envName')]",
+                                                "Snapshot" : "@utcnow('yyyy-MM-dd')"
                                             }
                                         }
                                     ]
@@ -223,7 +250,7 @@
                 "parameters": {
                     "FileList": {
                         "type": "String",
-                        "defaultValue": "[ createArray('ABS_SUBD.TXT', 'AGENT.TXT', 'APPR_HDR.TXT', 'ARB.TXT', 'ARBITRATION.TXT', 'COUNTRY.TXT', 'ENTITY.TXT', 'IMP_ATR.TXT', 'IMP_DET.TXT', 'IMP_INFO.TXT', 'LAND_DET.TXT', 'LAWSUIT.TXT', 'MOBILE_HOME_INFO.TXT', 'PROP.TXT', 'PROP_ENT.TXT', 'STATE_CD.TXT', 'TOTALS.TXT', 'UDI.TXT')]"
+                        "defaultValue": "[ createArray('ABS_SUBD', 'AGENT', 'APPR_HDR', 'ARB', 'ARBITRATION', 'COUNTRY', 'ENTITY', 'IMP_ATR', 'IMP_DET', 'IMP_INFO', 'LAND_DET', 'LAWSUIT', 'MOBILE_HOME_INFO', 'PROP', 'PROP_ENT', 'STATE_CD', 'TOTALS', 'UDI')]"
                     }
                 }
             },

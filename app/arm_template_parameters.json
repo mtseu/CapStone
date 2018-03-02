@@ -11,6 +11,9 @@
         "storageAccountName": {
             "value": "edapblob"
         },
+        "envName": {
+            "value": "msq-hdinsight-team-a"
+        },
         "storageAccountKey": {
             "reference": {
                 "keyVault": {
