@@ -47,6 +47,7 @@
         "factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]",
         "blob-conn": "BlobConnection",
         "adls-conn": "ADLSConnection",
+        "hdi-conn": "HDIConnection",
         "tcad-ext-dataset": "TcadSrcFile",
         "tcad-raw-dataset": "TcadRawFile",
         "tcad-ext-container": "tcad",
@@ -258,7 +259,163 @@
                 "[concat(variables('factoryId'), '/datasets/', variables('tcad-ext-dataset'))]",
                 "[concat(variables('factoryId'), '/datasets/', variables('tcad-raw-dataset'))]"
             ]
-        }
+        },
+        {
+            "type": "Microsoft.DataFactory/factories/linkedServices",
+            "name": "[concat(parameters('factoryName'), '/', variables('hdi-conn'))]",
+            "apiVersion": "2017-09-01-preview",
+            "dependsOn": [
+                "[variables('factoryId')]",
+                "[variables('blob-conn')]"
+            ],
+            "properties": {
+                "type": "HDInsightOnDemand",
+                "typeProperties": {
+                    "clusterType": "hadoop",
+                    "clusterSize": 1,
+                    "timeToLive": "00:05:00",
+                    "coreConfiguration": {
+                        "fs.adl.oauth2.access.token.provider.type": "ClientCredential", 
+                        "fs.adl.oauth2.client.id": "[parameters('principalId')]", 
+                        "fs.adl.oauth2.credential": "[parameters('principalKey')]", 
+                        "fs.adl.oauth2.refresh.url": "[concat('https://login.microsoftonline.com/', subscription().tenantId, '/oauth2/token')]"
+                    },
+                    "hostSubscriptionId": "[subscription().subscriptionId]",
+                    "servicePrincipalId": "[parameters('principalId')]",
+                    "servicePrincipalKey": {
+                        "value": "[parameters('principalKey')]",
+                        "type": "SecureString"
+                    },
+                    "tenant": "[subscription().tenantId]",
+                    "clusterResourceGroup": "[parameters('teamResourceGroupName')]",
+                    "version": "3.6",
+                    "osType": "Linux",
+                    "linkedServiceName": {
+                        "referenceName": "[variables('blob-conn')]",
+                        "type": "LinkedServiceReference"
+                    },
+                    "tier": "standard",
+                    "clusterDefinition": {
+                        "kind": "HADOOP",
+                        "configurations": {
+                            "gateway": {
+                                "restAuthCredential.isEnabled": true,
+                                "restAuthCredential.username": "admin",
+                                "restAuthCredential.password": "admin"
+                            },
+                            "core-site": {
+                                "fs.defaultFS": "adl://home",
+                                "dfs.adls.home.hostname": "edapadls.azuredatalakestore.net",
+                                "dfs.adls.home.mountpoint": "/clusters/mtseu-hdi-on-demand/",
+                                "fs.adl.oauth2.access.token.provider.type": "ClientCredential", 
+                                "fs.adl.oauth2.client.id": "[parameters('principalId')]", 
+                                "fs.adl.oauth2.credential": "[parameters('principalKey')]", 
+                                "fs.adl.oauth2.refresh.url": "[concat('https://login.microsoftonline.com/', subscription().tenantId, '/oauth2/token')]"
+                            }
+                        }
+                    },
+                    "storageProfile": {
+                        "storageaccounts": [
+                            {
+                                "name": "[parameters('storageAccountName')]",
+                                "isDefault": false,
+                                "container": "blank",
+                                "key": "[parameters('storageAccountKey')]"
+                            }
+                        ]
+                    },
+                    "computeProfile": {
+                        "roles": [
+                            {
+                                "name": "headnode",
+                                "minInstanceCount": 1,
+                                "targetInstanceCount": 2,
+                                "hardwareProfile": {
+                                    "vmSize": "Standard_D3_V2"
+                                },
+                                "osProfile": {
+                                    "linuxOperatingSystemProfile": {
+                                        "username": "admin",
+                                        "password": "admin"
+                                    }
+                                },
+                                "virtualNetworkProfile": null,
+                                "scriptActions": []
+                            },
+                            {
+                                "name": "workernode",
+                                "minInstanceCount": 1,
+                                "targetInstanceCount": 1,
+                                "hardwareProfile": {
+                                    "vmSize": "Small"
+                                },
+                                "osProfile": {
+                                    "linuxOperatingSystemProfile": {
+                                        "username": "admin",
+                                        "password": "admin"
+                                    }
+                                },
+                                "virtualNetworkProfile": null,
+                                "scriptActions": []
+                            },
+                            {
+                                "name": "zookeepernode",
+                                "minInstanceCount": 1,
+                                "targetInstanceCount": 3,
+                                "hardwareProfile": {
+                                    "vmSize": "Small"
+                                },
+                                "osProfile": {
+                                    "linuxOperatingSystemProfile": {
+                                        "username": "admin",
+                                        "password": "admin"
+                                    }
+                                },
+                                "virtualNetworkProfile": null,
+                                "scriptActions": []
+                            }
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/select-tcad-data')]",
+            "type": "Microsoft.DataFactory/factories/pipelines",
+            "apiVersion": "2017-09-01-preview",
+            "properties": {
+                "activities": [
+                    {
+                        "name": "Hive Activity",
+                        "description": "description",
+                        "type": "HDInsightHive",
+                        "linkedServiceName": {
+                            "referenceName": "[variables('hdi-conn')]",
+                            "type": "LinkedServiceReference"
+                        },
+                        "typeProperties": {
+                            "scriptLinkedService": {
+                                "referenceName": "[variables('blob-conn')]",
+                                "type": "LinkedServiceReference"
+                            },
+                            "scriptPath": "scripts/tcad.hql",
+                            "getDebugInfo": "Failure"
+                        }   
+                        
+                    }
+                ],
+                "parameters": {
+                    "FileList": {
+                        "type": "String",
+                        "defaultValue": "[ createArray('ABS_SUBD', 'AGENT', 'APPR_HDR', 'ARB', 'ARBITRATION', 'COUNTRY', 'ENTITY', 'IMP_ATR', 'IMP_DET', 'IMP_INFO', 'LAND_DET', 'LAWSUIT', 'MOBILE_HOME_INFO', 'PROP', 'PROP_ENT', 'STATE_CD', 'TOTALS', 'UDI')]"
+                    }
+                }
+            },
+            "dependsOn": [
+                "[concat(variables('factoryId'), '/datasets/', variables('tcad-ext-dataset'))]",
+                "[concat(variables('factoryId'), '/datasets/', variables('tcad-raw-dataset'))]"
+            ]
+        }        
     ],
     "outputs": {
         "dynvault":{ 
