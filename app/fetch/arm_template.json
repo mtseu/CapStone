@@ -50,7 +50,7 @@
         "tcad-ext-dataset": "TcadSrcFile",
         "tcad-raw-dataset": "TcadRawFile",
         "tcad-ext-container": "tcad",
-        "raw-data-dir": "[concat(parameters('rawDir'), '/', parameters('teamResourceGroupName'))]"
+        "raw-data-dir": "[parameters('rawDir')]"
     },
     "resources": [
         {
