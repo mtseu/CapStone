@@ -4,10 +4,9 @@ tdir=`mktemp -d`
 
 function process {
 	echo "Importing ${1} to ${2}"
-#	az storage blob download --container tcad --account-name edapblob --name ${1}.TXT --file ${tdir}/${1}.TXT
+	az storage blob download --container tcad --account-name edapblob --name ${1}.TXT --file ${tdir}/${1}.TXT
 	echo "bcp \"dbo.${2}\" IN ${tdir}/${1}.TXT -S azt-sql.eastus.cloudapp.azure.com -U azt -P $PASS -d tcadb -f ${2}.fmt"
-	bcp "dbo.${2}" IN /tmp/tmp.JWFQQklRHX/PROP_ENT.TXT -S azt-sql.eastus.cloudapp.azure.com -U azt -P $PASS -d tcadb -f ${2}.fmt -e ${1}.err
-#	bcp "dbo.${2}" IN ${tdir}/${1}.TXT -S azt-sql.eastus.cloudapp.azure.com -U azt -P $PASS -d tcadb -f ${2}.fmt -e ${1}.err
+	bcp "dbo.${2}" IN ${tdir}/${1}.TXT -S azt-sql.eastus.cloudapp.azure.com -U azt -P $PASS -d tcadb -f ${2}.fmt -e ${1}.err
 }
 
 #process APPR_HDR APPR_HDR
