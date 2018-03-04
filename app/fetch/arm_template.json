@@ -17,6 +17,13 @@
         "storageAccountKey": {
             "type": "securestring"
         },
+        "hdiStorageAccountName": {
+            "type": "string",
+            "defaultValue": "hdibloba"
+        },
+        "hdiStorageAccountKey": {
+            "type": "securestring"
+        },
         "adlsAccountName": {
             "type": "string",
             "defaultValue": "edapadls"
@@ -39,6 +46,10 @@
             "type": "string",
             "defaultValue": "/data/raw"
         },
+        "stgDir": {
+            "type": "string",
+            "defaultValue": "/data/stage"
+        },
         "envName" : {
             "type": "string"
         }
@@ -48,10 +59,12 @@
         "blob-conn": "BlobConnection",
         "adls-conn": "ADLSConnection",
         "hdi-conn": "HDIConnection",
+        "hdi-blob": "HDIStorageConnection",
         "tcad-ext-dataset": "TcadSrcFile",
         "tcad-raw-dataset": "TcadRawFile",
         "tcad-ext-container": "tcad",
-        "raw-data-dir": "[parameters('rawDir')]"
+        "raw-data-dir": "[parameters('rawDir')]",
+        "adl-uri":"[concat( 'adl://', parameters('adlsAccountName'), '.azuredatalakestore.net') ]"
     },
     "resources": [
         {
@@ -261,12 +274,29 @@
             ]
         },
         {
+            "name": "[concat(parameters('factoryName'), '/', variables('hdi-blob'))]",
+            "type": "Microsoft.DataFactory/factories/linkedServices",
+            "apiVersion": "2017-09-01-preview",
+            "properties": {
+                "type": "AzureStorage",
+                "typeProperties": {
+                    "connectionString": {
+                        "type": "SecureString",
+                        "value": "[concat('DefaultEndpointsProtocol=https;AccountName=',parameters('hdiStorageAccountName'),';AccountKey=',parameters('hdiStorageAccountKey'))]"
+                    }
+                }
+            },
+            "dependsOn": [
+                "[variables('factoryId')]"
+            ]
+        },
+        {
             "type": "Microsoft.DataFactory/factories/linkedServices",
             "name": "[concat(parameters('factoryName'), '/', variables('hdi-conn'))]",
             "apiVersion": "2017-09-01-preview",
             "dependsOn": [
                 "[variables('factoryId')]",
-                "[variables('blob-conn')]"
+                "[variables('hdi-blob')]"
             ],
             "properties": {
                 "type": "HDInsightOnDemand",
@@ -291,7 +321,7 @@
                     "version": "3.6",
                     "osType": "Linux",
                     "linkedServiceName": {
-                        "referenceName": "[variables('blob-conn')]",
+                        "referenceName": "[variables('hdi-blob')]",
                         "type": "LinkedServiceReference"
                     },
                     "tier": "standard",
@@ -386,7 +416,7 @@
             "properties": {
                 "activities": [
                     {
-                        "name": "Hive Activity",
+                        "name": "Select TCAD PROP table",
                         "description": "description",
                         "type": "HDInsightHive",
                         "linkedServiceName": {
@@ -394,26 +424,38 @@
                             "type": "LinkedServiceReference"
                         },
                         "typeProperties": {
+                            "scriptPath": "scripts/select/PROP.hql",
                             "scriptLinkedService": {
-                                "referenceName": "[variables('blob-conn')]",
+                                "referenceName": "[variables('hdi-blob')]",
                                 "type": "LinkedServiceReference"
                             },
-                            "scriptPath": "scripts/tcad.hql",
+                            "defines": {
+                                "raw_dir": "@{pipeline().parameters.RawDir}/@{pipeline().parameters.Snapshot}",
+                                "stg_dir": "@{pipeline().parameters.StgDir}/@{pipeline().parameters.Snapshot}"
+                            },
                             "getDebugInfo": "Failure"
                         }   
-                        
                     }
                 ],
                 "parameters": {
-                    "FileList": {
+                    "Snapshot": {
                         "type": "String",
-                        "defaultValue": "[ createArray('ABS_SUBD', 'AGENT', 'APPR_HDR', 'ARB', 'ARBITRATION', 'COUNTRY', 'ENTITY', 'IMP_ATR', 'IMP_DET', 'IMP_INFO', 'LAND_DET', 'LAWSUIT', 'MOBILE_HOME_INFO', 'PROP', 'PROP_ENT', 'STATE_CD', 'TOTALS', 'UDI')]"
+                        "defaultValue": ""
+                    },
+                    "RawDir": {
+                        "type": "String",
+                        "defaultValue": "[concat(variables('adl-uri'), parameters('rawDir'), '/', parameters('envName'), '/tcad/')]"
+                    },
+                    "StgDir": {
+                        "type": "String",
+                        "defaultValue": "[concat(variables('adl-uri'), parameters('stgDir'), '/', parameters('envName'))]"
                     }
                 }
             },
             "dependsOn": [
-                "[concat(variables('factoryId'), '/datasets/', variables('tcad-ext-dataset'))]",
-                "[concat(variables('factoryId'), '/datasets/', variables('tcad-raw-dataset'))]"
+                "[concat(variables('factoryId'), '/linkedServices/', variables('adls-conn'))]",
+                "[concat(variables('factoryId'), '/linkedServices/', variables('hdi-conn'))]",
+                "[concat(variables('factoryId'), '/linkedServices/', variables('hdi-conn'))]"
             ]
         }        
     ],

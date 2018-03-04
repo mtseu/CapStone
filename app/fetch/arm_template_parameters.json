@@ -44,6 +44,20 @@
         },
         "rawDir": {
             "value": "/data/raw"
+        },
+        "stgDir": {
+            "value": "/data/stage"
+        },
+        "hdiStorageAccountName": {
+            "value": "hdibloba"
+        },
+        "hdiStorageAccountKey": {
+            "reference": {
+                "keyVault": {
+                    "id": "/subscriptions/19943e49-6cfd-47dc-b8aa-22032d5b2703/resourcegroups/msq-hdinsight-team-a/providers/Microsoft.KeyVault/vaults/team-a-keys"
+                },
+                "secretName": "hdi-blob-key1"
+            }
         }
     }
 }
