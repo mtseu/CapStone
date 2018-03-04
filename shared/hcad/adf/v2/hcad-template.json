@@ -84,7 +84,7 @@
                 "type": "HDInsightOnDemand",
                 "typeProperties": {
                   "clusterType": "hadoop",
-                  "clusterSize": 3,
+                  "clusterSize": 1,
                   "timeToLive": "00:15:00",
                   "hostSubscriptionId": "[subscription().subscriptionId]",
                   "servicePrincipalId": "[parameters('servicePrincipalId')]",
