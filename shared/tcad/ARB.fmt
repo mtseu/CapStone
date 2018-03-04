@@ -1,0 +1,8 @@
+12.0							
+6							
+1	SQLCHAR	0	12	""	1	prop_id	""
+2	SQLCHAR	0	5	""	2	prop_val_yr	""
+3	SQLCHAR	0	50	""	3	geo_id	""
+4	SQLCHAR	0	25	""	4	ref_id1	""
+5	SQLCHAR	0	25	""	5	ref_id2	""
+6	SQLCHAR	0	10	"\r\n"	6	ARB_Status	""

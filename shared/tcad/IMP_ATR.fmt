@@ -1,0 +1,9 @@
+12.0							
+7							
+1	SQLCHAR	0	12	""	1	prop_id	""
+2	SQLCHAR	0	4	""	2	prop_val_yr	""
+3	SQLCHAR	0	12	""	3	imprv_id	""
+4	SQLCHAR	0	12	""	4	imprv_det_id	""
+5	SQLCHAR	0	12	""	5	imprv_attr_id	""
+6	SQLCHAR	0	25	""	6	imprv_attr_desc	""
+7	SQLCHAR	0	10	"\r\n"	7	imprv_attr_cd	""

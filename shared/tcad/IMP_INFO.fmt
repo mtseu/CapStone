@@ -1,0 +1,13 @@
+12.0							
+11							
+1	SQLCHAR	0	12	""	1	prop_id	""
+2	SQLCHAR	0	4	""	2	prop_val_yr	""
+3	SQLCHAR	0	12	""	3	imprv_id	""
+4	SQLCHAR	0	10	""	4	imprv_type_cd	""
+5	SQLCHAR	0	25	""	5	imprv_type_desc	""
+6	SQLCHAR	0	5	""	6	imprv_state_cd	""
+7	SQLCHAR	0	1	""	7	imprv_homesite	""
+8	SQLCHAR	0	14	""	8	imprv_val	""
+9	SQLCHAR	0	15	""	9	imprv_homesite_pct	""
+10	SQLCHAR	0	1	""	10	omitted	""
+11	SQLCHAR	0	15	"\r\n"	11	omitted_imprv_val	""

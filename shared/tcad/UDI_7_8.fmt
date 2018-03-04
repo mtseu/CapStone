@@ -1,0 +1,7 @@
+12.0							
+5							
+1	SQLCHAR	0	12	""	1	Original_PID	""
+2	SQLCHAR	0	12	""	2	Owner_ID	""
+3	SQLCHAR	0	70	""	3	Owner_Name	""
+4	SQLCHAR	0	12	""	4	New_PID	""
+5	SQLCHAR	0	12	"\r\n"	5	UDI_Group	""

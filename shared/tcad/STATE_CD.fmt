@@ -1,0 +1,7 @@
+12.0							
+5							
+1	SQLCHAR	0	10	""	1	state_cd	""
+2	SQLCHAR	0	50	""	2	state_cd_description	""
+3	SQLCHAR	0	10	""	3	ptd_state_cd	""
+4	SQLCHAR	0	50	""	4	ptd_state_cd_description	""
+5	SQLCHAR	0	5	"\r\n"	5	state_cd_year	""

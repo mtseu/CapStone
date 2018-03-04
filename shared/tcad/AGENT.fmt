@@ -1,0 +1,13 @@
+12.0						
+11
+1	SQLCHAR	0	12	""	1	agent_id	""
+2	SQLCHAR	0	70	""	2	agent_name	""
+3	SQLCHAR	0	60	""	3	agent_addr_line1	""
+4	SQLCHAR	0	60	""	4	agent_addr_line2	""
+5	SQLCHAR	0	60	""	5	agent_addr_line3	""
+6	SQLCHAR	0	50	""	6	agent_city	""
+7	SQLCHAR	0	50	""	7	agent_state	""
+8	SQLCHAR	0	5	""	8	agent_country	""
+9	SQLCHAR	0	5	""	9	agent_zip	""
+10	SQLCHAR	0	4	""	10	agent_zip_cass	""
+11	SQLCHAR	0	2	"\r\n"	11	agent_zip_rt	""

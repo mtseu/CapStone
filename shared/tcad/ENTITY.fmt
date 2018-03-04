@@ -1,0 +1,4 @@
+12.0							
+2							
+1	SQLCHAR	0	12	""	1	entity_id	""
+2	SQLCHAR	0	5	"\r\n"	2	entity_cd	""
