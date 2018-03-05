@@ -52,13 +52,22 @@
         },
         "envName" : {
             "type": "string"
+        },
+        "hdiStandaloneUser": {
+            "type": "string",
+            "defaultValue": "admin"
+        },
+        "hdiStandalonePassword": {
+            "type": "securestring"
         }
     },
     "variables": {
         "factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]",
         "blob-conn": "BlobConnection",
         "adls-conn": "ADLSConnection",
-        "hdi-conn": "HDIConnection",
+        "hdi-conn-ondemand": "HDIConnection",
+        "hdi-conn-standalone": "HadoopConnection",
+        "hdi-conn": "[variables('hdi-conn-standalone')]",
         "hdi-blob": "HDIStorageConnection",
         "tcad-ext-dataset": "TcadSrcFile",
         "tcad-raw-dataset": "TcadRawFile",
@@ -292,7 +301,31 @@
         },
         {
             "type": "Microsoft.DataFactory/factories/linkedServices",
-            "name": "[concat(parameters('factoryName'), '/', variables('hdi-conn'))]",
+            "name": "[concat(parameters('factoryName'), '/', variables('hdi-conn-standalone'))]",
+            "apiVersion": "2017-09-01-preview",
+            "dependsOn": [
+                "[variables('factoryId')]",
+                "[variables('hdi-blob')]"
+            ],
+            "properties": {
+                "type": "HDInsight",
+                "typeProperties": {
+                    "clusterUri": "https://msq-team-a-hdi.azurehdinsight.net",
+                    "userName": "[parameters('hdiStandaloneUser')]",
+                    "password": {
+                        "type": "SecureString",
+                        "value": "[parameters('hdiStandalonePassword')]"
+                    },
+                    "linkedServiceName": {
+                        "referenceName": "HDIStorageConnection",
+                        "type": "LinkedServiceReference"
+                    }
+                }
+            }
+        },
+        {
+            "type": "Microsoft.DataFactory/factories/linkedServices",
+            "name": "[concat(parameters('factoryName'), '/', variables('hdi-conn-ondemand'))]",
             "apiVersion": "2017-09-01-preview",
             "dependsOn": [
                 "[variables('factoryId')]",
@@ -425,6 +458,48 @@
                         },
                         "typeProperties": {
                             "scriptPath": "scripts/select/PROP.hql",
+                            "scriptLinkedService": {
+                                "referenceName": "[variables('hdi-blob')]",
+                                "type": "LinkedServiceReference"
+                            },
+                            "defines": {
+                                "raw_dir": "@{pipeline().parameters.RawDir}/@{pipeline().parameters.Snapshot}",
+                                "stg_dir": "@{pipeline().parameters.StgDir}/@{pipeline().parameters.Snapshot}"
+                            },
+                            "getDebugInfo": "Failure"
+                        }   
+                    },
+                    {
+                        "name": "Select TCAD PROP_ENT table",
+                        "description": "description",
+                        "type": "HDInsightHive",
+                        "linkedServiceName": {
+                            "referenceName": "[variables('hdi-conn')]",
+                            "type": "LinkedServiceReference"
+                        },
+                        "typeProperties": {
+                            "scriptPath": "scripts/select/PROP_ENT.hql",
+                            "scriptLinkedService": {
+                                "referenceName": "[variables('hdi-blob')]",
+                                "type": "LinkedServiceReference"
+                            },
+                            "defines": {
+                                "raw_dir": "@{pipeline().parameters.RawDir}/@{pipeline().parameters.Snapshot}",
+                                "stg_dir": "@{pipeline().parameters.StgDir}/@{pipeline().parameters.Snapshot}"
+                            },
+                            "getDebugInfo": "Failure"
+                        }   
+                    },
+                    {
+                        "name": "Select TCAD TOTALS table",
+                        "description": "description",
+                        "type": "HDInsightHive",
+                        "linkedServiceName": {
+                            "referenceName": "[variables('hdi-conn')]",
+                            "type": "LinkedServiceReference"
+                        },
+                        "typeProperties": {
+                            "scriptPath": "scripts/select/TOTALS.hql",
                             "scriptLinkedService": {
                                 "referenceName": "[variables('hdi-blob')]",
                                 "type": "LinkedServiceReference"
