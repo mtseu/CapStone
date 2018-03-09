@@ -1,0 +1,46 @@
+
+{    
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "factoryName": {
+            "type": "string",
+            "defaultValue": "CapStoneADF"
+        },
+        "adlsAccountName": {
+            "type": "string",
+            "defaultValue": "edapadls"
+        },
+        "principalId": {
+            "type": "string"
+        },
+        "principalKey": {
+            "type": "securestring"
+        },
+        "sharedResourceGroupName" : {
+            "type": "string",
+            "defaultValue": "azure-training-shared"
+        }
+    },
+    "variables": {
+        "adls-conn": "ADLSConnection"
+    },
+    "resources": [
+        {
+            "name": "[concat(parameters('factoryName'), '/', variables('adls-conn'))]",
+            "type": "Microsoft.DataFactory/factories/linkedServices",
+            "apiVersion": "2017-09-01-preview",
+            "properties": {
+                "type": "AzureDataLakeStore",
+                "typeProperties": {
+                    "dataLakeStoreUri": "[concat('https://', parameters('adlsAccountName'), '.azuredatalakestore.net/webhdfs/v1')]",
+                    "tenant": "[subscription().tenantId]",
+                    "subscriptionId": "[subscription().subscriptionId]",
+                    "resourceGroupName": "[parameters('sharedResourceGroupName')]",
+                    "servicePrincipalId": "[parameters('principalId')]",
+                    "servicePrincipalKey": "[parameters('principalKey')]"
+                }
+            }
+        }
+   ]
+}

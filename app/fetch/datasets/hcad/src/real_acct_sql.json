@@ -1,0 +1,300 @@
+{
+    "name": "HCAD_REAL_ACCT_EXT",
+    "properties": {
+        "linkedServiceName": {
+            "referenceName": "ExtSQLConnection",
+            "type": "LinkedServiceReference"
+        },
+        "type": "SqlServerTable",
+        "structure": [
+            {
+                "name": "ACCOUNT",
+                "type": "String"
+            },
+            {
+                "name": "TAX_YEAR",
+                "type": "String"
+            },
+            {
+                "name": "MAILTO",
+                "type": "String"
+            },
+            {
+                "name": "MAIL_ADDR_1",
+                "type": "String"
+            },
+            {
+                "name": "MAIL_ADDR_2",
+                "type": "String"
+            },
+            {
+                "name": "MAIL_CITY",
+                "type": "String"
+            },
+            {
+                "name": "MAIL_STATE",
+                "type": "String"
+            },
+            {
+                "name": "MAIL_ZIP",
+                "type": "String"
+            },
+            {
+                "name": "MAIL_COUNTRY",
+                "type": "String"
+            },
+            {
+                "name": "UNDELIVERABLE",
+                "type": "String"
+            },
+            {
+                "name": "STR_PFX",
+                "type": "String"
+            },
+            {
+                "name": "STR_NUM",
+                "type": "Int32"
+            },
+            {
+                "name": "STR_NUM_SFX",
+                "type": "String"
+            },
+            {
+                "name": "STR_NAME",
+                "type": "String"
+            },
+            {
+                "name": "STR_SFX",
+                "type": "String"
+            },
+            {
+                "name": "STR_SFX_DIR",
+                "type": "String"
+            },
+            {
+                "name": "STR_UNIT",
+                "type": "String"
+            },
+            {
+                "name": "SITE_ADDR_1",
+                "type": "String"
+            },
+            {
+                "name": "SITE_ADDR_2",
+                "type": "String"
+            },
+            {
+                "name": "SITE_ADDR_3",
+                "type": "String"
+            },
+            {
+                "name": "STATE_CLASS",
+                "type": "String"
+            },
+            {
+                "name": "SCHOOL_DIST",
+                "type": "String"
+            },
+            {
+                "name": "MAP_FACET",
+                "type": "String"
+            },
+            {
+                "name": "KEY_MAP",
+                "type": "String"
+            },
+            {
+                "name": "NEIGHBORHOOD_CODE",
+                "type": "String"
+            },
+            {
+                "name": "NEIGHBORHOOD_GROUP",
+                "type": "String"
+            },
+            {
+                "name": "MARKET_AREA_1",
+                "type": "String"
+            },
+            {
+                "name": "MARKET_AREA_1_DSCR",
+                "type": "String"
+            },
+            {
+                "name": "MARKET_AREA_2",
+                "type": "String"
+            },
+            {
+                "name": "MARKET_AREA_2_DSCR",
+                "type": "String"
+            },
+            {
+                "name": "ECON_AREA",
+                "type": "String"
+            },
+            {
+                "name": "ECON_BLD_CLASS",
+                "type": "String"
+            },
+            {
+                "name": "CENTER_CODE",
+                "type": "String"
+            },
+            {
+                "name": "YR_IMPR",
+                "type": "String"
+            },
+            {
+                "name": "YR_ANNEXED",
+                "type": "String"
+            },
+            {
+                "name": "SPLT_DT",
+                "type": "String"
+            },
+            {
+                "name": "DSC_CD",
+                "type": "String"
+            },
+            {
+                "name": "NXT_BUILDING",
+                "type": "String"
+            },
+            {
+                "name": "TOTAL_BUILDING_AREA",
+                "type": "String"
+            },
+            {
+                "name": "TOTAL_LAND_AREA",
+                "type": "String"
+            },
+            {
+                "name": "ACREAGE",
+                "type": "String"
+            },
+            {
+                "name": "CAP_ACCOUNT",
+                "type": "String"
+            },
+            {
+                "name": "SHARED_CAD_CODE",
+                "type": "String"
+            },
+            {
+                "name": "LAND_VALUE",
+                "type": "String"
+            },
+            {
+                "name": "IMPROVEMENT_VALUE",
+                "type": "String"
+            },
+            {
+                "name": "EXTRA_FEATURES_VALUE",
+                "type": "String"
+            },
+            {
+                "name": "AG_VALUE",
+                "type": "String"
+            },
+            {
+                "name": "ASSESSED_VALUE",
+                "type": "String"
+            },
+            {
+                "name": "TOTAL_APPRAISED_VALUE",
+                "type": "String"
+            },
+            {
+                "name": "TOTAL_MARKET_VALUE",
+                "type": "String"
+            },
+            {
+                "name": "PRIOR_LND_VALUE",
+                "type": "String"
+            },
+            {
+                "name": "PRIOR_IMPR_VALUE",
+                "type": "String"
+            },
+            {
+                "name": "PRIOR_X_FEATURES_VALUE",
+                "type": "String"
+            },
+            {
+                "name": "PRIOR_AG_VALUE",
+                "type": "String"
+            },
+            {
+                "name": "PRIOR_TOTAL_APPRAISED_VALUE",
+                "type": "String"
+            },
+            {
+                "name": "PRIOR_TOTAL_MARKET_VALUE",
+                "type": "String"
+            },
+            {
+                "name": "NEW_CONSTRUCTION_VALUE",
+                "type": "String"
+            },
+            {
+                "name": "TOTAL_RCN_VALUE",
+                "type": "String"
+            },
+            {
+                "name": "VALUE_STATUS",
+                "type": "String"
+            },
+            {
+                "name": "NOTICED",
+                "type": "String"
+            },
+            {
+                "name": "NOTICE_DATE",
+                "type": "String"
+            },
+            {
+                "name": "PROTESTED",
+                "type": "String"
+            },
+            {
+                "name": "CERTIFIED_DATE",
+                "type": "String"
+            },
+            {
+                "name": "LAST_INSPECTED_DATE",
+                "type": "String"
+            },
+            {
+                "name": "LAST_INSPECTED_BY",
+                "type": "String"
+            },
+            {
+                "name": "NEW_OWNER_DATE",
+                "type": "String"
+            },
+            {
+                "name": "LEGAL_DSCR_1",
+                "type": "String"
+            },
+            {
+                "name": "LEGAL_DSCR_2",
+                "type": "String"
+            },
+            {
+                "name": "LEGAL_DSCR_3",
+                "type": "String"
+            },
+            {
+                "name": "LEGAL_DSCR_4",
+                "type": "String"
+            },
+            {
+                "name": "JURS",
+                "type": "String"
+            },
+            {
+                "name": "SNAPSHOT_YEAR",
+                "type": "String"
+            }
+        ]
+    }
+}

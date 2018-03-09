@@ -1,0 +1,148 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "factoryName": {
+            "type": "string",
+            "defaultValue": "CapStoneADF"
+        },
+        "storageAccountName": {
+            "type": "string",
+            "defaultValue": "edapblob"
+        },
+        "storageAccountKey": {
+            "type": "securestring"
+        },
+        "principalId": {
+            "type": "string"
+        },
+        "principalKey": {
+            "type": "securestring"
+        },
+        "teamResourceGroupName" : {
+            "type": "string",
+            "defaultValue": "msq-hdinsight-team-a"
+        }
+    },
+    "variables": {
+        "hdi-conn-ondemand": "HDIConnection",
+        "hdi-blob": "HDIStorageConnection"
+    },
+    "resources": [
+        {
+            "type": "Microsoft.DataFactory/factories/linkedServices",
+            "name": "[concat(parameters('factoryName'), '/', variables('hdi-conn-ondemand'))]",
+            "apiVersion": "2017-09-01-preview",
+            "properties": {
+                "type": "HDInsightOnDemand",
+                "typeProperties": {
+                    "clusterType": "hadoop",
+                    "clusterSize": 1,
+                    "timeToLive": "00:05:00",
+                    "coreConfiguration": {
+                        "fs.adl.oauth2.access.token.provider.type": "ClientCredential", 
+                        "fs.adl.oauth2.client.id": "[parameters('principalId')]", 
+                        "fs.adl.oauth2.credential": "[parameters('principalKey')]", 
+                        "fs.adl.oauth2.refresh.url": "[concat('https://login.microsoftonline.com/', subscription().tenantId, '/oauth2/token')]"
+                    },
+                    "hostSubscriptionId": "[subscription().subscriptionId]",
+                    "servicePrincipalId": "[parameters('principalId')]",
+                    "servicePrincipalKey": {
+                        "value": "[parameters('principalKey')]",
+                        "type": "SecureString"
+                    },
+                    "tenant": "[subscription().tenantId]",
+                    "clusterResourceGroup": "[parameters('teamResourceGroupName')]",
+                    "version": "3.6",
+                    "osType": "Linux",
+                    "linkedServiceName": {
+                        "referenceName": "[variables('hdi-blob')]",
+                        "type": "LinkedServiceReference"
+                    },
+                    "tier": "standard",
+                    "clusterDefinition": {
+                        "kind": "HADOOP",
+                        "configurations": {
+                            "gateway": {
+                                "restAuthCredential.isEnabled": true,
+                                "restAuthCredential.username": "admin",
+                                "restAuthCredential.password": "admin"
+                            },
+                            "core-site": {
+                                "fs.defaultFS": "adl://home",
+                                "dfs.adls.home.hostname": "edapadls.azuredatalakestore.net",
+                                "dfs.adls.home.mountpoint": "/clusters/mtseu-hdi-on-demand/",
+                                "fs.adl.oauth2.access.token.provider.type": "ClientCredential", 
+                                "fs.adl.oauth2.client.id": "[parameters('principalId')]", 
+                                "fs.adl.oauth2.credential": "[parameters('principalKey')]", 
+                                "fs.adl.oauth2.refresh.url": "[concat('https://login.microsoftonline.com/', subscription().tenantId, '/oauth2/token')]"
+                            }
+                        }
+                    },
+                    "storageProfile": {
+                        "storageaccounts": [
+                            {
+                                "name": "[parameters('storageAccountName')]",
+                                "isDefault": false,
+                                "container": "blank",
+                                "key": "[parameters('storageAccountKey')]"
+                            }
+                        ]
+                    },
+                    "computeProfile": {
+                        "roles": [
+                            {
+                                "name": "headnode",
+                                "minInstanceCount": 1,
+                                "targetInstanceCount": 2,
+                                "hardwareProfile": {
+                                    "vmSize": "Standard_D3_V2"
+                                },
+                                "osProfile": {
+                                    "linuxOperatingSystemProfile": {
+                                        "username": "admin",
+                                        "password": "admin"
+                                    }
+                                },
+                                "virtualNetworkProfile": null,
+                                "scriptActions": []
+                            },
+                            {
+                                "name": "workernode",
+                                "minInstanceCount": 1,
+                                "targetInstanceCount": 1,
+                                "hardwareProfile": {
+                                    "vmSize": "Small"
+                                },
+                                "osProfile": {
+                                    "linuxOperatingSystemProfile": {
+                                        "username": "admin",
+                                        "password": "admin"
+                                    }
+                                },
+                                "virtualNetworkProfile": null,
+                                "scriptActions": []
+                            },
+                            {
+                                "name": "zookeepernode",
+                                "minInstanceCount": 1,
+                                "targetInstanceCount": 3,
+                                "hardwareProfile": {
+                                    "vmSize": "Small"
+                                },
+                                "osProfile": {
+                                    "linuxOperatingSystemProfile": {
+                                        "username": "admin",
+                                        "password": "admin"
+                                    }
+                                },
+                                "virtualNetworkProfile": null,
+                                "scriptActions": []
+                            }
+                        ]
+                    }
+                }
+            }
+        }
+    ]
+}

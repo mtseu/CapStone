@@ -1,0 +1,174 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "factoryName": {
+            "type": "string",
+            "defaultValue": "CapStoneADF"
+        },
+        "adlsAccountName": {
+            "type": "string",
+            "defaultValue": "edapadls"
+        },
+        "principalId": {
+            "type": "string"
+        },
+        "principalKey": {
+            "type": "securestring"
+        },
+        "teamResourceGroupName" : {
+            "type": "string",
+            "defaultValue": "msq-hdinsight-team-a"
+        },
+        "sharedResourceGroupName" : {
+            "type": "string",
+            "defaultValue": "azure-training-shared"
+        },
+        "rawDir": {
+            "type": "string",
+            "defaultValue": "/data/raw"
+        },
+        "stgDir": {
+            "type": "string",
+            "defaultValue": "/data/stage"
+        },
+        "envName" : {
+            "type": "string"
+        },
+        "hdiStandaloneUser": {
+            "type": "string",
+            "defaultValue": "admin"
+        },
+        "hdiStandalonePassword": {
+            "type": "securestring"
+        },
+        "hcadSqlServer": {
+            "type": "string",
+            "defaultValue": "azt-sql.eastus.cloudapp.azure.com"
+        },
+        "hcadDbName": {
+            "type": "string",
+            "defaultValue": "hcadb"
+        },
+        "hcadDbUser": {
+            "type": "string",
+            "defaultValue": "aztuser"
+        },
+        "hcadDbPassword": {
+            "type": "securestring"
+        }
+    },
+    "variables": {
+        "factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]",
+        "adls-conn": "ADLSConnection",
+        "hdi-conn-standalone": "HadoopConnection",
+        "hdi-conn": "[variables('hdi-conn-standalone')]",
+        "hdi-blob": "HDIStorageConnection",
+        "adl-uri":"[concat( 'adl://', parameters('adlsAccountName'), '.azuredatalakestore.net') ]"
+    },
+    "resources": [
+        {
+            "name": "[concat(parameters('factoryName'), '/select-tcad-data')]",
+            "type": "Microsoft.DataFactory/factories/pipelines",
+            "apiVersion": "2017-09-01-preview",
+            "properties": {
+                "mode": "Incremental",
+                "activities": [
+                    {
+                        "name": "Sel-TCAD-PROP",
+                        "description": "description",
+                        "type": "HDInsightHive",
+                        "linkedServiceName": {
+                            "referenceName": "[variables('hdi-conn')]",
+                            "type": "LinkedServiceReference"
+                        },
+                        "typeProperties": {
+                            "scriptPath": "scripts/select/PROP.hql",
+                            "scriptLinkedService": {
+                                "referenceName": "[variables('hdi-blob')]",
+                                "type": "LinkedServiceReference"
+                            },
+                            "defines": {
+                                "raw_dir": "@{pipeline().parameters.RawDir}/@{pipeline().parameters.Snapshot}",
+                                "stg_dir": "@{pipeline().parameters.StgDir}/@{pipeline().parameters.Snapshot}"
+                            },
+                            "getDebugInfo": "Failure"
+                        }   
+                    },
+                    {
+                        "name": "Sel-TCAD-PROP_ENT",
+                        "description": "description",
+                        "type": "HDInsightHive",
+                        "linkedServiceName": {
+                            "referenceName": "[variables('hdi-conn')]",
+                            "type": "LinkedServiceReference"
+                        },
+                        "typeProperties": {
+                            "scriptPath": "scripts/select/PROP_ENT.hql",
+                            "scriptLinkedService": {
+                                "referenceName": "[variables('hdi-blob')]",
+                                "type": "LinkedServiceReference"
+                            },
+                            "defines": {
+                                "raw_dir": "@{pipeline().parameters.RawDir}/@{pipeline().parameters.Snapshot}",
+                                "stg_dir": "@{pipeline().parameters.StgDir}/@{pipeline().parameters.Snapshot}"
+                            },
+                            "getDebugInfo": "Failure"
+                        },
+                        "dependsOn": [
+                            {
+                                "activity": "Sel-TCAD-PROP",
+                                "dependencyConditions": [
+                                    "Completed"
+                                ]
+                            }
+                        ]   
+                    },
+                    {
+                        "name": "Sel-TCAD-TOTALS",
+                        "description": "description",
+                        "type": "HDInsightHive",
+                        "linkedServiceName": {
+                            "referenceName": "[variables('hdi-conn')]",
+                            "type": "LinkedServiceReference"
+                        },
+                        "typeProperties": {
+                            "scriptPath": "scripts/select/TOTALS.hql",
+                            "scriptLinkedService": {
+                                "referenceName": "[variables('hdi-blob')]",
+                                "type": "LinkedServiceReference"
+                            },
+                            "defines": {
+                                "raw_dir": "@{pipeline().parameters.RawDir}/@{pipeline().parameters.Snapshot}",
+                                "stg_dir": "@{pipeline().parameters.StgDir}/@{pipeline().parameters.Snapshot}"
+                            },
+                            "getDebugInfo": "Failure"
+                        },
+                        "dependsOn": [
+                            {
+                                "activity": "Sel-TCAD-PROP_ENT",
+                                "dependencyConditions": [
+                                    "Completed"
+                                ]
+                            }
+                        ]   
+                    }
+                ],
+                "parameters": {
+                    "Snapshot": {
+                        "type": "String",
+                        "defaultValue": ""
+                    },
+                    "RawDir": {
+                        "type": "String",
+                        "defaultValue": "[concat(variables('adl-uri'), parameters('rawDir'), '/', parameters('envName'), '/tcad/')]"
+                    },
+                    "StgDir": {
+                        "type": "String",
+                        "defaultValue": "[concat(variables('adl-uri'), parameters('stgDir'), '/', parameters('envName'))]"
+                    }
+                }
+            }
+        }
+    ]
+}        
