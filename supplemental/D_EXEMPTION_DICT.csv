@@ -1,0 +1,51 @@
+﻿Exempt Code,Travis prop_ent field,Exempt Description
+ABT,ab_amt,Abatement
+APD,,Apportioned Partial Disability
+APO,,Apportioned Partial Over-65
+APR,,Apportioned Partial Residential
+DIS,dp_amt,Disability
+HIS,ht_amt,Historical
+LIH,pro_amt,Low Income Housing
+MCL,,Methane Capture at Landfill
+OVR,ov65_amt,Over-65
+PAR,,Partial Residential Homestead
+PDS,,Partial Disability
+PEX,,Partial Total
+POL,pc_amt,Pollution Control
+POV,,Partial Over-65
+PRO,,Prorated
+RES,hs_amt,Residential Homestead
+SOL,so_amt,Solar
+SSA,,Surviving Spouse Active Duty
+SSD,,Surviving Spouse Disability
+STT,,Surviving Spouse Total Transfer
+STX,,Surviving Spouse Vet Disability Total Exemption
+SUR,,Surviving Spouse Over-65
+TOT,,Total
+V11,,Vet Disability #1 10-29 pct
+V11,,Vet Disability #1 10-30 pct
+V12,,Vet Disability #1 30-49 pct
+V12,,Vet Disability #1 31-50 pct
+V13,,Vet Disability #1 50-69 pct
+V13,,Vet Disability #1 51-70 pct
+V14,,Vet Disability #1 70-100 pct
+V14,,Vet Disability #1 71-100 pct
+V21,,Vet Disability #2 10-29 pct
+V21,,Vet Disability #2 10-30 pct
+V22,,Vet Disability #2 30-49 pct
+V22,,Vet Disability #2 31-50 pct
+V23,,Vet Disability #2 50-69 pct
+V23,,Vet Disability #2 51-70 pct
+V24,,Vet Disability #2 70-100 pct
+V24,,Vet Disability #2 71-100 pct
+VCH,,Vet Charitable Disability
+VS1,,Vet Survivor 10-29 pct
+VS2,,Vet Survivor 30-49 pct
+VS3,,Vet Survivor 50-69 pct
+VS4,,Vet Survivor 70-100 pct
+VTX,dv_amt,Vet Disability Total Exemption
+EN,en_amt,Energy
+FR,fr_amt,Freeport
+EX366,ex366_amt,EX366
+LVE,lve_amt,Leased Vehicle
+ECO,eco_amt,ECO
