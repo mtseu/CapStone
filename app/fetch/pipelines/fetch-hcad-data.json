@@ -71,7 +71,7 @@
                                             "type": "DatasetReference",
                                             "parameters": {
                                                 "FileName": "@item()",
-                                                "FileExt" : ".avro",
+                                                "FileExt" : "avro",
                                                 "FolderRoot": "[variables('raw-data-dir')]",
                                                 "SOR": "hcad",
                                                 "Env": "[parameters('envName')]",
