@@ -93,9 +93,9 @@ deploy "./fetch/pipelines/fetch-tcad-data.json"      "./cap-stone-adf2-params.js
 # deploy selector
 deploy "./select/pipelines/select-tcad-data.json"    "./cap-stone-adf2-params.json"
 
-#upload-blob $STORAGE_ACC $SCRIPTS_CONTAINER "select/PROP.hql" "./scripts/select/PROP.hql"
-#upload-blob $STORAGE_ACC $SCRIPTS_CONTAINER "select/PROP_ENT.hql" "./scripts/select/PROP_ENT.hql"
-#upload-blob $STORAGE_ACC $SCRIPTS_CONTAINER "select/TOTALS.hql" "./scripts/select/TOTALS.hql"
+upload-blob $STORAGE_ACC $SCRIPTS_CONTAINER "select/PROP.hql" "./scripts/select/PROP.hql"
+upload-blob $STORAGE_ACC $SCRIPTS_CONTAINER "select/PROP_ENT.hql" "./scripts/select/PROP_ENT.hql"
+upload-blob $STORAGE_ACC $SCRIPTS_CONTAINER "select/TOTALS.hql" "./scripts/select/TOTALS.hql"
 
 
 
