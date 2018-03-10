@@ -69,6 +69,23 @@
                 },
                 "secretName": "hdi-team-a-password"
             }
+        },
+        "hcadSqlServer": {
+            "value": "azt-sql.eastus.cloudapp.azure.com"
+        },
+        "hcadDbName": {
+            "value": "hcadb"
+        },
+        "hcadDbUser": {
+            "value": "aztuser"
+        },
+        "hcadDbPassword": {
+            "reference": {
+                "keyVault": {
+                    "id": "/subscriptions/19943e49-6cfd-47dc-b8aa-22032d5b2703/resourcegroups/azure-training-shared/providers/Microsoft.KeyVault/vaults/edap-keys"
+                },
+                "secretName": "hcad-db-password"
+            }
         }
     }
 }

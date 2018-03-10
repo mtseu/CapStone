@@ -1,0 +1,99 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "factoryName": {
+            "type": "string",
+            "defaultValue": "CapStoneADF"
+        },
+        "rawDir": {
+            "type": "string",
+            "defaultValue": "/data/raw"
+        },
+        "envName" : {
+            "type": "string"
+        }
+    },
+    "variables": {
+        "tcad-ext-dataset": "TcadSrcFile",
+        "tcad-ext-container": "tcad",
+        "raw-data-dir": "[parameters('rawDir')]",
+        "raw-bin-dataset": "ADLSRawSomeFile"
+    },
+    "resources": [
+        {
+            "name": "[concat(parameters('factoryName'), '/fetch-tcad-data')]",
+            "type": "Microsoft.DataFactory/factories/pipelines",
+            "apiVersion": "2017-09-01-preview",
+            "properties": {
+                "activities": [
+                    {
+                        "name": "for-each-file",
+                        "type": "ForEach",
+                        "dependsOn": [],
+                        "typeProperties": {
+                            "items": { 
+                                "value": "@pipeline().parameters.FileList",
+                                "type": "Expression"
+                            },
+                            "activities": [
+                                {
+                                    "name": "CopyTCadFile",
+                                    "type": "Copy",
+                                    "dependsOn": [],
+                                    "policy": {
+                                        "timeout": "7.00:00:00",
+                                        "retry": 0,
+                                        "retryIntervalInSeconds": 30
+                                    },
+                                    "typeProperties": {
+                                        "source": {
+                                            "type": "BlobSource",
+                                            "recursive": true
+                                        },
+                                        "sink": {
+                                            "type": "AzureDataLakeStoreSink"
+                                        },
+                                        "enableStaging": false,
+                                        "cloudDataMovementUnits": 0
+                                    },
+                                    "inputs": [
+                                        {
+                                            "referenceName": "[variables('tcad-ext-dataset')]",
+                                            "type": "DatasetReference",
+                                            "parameters": {
+                                                "FileName": "@item()",
+                                                "FileExt" : "TXT",
+                                                "FolderPath": "[variables('tcad-ext-container')]"
+                                            }
+                                        }
+                                    ],
+                                    "outputs": [
+                                        {
+                                            "referenceName": "[variables('raw-bin-dataset')]",
+                                            "type": "DatasetReference",
+                                            "parameters": {
+                                                "FileName": "@item()",
+                                                "FileExt" : "TXT",
+                                                "FolderRoot": "[variables('raw-data-dir')]",
+                                                "SOR": "tcad",
+                                                "Env": "[parameters('envName')]",
+                                                "Snapshot" : "@utcnow('yyyy-MM-dd')"
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "parameters": {
+                    "FileList": {
+                        "type": "String",
+                        "defaultValue": "[ createArray('ABS_SUBD', 'AGENT', 'APPR_HDR', 'ARB', 'ARBITRATION', 'COUNTRY', 'ENTITY', 'IMP_ATR', 'IMP_DET', 'IMP_INFO', 'LAND_DET', 'LAWSUIT', 'MOBILE_HOME_INFO', 'PROP', 'PROP_ENT', 'STATE_CD', 'TOTALS', 'UDI')]"
+                    }
+                }
+            }
+        }
+    ]
+}

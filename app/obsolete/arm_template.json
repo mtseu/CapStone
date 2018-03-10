@@ -59,6 +59,21 @@
         },
         "hdiStandalonePassword": {
             "type": "securestring"
+        },
+        "hcadSqlServer": {
+            "type": "string",
+            "defaultValue": "azt-sql.eastus.cloudapp.azure.com"
+        },
+        "hcadDbName": {
+            "type": "string",
+            "defaultValue": "hcadb"
+        },
+        "hcadDbUser": {
+            "type": "string",
+            "defaultValue": "aztuser"
+        },
+        "hcadDbPassword": {
+            "type": "securestring"
         }
     },
     "variables": {
@@ -70,10 +85,13 @@
         "hdi-conn": "[variables('hdi-conn-standalone')]",
         "hdi-blob": "HDIStorageConnection",
         "tcad-ext-dataset": "TcadSrcFile",
-        "tcad-raw-dataset": "TcadRawFile",
+        "hcad-ext-dataset": "HcadSrcTable",
         "tcad-ext-container": "tcad",
         "raw-data-dir": "[parameters('rawDir')]",
-        "adl-uri":"[concat( 'adl://', parameters('adlsAccountName'), '.azuredatalakestore.net') ]"
+        "adl-uri":"[concat( 'adl://', parameters('adlsAccountName'), '.azuredatalakestore.net') ]",
+        "hcad-conn" : "HcadSqlConnection",
+        "raw-bin-dataset": "ADLSRawSomeFile",
+        "raw-avro-dataset": "ADLSRawAvroFile"
     },
     "resources": [
         {
@@ -89,6 +107,23 @@
                 "type": "SystemAssigned"
             },
             "resources": []
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/', variables('hcad-conn'))]",
+            "type": "Microsoft.DataFactory/factories/linkedServices",
+            "apiVersion": "2017-09-01-preview",
+            "properties": {
+                "type": "SqlServer",
+                "typeProperties": {
+                    "connectionString": {
+                        "type": "SecureString",
+                        "value": "[concat('Data Source=', parameters('hcadSqlServer'), ';Initial Catalog=', parameters('hcadDbName'),';Integrated Security=False;User ID=', parameters('hcadDbUser'),';Password=', parameters('hcadDbPassword'),';')]"
+                    }
+                }
+            },
+            "dependsOn": [
+                "[variables('factoryId')]"
+            ]
         },
         {
             "name": "[concat(parameters('factoryName'), '/', variables('blob-conn'))]",
@@ -149,7 +184,7 @@
                 "type": "AzureBlob",
                 "typeProperties": {
                     "fileName": {
-                        "value": "@{dataset().FileName}@{dataset().FileExt}",
+                        "value": "@{dataset().FileName}.@{dataset().FileExt}",
                         "type": "Expression"
                     },
                     "folderPath": {
@@ -163,7 +198,25 @@
             ]
         },
         {
-            "name": "[concat(parameters('factoryName'), '/', variables('tcad-raw-dataset'))]",
+            "name": "[concat(parameters('factoryName'), '/', variables('hcad-ext-dataset'))]",
+            "type": "Microsoft.DataFactory/factories/datasets",
+            "apiVersion": "2017-09-01-preview",
+            "properties": {
+                "linkedServiceName": {
+                    "referenceName": "ExtSQLConnection",
+                    "type": "LinkedServiceReference"
+                },
+                "type": "SqlServerTable",
+                "typeProperties": {
+                    "tableName": "real_acct"
+                }
+            },
+            "dependsOn": [
+                "[concat(variables('factoryId'), '/linkedServices/', variables('hcad-conn'))]"
+            ]
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/', variables('raw-bin-dataset'))]",
             "type": "Microsoft.DataFactory/factories/datasets",
             "apiVersion": "2017-09-01-preview",
             "properties": {
@@ -194,10 +247,55 @@
                 "type": "AzureDataLakeStoreFile",
                 "typeProperties": {
                     "fileName": {
-                        "value": "@{dataset().FileName}@{dataset().FileExt}",
+                        "value": "@{dataset().FileName}.@{dataset().FileExt}",
                         "type": "Expression"
                     },
                     "folderPath": "@{concat(dataset().FolderRoot, '/', dataset().Env, '/', dataset().SOR, '/', dataset().Snapshot, '/', dataset().FileName)}"
+                }
+            },
+            "dependsOn": [
+                "[concat(variables('factoryId'), '/linkedServices/', variables('adls-conn'))]"
+            ]
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/', variables('raw-avro-dataset'))]",
+            "type": "Microsoft.DataFactory/factories/datasets",
+            "apiVersion": "2017-09-01-preview",
+            "properties": {
+                "linkedServiceName": {
+                    "referenceName": "[variables('adls-conn')]",
+                    "type": "LinkedServiceReference"
+                },
+                "parameters": {
+                    "FileName": {
+                        "type": "String"
+                    },
+                    "FileExt": {
+                        "type": "String"
+                    },
+                    "FolderRoot": {
+                        "type": "String"
+                    },
+                    "SOR": {
+                        "type": "String"
+                    },
+                    "Env": {
+                        "type": "String"
+                    },
+                    "Snapshot" : {
+                        "type" : "String"
+                    }
+                },
+                "type": "AzureDataLakeStoreFile",
+                "typeProperties": {
+                    "fileName": {
+                        "value": "@{dataset().FileName}.@{dataset().FileExt}",
+                        "type": "Expression"
+                    },
+                    "folderPath": "@{concat(dataset().FolderRoot, '/', dataset().Env, '/', dataset().SOR, '/', dataset().Snapshot, '/', dataset().FileName)}",
+                    "format": {
+                        "type": "AvroFormat"
+                    }
                 }
             },
             "dependsOn": [
@@ -246,18 +344,18 @@
                                             "type": "DatasetReference",
                                             "parameters": {
                                                 "FileName": "@item()",
-                                                "FileExt" : ".TXT",
+                                                "FileExt" : "TXT",
                                                 "FolderPath": "[variables('tcad-ext-container')]"
                                             }
                                         }
                                     ],
                                     "outputs": [
                                         {
-                                            "referenceName": "[variables('tcad-raw-dataset')]",
+                                            "referenceName": "[variables('raw-bin-dataset')]",
                                             "type": "DatasetReference",
                                             "parameters": {
                                                 "FileName": "@item()",
-                                                "FileExt" : ".TXT",
+                                                "FileExt" : "TXT",
                                                 "FolderRoot": "[variables('raw-data-dir')]",
                                                 "SOR": "tcad",
                                                 "Env": "[parameters('envName')]",
@@ -279,7 +377,83 @@
             },
             "dependsOn": [
                 "[concat(variables('factoryId'), '/datasets/', variables('tcad-ext-dataset'))]",
-                "[concat(variables('factoryId'), '/datasets/', variables('tcad-raw-dataset'))]"
+                "[concat(variables('factoryId'), '/datasets/', variables('raw-bin-dataset'))]"
+            ]
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/fetch-hcad-data')]",
+            "type": "Microsoft.DataFactory/factories/pipelines",
+            "apiVersion": "2017-09-01-preview",
+            "properties": {
+                "activities": [
+                    {
+                        "name": "for-each-table",
+                        "type": "ForEach",
+                        "dependsOn": [],
+                        "typeProperties": {
+                            "items": { 
+                                "value": "@pipeline().parameters.TableList",
+                                "type": "Expression"
+                            },
+                            "activities": [
+                                {
+                                    "name": "CopyHCadTable",
+                                    "type": "Copy",
+                                    "dependsOn": [],
+                                    "policy": {
+                                        "timeout": "7.00:00:00",
+                                        "retry": 0,
+                                        "retryIntervalInSeconds": 30
+                                    },
+                                    "typeProperties": {
+                                        "source": {
+                                            "type": "SqlSource",
+                                            "sqlReaderQuery": {
+                                                "value": "@{concat('select * from ', item(), ' where SNAPSHOT_YEAR = ''2016''')}",
+                                                "type": "Expression"
+                                            }                                        
+                                        },
+                                        "sink": {
+                                            "type": "AzureDataLakeStoreSink"
+                                        },
+                                        "enableStaging": false,
+                                        "cloudDataMovementUnits": 0
+                                    },
+                                    "inputs": [
+                                        {
+                                            "referenceName": "[variables('hcad-ext-dataset')]",
+                                            "type": "DatasetReference"
+                                        }
+                                    ],
+                                    "outputs": [
+                                        {
+                                            "referenceName": "[variables('raw-avro-dataset')]",
+                                            "type": "DatasetReference",
+                                            "parameters": {
+                                                "FileName": "@item()",
+                                                "FileExt" : ".avro",
+                                                "FolderRoot": "[variables('raw-data-dir')]",
+                                                "SOR": "hcad",
+                                                "Env": "[parameters('envName')]",
+                                                "Snapshot" : "@utcnow('yyyy-MM-dd')"
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "parameters": {
+                    "TableList": {
+                        "type": "String",
+                        "defaultValue": "[ createArray('real_acct', 'jur_tax_dist_percent_rate', 'jur_exempt', 'jur_value')]"
+                    }
+                }
+            },
+            "dependsOn": [
+                "[concat(variables('factoryId'), '/datasets/', variables('hcad-ext-dataset'))]",
+                "[concat(variables('factoryId'), '/datasets/', variables('raw-avro-dataset'))]"
             ]
         },
         {
@@ -449,7 +623,7 @@
             "properties": {
                 "activities": [
                     {
-                        "name": "Select TCAD PROP table",
+                        "name": "Sel-TCAD-PROP",
                         "description": "description",
                         "type": "HDInsightHive",
                         "linkedServiceName": {
@@ -470,7 +644,7 @@
                         }   
                     },
                     {
-                        "name": "Select TCAD PROP_ENT table",
+                        "name": "Sel-TCAD-PROP_ENT",
                         "description": "description",
                         "type": "HDInsightHive",
                         "linkedServiceName": {
@@ -488,10 +662,18 @@
                                 "stg_dir": "@{pipeline().parameters.StgDir}/@{pipeline().parameters.Snapshot}"
                             },
                             "getDebugInfo": "Failure"
-                        }   
+                        },
+                        "dependsOn": [
+                            {
+                                "activity": "Sel-TCAD-PROP",
+                                "dependencyConditions": [
+                                    "Completed"
+                                ]
+                            }
+                        ]   
                     },
                     {
-                        "name": "Select TCAD TOTALS table",
+                        "name": "Sel-TCAD-TOTALS",
                         "description": "description",
                         "type": "HDInsightHive",
                         "linkedServiceName": {
@@ -509,7 +691,15 @@
                                 "stg_dir": "@{pipeline().parameters.StgDir}/@{pipeline().parameters.Snapshot}"
                             },
                             "getDebugInfo": "Failure"
-                        }   
+                        },
+                        "dependsOn": [
+                            {
+                                "activity": "Sel-TCAD-PROP_ENT",
+                                "dependencyConditions": [
+                                    "Completed"
+                                ]
+                            }
+                        ]   
                     }
                 ],
                 "parameters": {

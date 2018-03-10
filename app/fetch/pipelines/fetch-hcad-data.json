@@ -1,0 +1,96 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "factoryName": {
+            "type": "string",
+            "defaultValue": "CapStoneADF"
+        },
+        "rawDir": {
+            "type": "string",
+            "defaultValue": "/data/raw"
+        },
+        "envName" : {
+            "type": "string"
+        }
+    },
+    "variables": {
+        "hcad-ext-dataset": "HcadSrcTable",
+        "raw-data-dir": "[parameters('rawDir')]",
+        "raw-avro-dataset": "ADLSRawAvroFile"
+    },
+    "resources": [
+        {
+            "name": "[concat(parameters('factoryName'), '/fetch-hcad-data')]",
+            "type": "Microsoft.DataFactory/factories/pipelines",
+            "apiVersion": "2017-09-01-preview",
+            "properties": {
+                "activities": [
+                    {
+                        "name": "for-each-table",
+                        "type": "ForEach",
+                        "dependsOn": [],
+                        "typeProperties": {
+                            "items": { 
+                                "value": "@pipeline().parameters.TableList",
+                                "type": "Expression"
+                            },
+                            "activities": [
+                                {
+                                    "name": "CopyHCadTable",
+                                    "type": "Copy",
+                                    "dependsOn": [],
+                                    "policy": {
+                                        "timeout": "7.00:00:00",
+                                        "retry": 0,
+                                        "retryIntervalInSeconds": 30
+                                    },
+                                    "typeProperties": {
+                                        "source": {
+                                            "type": "SqlSource",
+                                            "sqlReaderQuery": {
+                                                "value": "@{concat('select * from ', item(), ' where SNAPSHOT_YEAR = ''2016''')}",
+                                                "type": "Expression"
+                                            }                                        
+                                        },
+                                        "sink": {
+                                            "type": "AzureDataLakeStoreSink"
+                                        },
+                                        "enableStaging": false,
+                                        "cloudDataMovementUnits": 0
+                                    },
+                                    "inputs": [
+                                        {
+                                            "referenceName": "[variables('hcad-ext-dataset')]",
+                                            "type": "DatasetReference"
+                                        }
+                                    ],
+                                    "outputs": [
+                                        {
+                                            "referenceName": "[variables('raw-avro-dataset')]",
+                                            "type": "DatasetReference",
+                                            "parameters": {
+                                                "FileName": "@item()",
+                                                "FileExt" : "avro",
+                                                "FolderRoot": "[variables('raw-data-dir')]",
+                                                "SOR": "hcad",
+                                                "Env": "[parameters('envName')]",
+                                                "Snapshot" : "@utcnow('yyyy-MM-dd')"
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "parameters": {
+                    "TableList": {
+                        "type": "String",
+                        "defaultValue": "[ createArray('real_acct', 'jur_tax_dist_percent_rate', 'jur_exempt', 'jur_value')]"
+                    }
+                }
+            }
+        }
+    ]
+}

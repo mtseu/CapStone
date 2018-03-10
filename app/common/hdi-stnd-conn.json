@@ -1,0 +1,42 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "factoryName": {
+            "type": "string",
+            "defaultValue": "CapStoneADF"
+        },
+        "hdiStandaloneUser": {
+            "type": "string",
+            "defaultValue": "admin"
+        },
+        "hdiStandalonePassword": {
+            "type": "securestring"
+        }
+    },
+    "variables": {
+        "hdi-conn-standalone": "HadoopConnection"
+    },
+    "resources": [
+        {
+            "type": "Microsoft.DataFactory/factories/linkedServices",
+            "name": "[concat(parameters('factoryName'), '/', variables('hdi-conn-standalone'))]",
+            "apiVersion": "2017-09-01-preview",
+            "properties": {
+                "type": "HDInsight",
+                "typeProperties": {
+                    "clusterUri": "https://msq-team-a-hdi.azurehdinsight.net",
+                    "userName": "[parameters('hdiStandaloneUser')]",
+                    "password": {
+                        "type": "SecureString",
+                        "value": "[parameters('hdiStandalonePassword')]"
+                    },
+                    "linkedServiceName": {
+                        "referenceName": "HDIStorageConnection",
+                        "type": "LinkedServiceReference"
+                    }
+                }
+            }
+        }
+    ]
+}

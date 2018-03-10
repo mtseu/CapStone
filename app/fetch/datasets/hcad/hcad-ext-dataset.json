@@ -1,0 +1,31 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "factoryName": {
+            "type": "string",
+            "defaultValue": "CapStoneADF"
+        }
+     },
+    "variables": {
+        "hcad-ext-dataset": "HcadSrcTable",
+        "hcad-conn" : "HcadSqlConnection"
+    },
+    "resources": [
+        {
+            "name": "[concat(parameters('factoryName'), '/', variables('hcad-ext-dataset'))]",
+            "type": "Microsoft.DataFactory/factories/datasets",
+            "apiVersion": "2017-09-01-preview",
+            "properties": {
+                "linkedServiceName": {
+                    "referenceName": "[variables('hcad-conn')]",
+                    "type": "LinkedServiceReference"
+                },
+                "type": "SqlServerTable",
+                "typeProperties": {
+                    "tableName": "real_acct"
+                }
+            }
+        }
+    ]
+}

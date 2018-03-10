@@ -1,0 +1,55 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "factoryName": {
+            "type": "string",
+            "defaultValue": "CapStoneADF"
+        }
+    },
+    "variables": {
+        "adls-conn": "ADLSConnection",
+        "raw-bin-dataset": "ADLSRawSomeFile"
+    },
+    "resources": [
+        {
+            "name": "[concat(parameters('factoryName'), '/', variables('raw-bin-dataset'))]",
+            "type": "Microsoft.DataFactory/factories/datasets",
+            "apiVersion": "2017-09-01-preview",
+            "properties": {
+                "linkedServiceName": {
+                    "referenceName": "[variables('adls-conn')]",
+                    "type": "LinkedServiceReference"
+                },
+                "parameters": {
+                    "FileName": {
+                        "type": "String"
+                    },
+                    "FileExt": {
+                        "type": "String"
+                    },
+                    "FolderRoot": {
+                        "type": "String"
+                    },
+                    "SOR": {
+                        "type": "String"
+                    },
+                    "Env": {
+                        "type": "String"
+                    },
+                    "Snapshot" : {
+                        "type" : "String"
+                    }
+                },
+                "type": "AzureDataLakeStoreFile",
+                "typeProperties": {
+                    "fileName": {
+                        "value": "@{dataset().FileName}.@{dataset().FileExt}",
+                        "type": "Expression"
+                    },
+                    "folderPath": "@{concat(dataset().FolderRoot, '/', dataset().Env, '/', dataset().SOR, '/', dataset().Snapshot, '/', dataset().FileName)}"
+                }
+            }
+        }
+    ]
+}
