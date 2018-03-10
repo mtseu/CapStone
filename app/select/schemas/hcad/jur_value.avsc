@@ -1,0 +1,27 @@
+{
+  "type" : "record",
+  "name" : "ClientLibraryJob",
+  "namespace" : "HybridDelivery",
+  "fields" : [ {
+    "name" : "ACCOUNT",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "TAX_DISTRICT",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "TYPE",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "PCT_DISTRICT",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "APPRAISED_VALUE",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "TAXABLE_VALUE",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "SNAPSHOT_YEAR",
+    "type" : [ "string", "null" ]
+  } ]
+}

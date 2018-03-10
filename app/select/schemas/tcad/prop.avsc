@@ -1,0 +1,3289 @@
+{
+  "type" : "record",
+  "name" : "stg_tcad_prop",
+  "namespace" : "default",
+  "fields" : [ {
+    "name" : "prop_id",
+    "type" : [ "null", "long" ],
+    "default" : null
+  }, {
+    "name" : "prop_type_cd",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 5
+    } ],
+    "default" : null
+  }, {
+    "name" : "prop_val_yr",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 5,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "sup_num",
+    "type" : [ "null", "long" ],
+    "default" : null
+  }, {
+    "name" : "sup_action",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 2
+    } ],
+    "default" : null
+  }, {
+    "name" : "sup_cd",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 10
+    } ],
+    "default" : null
+  }, {
+    "name" : "sup_desc",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 500
+    } ],
+    "default" : null
+  }, {
+    "name" : "geo_id",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 50
+    } ],
+    "default" : null
+  }, {
+    "name" : "py_owner_id",
+    "type" : [ "null", "long" ],
+    "default" : null
+  }, {
+    "name" : "py_owner_name",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 70
+    } ],
+    "default" : null
+  }, {
+    "name" : "partial_owner",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "udi_group",
+    "type" : [ "null", "long" ],
+    "default" : null
+  }, {
+    "name" : "filler",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 2
+    } ],
+    "default" : null
+  }, {
+    "name" : "py_addr_line1",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 60
+    } ],
+    "default" : null
+  }, {
+    "name" : "py_addr_line2",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 60
+    } ],
+    "default" : null
+  }, {
+    "name" : "py_addr_line3",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 60
+    } ],
+    "default" : null
+  }, {
+    "name" : "py_addr_city",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 50
+    } ],
+    "default" : null
+  }, {
+    "name" : "py_addr_state",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 50
+    } ],
+    "default" : null
+  }, {
+    "name" : "py_addr_country",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 5
+    } ],
+    "default" : null
+  }, {
+    "name" : "py_addr_zip",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 5
+    } ],
+    "default" : null
+  }, {
+    "name" : "py_addr_zip_cass",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 4
+    } ],
+    "default" : null
+  }, {
+    "name" : "py_addr_zip_rt",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 2
+    } ],
+    "default" : null
+  }, {
+    "name" : "py_confidential_flag",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "py_address_suppress_flag",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "filler1",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 20
+    } ],
+    "default" : null
+  }, {
+    "name" : "py_addr_ml_deliverable",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "filler2",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 27
+    } ],
+    "default" : null
+  }, {
+    "name" : "situs_street_prefx",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 10
+    } ],
+    "default" : null
+  }, {
+    "name" : "situs_street",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 50
+    } ],
+    "default" : null
+  }, {
+    "name" : "situs_street_suffix",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 10
+    } ],
+    "default" : null
+  }, {
+    "name" : "situs_city",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 30
+    } ],
+    "default" : null
+  }, {
+    "name" : "situs_zip",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 10
+    } ],
+    "default" : null
+  }, {
+    "name" : "legal_desc",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 255
+    } ],
+    "default" : null
+  }, {
+    "name" : "legal_desc2",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 255
+    } ],
+    "default" : null
+  }, {
+    "name" : "legal_acreage",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 16,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "abs_subdv_cd",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 10
+    } ],
+    "default" : null
+  }, {
+    "name" : "hood_cd",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 10
+    } ],
+    "default" : null
+  }, {
+    "name" : "block",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 50
+    } ],
+    "default" : null
+  }, {
+    "name" : "tract_or_lot",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 50
+    } ],
+    "default" : null
+  }, {
+    "name" : "land_hstd_val",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "land_non_hstd_val",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "imprv_hstd_val",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "imprv_non_hstd_val",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ag_use_val",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ag_market",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "timber_use",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "timber_market",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "appraised_val",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ten_percent_cap",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "assessed_val",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "filler3",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 20
+    } ],
+    "default" : null
+  }, {
+    "name" : "arb_protest_flag",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "filler4",
+    "type" : [ "null", "long" ],
+    "default" : null
+  }, {
+    "name" : "deed_book_id",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 20
+    } ],
+    "default" : null
+  }, {
+    "name" : "deed_book_page",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 20
+    } ],
+    "default" : null
+  }, {
+    "name" : "deed_dt",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "mortgage_co_id",
+    "type" : [ "null", "long" ],
+    "default" : null
+  }, {
+    "name" : "mortage_co_name",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 70
+    } ],
+    "default" : null
+  }, {
+    "name" : "mortgage_acct_id",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 50
+    } ],
+    "default" : null
+  }, {
+    "name" : "jan1_owner_id",
+    "type" : [ "null", "long" ],
+    "default" : null
+  }, {
+    "name" : "jan1_owner_name",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 70
+    } ],
+    "default" : null
+  }, {
+    "name" : "jan1_addr_line1",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 60
+    } ],
+    "default" : null
+  }, {
+    "name" : "jan1_addr_line2",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 60
+    } ],
+    "default" : null
+  }, {
+    "name" : "jan1_addr_line3",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 60
+    } ],
+    "default" : null
+  }, {
+    "name" : "jan1_addr_city",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 50
+    } ],
+    "default" : null
+  }, {
+    "name" : "jan1_addr_state",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 50
+    } ],
+    "default" : null
+  }, {
+    "name" : "jan1_addr_country",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 5
+    } ],
+    "default" : null
+  }, {
+    "name" : "jan1_addr_zip",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 5
+    } ],
+    "default" : null
+  }, {
+    "name" : "jan1_addr_zip_cass",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 4
+    } ],
+    "default" : null
+  }, {
+    "name" : "jan1_addr_zip_rt",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 2
+    } ],
+    "default" : null
+  }, {
+    "name" : "jan1_confidential_flag",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "jan1_address_suppress_flag",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "filler5",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 37
+    } ],
+    "default" : null
+  }, {
+    "name" : "jan1_ml_deliverable",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "hs_exempt",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "ov65_exempt",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "ov65_prorate_begin",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "ov65_prorate_end",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "ov65s_exempt",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "dp_exempt",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "dv1_exempt",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "dv1s_exempt",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "dv2_exempt",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "dv2s_exempt",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "dv3_exempt",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "dv3s_exempt",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "dv4_exempt",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "dv4s_exempt",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_exempt",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_prorate_begin",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_prorate_end",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "lve_exempt",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "ab_exempt",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "en_exempt",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "fr_exempt",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "ht_exempt",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "pro_exempt",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "pc_exempt",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "so_exempt",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex366_exempt",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "ch_exempt",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "imprv_state_cd",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 10
+    } ],
+    "default" : null
+  }, {
+    "name" : "land_state_cd",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 10
+    } ],
+    "default" : null
+  }, {
+    "name" : "personal_state_cd",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 10
+    } ],
+    "default" : null
+  }, {
+    "name" : "mineral_state_cd",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 10
+    } ],
+    "default" : null
+  }, {
+    "name" : "land_acres",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 20,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "entity_agent_id",
+    "type" : [ "null", "long" ],
+    "default" : null
+  }, {
+    "name" : "entity_agent_name",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 70
+    } ],
+    "default" : null
+  }, {
+    "name" : "entity_agent_addr_line1",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 60
+    } ],
+    "default" : null
+  }, {
+    "name" : "entity_agent_addr_line2",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 60
+    } ],
+    "default" : null
+  }, {
+    "name" : "entity_agent_addr_line3",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 60
+    } ],
+    "default" : null
+  }, {
+    "name" : "entity_agent_city",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 50
+    } ],
+    "default" : null
+  }, {
+    "name" : "entity_agent_state",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 50
+    } ],
+    "default" : null
+  }, {
+    "name" : "entity_agent_country",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 5
+    } ],
+    "default" : null
+  }, {
+    "name" : "entity_agent_zip",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 5
+    } ],
+    "default" : null
+  }, {
+    "name" : "entity_agent_cass",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 4
+    } ],
+    "default" : null
+  }, {
+    "name" : "entity_agent_rt",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 2
+    } ],
+    "default" : null
+  }, {
+    "name" : "filler6",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 34
+    } ],
+    "default" : null
+  }, {
+    "name" : "ca_agent_id",
+    "type" : [ "null", "long" ],
+    "default" : null
+  }, {
+    "name" : "ca_agent_name",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 70
+    } ],
+    "default" : null
+  }, {
+    "name" : "ca_agent_addr_line1",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 60
+    } ],
+    "default" : null
+  }, {
+    "name" : "ca_agent_addr_line2",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 60
+    } ],
+    "default" : null
+  }, {
+    "name" : "ca_agent_addr_line3",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 60
+    } ],
+    "default" : null
+  }, {
+    "name" : "ca_agent_city",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 50
+    } ],
+    "default" : null
+  }, {
+    "name" : "ca_agent_state",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 50
+    } ],
+    "default" : null
+  }, {
+    "name" : "ca_agent_country",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 5
+    } ],
+    "default" : null
+  }, {
+    "name" : "ca_agent_zip",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 5
+    } ],
+    "default" : null
+  }, {
+    "name" : "ca_agent_zip_cass",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 4
+    } ],
+    "default" : null
+  }, {
+    "name" : "ca_agent_zip_rt",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 2
+    } ],
+    "default" : null
+  }, {
+    "name" : "filler7",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 34
+    } ],
+    "default" : null
+  }, {
+    "name" : "arb_agent_id",
+    "type" : [ "null", "long" ],
+    "default" : null
+  }, {
+    "name" : "arb_agent_name",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 70
+    } ],
+    "default" : null
+  }, {
+    "name" : "arb_agent_addr_line1",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 60
+    } ],
+    "default" : null
+  }, {
+    "name" : "arb_agent_addr_line2",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 60
+    } ],
+    "default" : null
+  }, {
+    "name" : "arb_agent_addr_line3",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 60
+    } ],
+    "default" : null
+  }, {
+    "name" : "arb_agent_city",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 50
+    } ],
+    "default" : null
+  }, {
+    "name" : "arb_agent_state",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 50
+    } ],
+    "default" : null
+  }, {
+    "name" : "arb_agent_country",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 5
+    } ],
+    "default" : null
+  }, {
+    "name" : "arb_agent_zip",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 5
+    } ],
+    "default" : null
+  }, {
+    "name" : "arb_agent_zip_cass",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 4
+    } ],
+    "default" : null
+  }, {
+    "name" : "arb_agent_zip_rt",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 2
+    } ],
+    "default" : null
+  }, {
+    "name" : "filler8",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 34
+    } ],
+    "default" : null
+  }, {
+    "name" : "mineral_type_of_int",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 5
+    } ],
+    "default" : null
+  }, {
+    "name" : "mineral_int_pct",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 15
+    } ],
+    "default" : null
+  }, {
+    "name" : "productivity_use_code",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 3
+    } ],
+    "default" : null
+  }, {
+    "name" : "filler9",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 40
+    } ],
+    "default" : null
+  }, {
+    "name" : "timber_78_market",
+    "type" : [ "null", "long" ],
+    "default" : null
+  }, {
+    "name" : "ag_late_loss",
+    "type" : [ "null", "long" ],
+    "default" : null
+  }, {
+    "name" : "late_freeport_penalty",
+    "type" : [ "null", "long" ],
+    "default" : null
+  }, {
+    "name" : "filler10",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 2
+    } ],
+    "default" : null
+  }, {
+    "name" : "filler11",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 5
+    } ],
+    "default" : null
+  }, {
+    "name" : "filler12",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 2
+    } ],
+    "default" : null
+  }, {
+    "name" : "dba",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 40
+    } ],
+    "default" : null
+  }, {
+    "name" : "filler13",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 38
+    } ],
+    "default" : null
+  }, {
+    "name" : "market_value",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 14,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "filler14",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 20
+    } ],
+    "default" : null
+  }, {
+    "name" : "filler15",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 20
+    } ],
+    "default" : null
+  }, {
+    "name" : "filler16",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 20
+    } ],
+    "default" : null
+  }, {
+    "name" : "filler17",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "filler18",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "filler19",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 70
+    } ],
+    "default" : null
+  }, {
+    "name" : "ov65_deferral_date",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "dp_deferral_date",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "ref_id1",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "ref_id2",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "situs_num",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 15
+    } ],
+    "default" : null
+  }, {
+    "name" : "situs_unit",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 5
+    } ],
+    "default" : null
+  }, {
+    "name" : "appr_owner_id",
+    "type" : [ "null", "long" ],
+    "default" : null
+  }, {
+    "name" : "appr_owner_name",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 70
+    } ],
+    "default" : null
+  }, {
+    "name" : "appr_addr_line1",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 60
+    } ],
+    "default" : null
+  }, {
+    "name" : "appr_addr_line2",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 60
+    } ],
+    "default" : null
+  }, {
+    "name" : "appr_addr_line3",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 60
+    } ],
+    "default" : null
+  }, {
+    "name" : "appr_addr_city",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 50
+    } ],
+    "default" : null
+  }, {
+    "name" : "appr_addr_state",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 50
+    } ],
+    "default" : null
+  }, {
+    "name" : "appr_addr_country",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 5
+    } ],
+    "default" : null
+  }, {
+    "name" : "appr_addr_zip",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 5
+    } ],
+    "default" : null
+  }, {
+    "name" : "appr_addr_zip_cass",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 4
+    } ],
+    "default" : null
+  }, {
+    "name" : "appr_addr_zip_cass_route",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 2
+    } ],
+    "default" : null
+  }, {
+    "name" : "appr_ml_deliverable",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "appr_confidential_flag",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "appr_address_suppress_flag",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "appr_confidential_name",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 70
+    } ],
+    "default" : null
+  }, {
+    "name" : "py_confidential_name",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 70
+    } ],
+    "default" : null
+  }, {
+    "name" : "jan1_confidential_name",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 70
+    } ],
+    "default" : null
+  }, {
+    "name" : "filler20",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 5
+    } ],
+    "default" : null
+  }, {
+    "name" : "rendition_filed",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "rendition_date",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "rendition_penalty",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "rendition_penalty_date_paid",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "rendition_fraud_penalty",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "rendition_fraud_penalty_date_paid",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "filler21",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 20
+    } ],
+    "default" : null
+  }, {
+    "name" : "entities",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 140
+    } ],
+    "default" : null
+  }, {
+    "name" : "eco_exempt",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "dataset_id",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "deed_num",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 50
+    } ],
+    "default" : null
+  }, {
+    "name" : "chodo_exempt",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "local_option_pct_only_flag_hs",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "local_option_pct_only_flag_ov65",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "local_option_pct_only_flag_ov65s",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "local_option_pct_only_flag_dp",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "freeze_only_flag_ov65",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "freeze_only_flag_ov65s",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "freeze_only_flag_dp",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "apply_percent_exemption_flag",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "exemption_percentage",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "vit_flag",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "lih_exempt",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "git_exempt",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "dps_exempt",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "dps_deferral_date",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "local_option_pct_only_flag_dps",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "freeze_only_flag_dps",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "dvhs_exempt",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "hs_qualify_yr",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 4,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ov65_qualify_yr",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 4,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ov65s_qualify_yr",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 4,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "dp_qualify_yr",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 4,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "dps_qualify_yr",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 4,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "dv1_qualify_yr",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 4,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "dv1s_qualify_yr",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 4,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "dv2_qualify_yr",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 4,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "dv2s_qualify_yr",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 4,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "dv3_qualify_yr",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 4,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "dv3s_qualify_yr",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 4,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "dv4_qualify_yr",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 4,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "dv4s_qualify_yr",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 4,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "dvhs_qualify_yr",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 4,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_qualify_yr",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 4,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ab_qualify_yr",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 4,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "en_qualify_yr",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 4,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "fr_qualify_yr",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 4,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ht_qualify_yr",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 4,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "pro_qualify_yr",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 4,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "pc_qualify_yr",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 4,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "so_qualify_yr",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 4,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex366_qualify_yr",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 4,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ch_qualify_yr",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 4,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "eco_qualify_yr",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 4,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "chodo_qualify_yr",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 4,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "lih_qualify_yr",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 4,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "git_qualify_yr",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 4,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "mortgage_addr_line1",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 60
+    } ],
+    "default" : null
+  }, {
+    "name" : "mortgage_addr_line2",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 60
+    } ],
+    "default" : null
+  }, {
+    "name" : "mortgage_addr_line3",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 60
+    } ],
+    "default" : null
+  }, {
+    "name" : "mortgage_addr_city",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 50
+    } ],
+    "default" : null
+  }, {
+    "name" : "mortgage_addr_state",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 50
+    } ],
+    "default" : null
+  }, {
+    "name" : "mortgage_addr_country",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 5
+    } ],
+    "default" : null
+  }, {
+    "name" : "mortgage_addr_zip",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 5
+    } ],
+    "default" : null
+  }, {
+    "name" : "mortgage_addr_zip_cass",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 4
+    } ],
+    "default" : null
+  }, {
+    "name" : "mortgage_addr_zip_rt",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 2
+    } ],
+    "default" : null
+  }, {
+    "name" : "mortgage_addr_ml_deliverable",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "sic_code",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 10
+    } ],
+    "default" : null
+  }, {
+    "name" : "omitted_property_flag",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "hs_prorate_begin",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "hs_prorate_end",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "ov65s_prorate_begin",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "ov65s_prorate_end",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "dp_prorate_begin",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "dp_prorate_end",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "dv1_prorate_begin",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "dv1_prorate_end",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "dv1s_prorate_begin",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "dv1s_prorate_end",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "dv2_prorate_begin",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "dv2_prorate_end",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "dv2s_prorate_begin",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "dv2s_prorate_end",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "dv3_prorate_begin",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "dv3_prorate_end",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "dv3s_prorate_begin",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "dv3s_prorate_end",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "dv4_prorate_begin",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "dv4_prorate_end",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "dv4s_prorate_begin",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "dv4s_prorate_end",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "lve_prorate_begin",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "lve_prorate_end",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "ab_prorate_begin",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "ab_prorate_end",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "en_prorate_begin",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "en_prorate_end",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "fr_prorate_begin",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "fr_prorate_end",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "ht_prorate_begin",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "ht_prorate_end",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "pro_prorate_begin",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "pro_prorate_end",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "pc_prorate_begin",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "pc_prorate_end",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "so_prorate_begin",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "so_prorate_end",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex366_prorate_begin",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex366_prorate_end",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "ch_prorate_begin",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "ch_prorate_end",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "dps_prorate_begin",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "dps_prorate_end",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "eco_prorate_begin",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "eco_prorate_end",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "chodo_prorate_begin",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "chodo_prorate_end",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "lih_prorate_begin",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "lih_prorate_end",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "git_prorate_begin",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "git_prorate_end",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "clt_exempt",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "clt_prorate_begin",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "clt_prorate_end",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "clt_qualify_yr",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 4,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "dvhss_exempt",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "dvhss_prorate_begin",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "dvhss_prorate_end",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "dvhss_qualify_yr",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 4,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "omitted_imprv_hstd_val",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "omitted_imprv_non_hstd_val",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "dvhs_prorate_begin",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "dvhs_prorate_end",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xd_exempt",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xd_qualify_yr",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 4,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xd_prorate_begin",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xd_prorate_end",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xf_exempt",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xf_qualify_yr",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 4,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xf_prorate_begin",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xf_prorate_end",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xg_exempt",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xg_qualify_yr",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 4,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xg_prorate_begin",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xg_prorate_end",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xh_exempt",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xh_qualify_yr",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 4,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xh_prorate_begin",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xh_prorate_end",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xi_exempt",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xi_qualify_yr",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 4,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xi_prorate_begin",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xi_prorate_end",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xj_exempt",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xj_qualify_yr",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 4,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xj_prorate_begin",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xj_prorate_end",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xl_exempt",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xl_qualify_yr",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 4,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xl_prorate_begin",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xl_prorate_end",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xm_exempt",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xm_qualify_yr",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 4,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xm_prorate_begin",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xm_prorate_end",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xn_exempt",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xn_qualify_yr",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 4,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xn_prorate_begin",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xn_prorate_end",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xo_exempt",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xo_qualify_yr",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 4,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xo_prorate_begin",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xo_prorate_end",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xp_exempt",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xp_qualify_yr",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 4,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xp_prorate_begin",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xp_prorate_end",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xq_exempt",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xq_qualify_yr",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 4,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xq_prorate_begin",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xq_prorate_end",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xr_exempt",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xr_qualify_yr",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 4,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xr_prorate_begin",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xr_prorate_end",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xs_exempt",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xs_qualify_yr",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 4,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xs_prorate_begin",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xs_prorate_end",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xt_exempt",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xt_qualify_yr",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 4,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xt_prorate_begin",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xt_prorate_end",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xu_exempt",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xu_qualify_yr",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 4,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xu_prorate_begin",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xu_prorate_end",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xv_exempt",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xv_qualify_yr",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 4,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xv_prorate_begin",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xv_prorate_end",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xa_exempt",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xa_qualify_yr",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 4,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xa_prorate_begin",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xa_prorate_end",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "lve_qualify_yr",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 4,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ppv_exempt",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "ppv_qualify_yr",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 4,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ppv_prorate_begin",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "ppv_prorate_end",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "dvch_exempt",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "dvch_qualify_yr",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 4,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "dvch_prorate_begin",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "dvch_prorate_end",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "dvchs_exempt",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "dvchs_qualify_yr",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 4,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "dvchs_prorate_begin",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "dvchs_prorate_end",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "masss_exempt",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "masss_qualify_yr",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 4,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "masss_prorate_begin",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "masss_prorate_end",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "pp_late_interstate_allocation_val",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  } ]
+}

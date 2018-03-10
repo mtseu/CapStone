@@ -1,0 +1,1477 @@
+{
+  "type" : "record",
+  "name" : "stg_tcad_prop_ent",
+  "namespace" : "default",
+  "fields" : [ {
+    "name" : "prop_id",
+    "type" : [ "null", "long" ],
+    "default" : null
+  }, {
+    "name" : "prop_val_yr",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 5,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "sup_num",
+    "type" : [ "null", "long" ],
+    "default" : null
+  }, {
+    "name" : "owner_id",
+    "type" : [ "null", "long" ],
+    "default" : null
+  }, {
+    "name" : "entity_id",
+    "type" : [ "null", "long" ],
+    "default" : null
+  }, {
+    "name" : "entity_cd",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 10
+    } ],
+    "default" : null
+  }, {
+    "name" : "entity_name",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 50
+    } ],
+    "default" : null
+  }, {
+    "name" : "entity_xref_id",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 20
+    } ],
+    "default" : null
+  }, {
+    "name" : "filler",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 15
+    } ],
+    "default" : null
+  }, {
+    "name" : "assessed_val",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "taxable_val",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ab_amt",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "en_amt",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "fr_amt",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ht_amt",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "pro_amt",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "pc_amt",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "so_amt",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex366_amt",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "hs_amt",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ov65_amt",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "dp_amt",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "dv_amt",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_amt",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ch_amt",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "market_value",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "appraised_value",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "hs_cap",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ag_late_loss",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "freeport_late_loss",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "hs_state_amt",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "hs_local_amt",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "land_hstd_val",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "land_non_hstd_val",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "imprv_hstd_val",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "imprv_non_hstd_val",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ag_use_val",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ag_market_val",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "tim_use_val",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "tim_market_val",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "partial_entity",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "freeze_yr",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 4,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "freeze_ceiling",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "freeze_transfer_flag",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "freeze_transfer_date",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 25
+    } ],
+    "default" : null
+  }, {
+    "name" : "freeze_previous_tax",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "freeze_previous_tax_unfrozen",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "freeze_transfer_percentage",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 37,
+      "scale" : 18
+    } ],
+    "default" : null
+  }, {
+    "name" : "lve_amt",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "eco_amt",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ag_use_val_ne",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ag_use_val_ex",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ag_market_ne",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ag_market_ex",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "timber_use_ne",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "timber_use_ex",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "timber_market_ne",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "timber_market_ex",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "new_val_hs",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "new_val_nhs",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "new_val_p",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "new_val_taxable",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "dataset_id",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "chodo_amt",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ent_pct_land_hs",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ent_pct_land_nonhs",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ent_pct_imprv_hs",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ent_pct_imprv_nonhs",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ent_pct_ag_use",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ent_pct_ag_mkt",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ent_pct_tim_use",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ent_pct_tim_mkt",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ent_pct_pers",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ent_pct_min",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ent_pct_auto",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "lih_amt",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "git_amt",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "dvhs_amt",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "tax_increment_flag",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 1
+    } ],
+    "default" : null
+  }, {
+    "name" : "tax_increment_imprv_val",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "tax_increment_land_val",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "weed_taxable_acres",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "hs_allocation_factor",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ov65_allocation_factor",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ov65s_allocation_factor",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "dp_allocation_factor",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "dps_allocation_factor",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "dv1_allocation_factor",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "dv1s_allocation_factor",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "dv2_allocation_factor",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "dv2s_allocation_factor",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "dv3_allocation_factor",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "dv3s_allocation_factor",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "dv4_allocation_factor",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "dv4s_allocation_factor",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "dvhs_allocation_factor",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_allocation_factor",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ab_allocation_factor",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "en_allocation_factor",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "fr_allocation_factor",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ht_allocation_factor",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "pro_allocation_factor",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "pc_allocation_factor",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "so_allocation_factor",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex366_allocation_factor",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ch_allocation_factor",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "eco_allocation_factor",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "chodo_allocation_factor",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "lih_allocation_factor",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "git_allocation_factor",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "freeze_exmpt_type_cd",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 5
+    } ],
+    "default" : null
+  }, {
+    "name" : "freeze_transfer_exmpt_type_cd",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 5
+    } ],
+    "default" : null
+  }, {
+    "name" : "tax_increment_zone_cd",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 10
+    } ],
+    "default" : null
+  }, {
+    "name" : "tax_increment_zone_desc",
+    "type" : [ "null", {
+      "type" : "string",
+      "logicalType" : "varchar",
+      "maxLength" : 50
+    } ],
+    "default" : null
+  }, {
+    "name" : "omitted_imprv_hstd_val",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "omitted_imprv_non_hstd_val",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "clt_amt",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "clt_allocation_factor",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "dvhss_amt",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "dvhss_allocation_factor",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "homestead_group_exemption_factor",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xd_amt",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xd_allocation_factor",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xf_amt",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xf_allocation_factor",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xg_amt",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xg_allocation_factor",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xh_amt",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xh_allocation_factor",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xi_amt",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xi_allocation_factor",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xj_amt",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xj_allocation_factor",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xl_amt",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xl_allocation_factor",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xm_amt",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xm_allocation_factor",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xn_amt",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xn_allocation_factor",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xo_amt",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xo_allocation_factor",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xp_amt",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xp_allocation_factor",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xq_amt",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xq_allocation_factor",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xr_amt",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xr_allocation_factor",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xs_amt",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xs_allocation_factor",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xt_amt",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xt_allocation_factor",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xu_amt",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xu_allocation_factor",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xv_amt",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xv_allocation_factor",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xa_amt",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ex_xa_allocation_factor",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "lve_allocation_factor",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ppv_amt",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "ppv_allocation_factor",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "dvch_amt",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "dvch_allocation_factor",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "dvchs_amt",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "dvchs_allocation_factor",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "masss_amt",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "masss_allocation_factor",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  }, {
+    "name" : "pp_late_interstate_allocation_val",
+    "type" : [ "null", {
+      "type" : "bytes",
+      "logicalType" : "decimal",
+      "precision" : 15,
+      "scale" : 0
+    } ],
+    "default" : null
+  } ]
+}
