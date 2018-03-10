@@ -831,8 +831,7 @@ CREATE EXTERNAL TABLE stg_tcad_prop (
     masss_prorate_end	VARCHAR(25),
     pp_late_interstate_allocation_val	DECIMAL(15)
 )
-ROW FORMAT DELIMITED FIELDS TERMINATED BY '\t'
-STORED AS TEXTFILE
+STORED AS AVRO
 LOCATION '${hiveconf:stg_dir}/PROP';
 
 INSERT OVERWRITE TABLE  stg_tcad_prop SELECT * FROM raw_tcad_prop;

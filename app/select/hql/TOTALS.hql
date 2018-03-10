@@ -281,8 +281,7 @@ CREATE EXTERNAL TABLE stg_tcad_totals (
     pp_late_interstate_allocation_count	BIGINT,
     pp_late_interstate_allocation_val	DECIMAL(15)
 )
-ROW FORMAT DELIMITED FIELDS TERMINATED BY '\t'
-STORED AS TEXTFILE
+STORED AS AVRO
 LOCATION '${hiveconf:stg_dir}/TOTALS';
 
-INSERT OVERWRITE TABLE  stg_tcad_totals SELECT * FROM raw_tcad_totals;
+INSERT OVERWRITE TABLE stg_tcad_totals SELECT * FROM raw_tcad_totals;
