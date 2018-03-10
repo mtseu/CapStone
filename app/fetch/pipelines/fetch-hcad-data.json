@@ -17,7 +17,9 @@
     "variables": {
         "hcad-ext-dataset": "HcadSrcTable",
         "raw-data-dir": "[parameters('rawDir')]",
-        "raw-avro-dataset": "ADLSRawAvroFile"
+        "raw-avro-dataset": "ADLSRawAvroFile",
+        "blob-aux-file" : "AuxiliaryFile",
+        "schema-root": "schemas/hcad"
     },
     "resources": [
         {
@@ -72,6 +74,50 @@
                                             "parameters": {
                                                 "FileName": "@item()",
                                                 "FileExt" : "avro",
+                                                "FolderRoot": "[variables('raw-data-dir')]",
+                                                "SOR": "hcad",
+                                                "Env": "[parameters('envName')]",
+                                                "Snapshot" : "@utcnow('yyyy-MM-dd')"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "CopySchema",
+                                    "type": "Copy",
+                                    "dependsOn": [],
+                                    "policy": {
+                                        "timeout": "7.00:00:00",
+                                        "retry": 0,
+                                        "retryIntervalInSeconds": 30
+                                    },
+                                    "typeProperties": {
+                                        "source": {
+                                            "type": "BlobSource"
+                                        },
+                                        "sink": {
+                                            "type": "AzureDataLakeStoreSink",
+                                            "recursive": false
+                                        }
+                                    },
+                                    "inputs": [
+                                        {
+                                            "referenceName": "[variables('blob-aux-file')]",
+                                            "type": "DatasetReference",
+                                            "parameters": {
+                                                "FileName": "@item()", 
+                                                "FileExt": "avsc", 
+                                                "FolderPath": "[variables('schema-root')]"
+                                            }
+                                        }
+                                    ],
+                                    "outputs": [
+                                        {
+                                            "referenceName": "[variables('raw-avro-dataset')]",
+                                            "type": "DatasetReference",
+                                            "parameters": {
+                                                "FileName": "@item()",
+                                                "FileExt" : "avsc",
                                                 "FolderRoot": "[variables('raw-data-dir')]",
                                                 "SOR": "hcad",
                                                 "Env": "[parameters('envName')]",
