@@ -96,6 +96,15 @@ deploy "./select/pipelines/select-tcad-data.json"    "./cap-stone-adf2-params.js
 upload-blob $STORAGE_ACC $SCRIPTS_CONTAINER "select/PROP.hql"     "./select/hql/PROP.hql"
 upload-blob $STORAGE_ACC $SCRIPTS_CONTAINER "select/PROP_ENT.hql" "./select/hql/PROP_ENT.hql"
 upload-blob $STORAGE_ACC $SCRIPTS_CONTAINER "select/TOTALS.hql"   "./select/hql/TOTALS.hql"
+upload-blob $STORAGE_ACC $SCRIPTS_CONTAINER "select/TOTALS.hql"   "./select/hql/hcad-all.hql"
+
+upload-blob $STORAGE_ACC $SCRIPTS_CONTAINER "schemas/hcad/jur_exempt.avsc"                "./common/schemas/hcad/jur_exempt.avsc"
+upload-blob $STORAGE_ACC $SCRIPTS_CONTAINER "schemas/hcad/jur_value.avsc"                 "./common/schemas/hcad/jur_value.avsc"
+upload-blob $STORAGE_ACC $SCRIPTS_CONTAINER "schemas/hcad/jur_tax_dist_percent_rate.avsc" "./common/schemas/hcad/jur_tax_dist_percent_rate.avsc"
+upload-blob $STORAGE_ACC $SCRIPTS_CONTAINER "schemas/hcad/real_acct.avsc"                 "./common/schemas/hcad/real_acct.avsc"
+upload-blob $STORAGE_ACC $SCRIPTS_CONTAINER "schemas/tcad/prop.avsc"                      "./common/schemas/tcad/prop.avsc"
+upload-blob $STORAGE_ACC $SCRIPTS_CONTAINER "schemas/tcad/prop_ent.avsc"                  "./common/schemas/tcad/prop_ent.avsc"
+upload-blob $STORAGE_ACC $SCRIPTS_CONTAINER "schemas/tcad/totals.avsc"                    "./common/schemas/tcad/totals.avsc"
 
 # az group deployment create  
 # --resource-group "msq-hdinsight-team-a" 
