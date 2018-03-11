@@ -1,0 +1,75 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "factoryName": {
+            "type": "string",
+            "defaultValue": "CapStoneADF"
+        }
+    },
+    "variables": {
+        "hdi-blob": "HDIStorageConnection",
+        "blob-aux-file" : "AuxiliaryFile",
+        "blob-aux-dir" : "AuxiliaryDir"
+    },
+    "resources": [
+        {
+            "name": "[concat(parameters('factoryName'), '/', variables('blob-aux-file'))]",
+            "type": "Microsoft.DataFactory/factories/datasets",
+            "apiVersion": "2017-09-01-preview",
+            "properties": {
+                "mode": "Incremental",
+                "linkedServiceName": {
+                    "referenceName": "[variables('hdi-blob')]",
+                    "type": "LinkedServiceReference"
+                },
+                "parameters": {
+                    "FileName": {
+                        "type": "String"
+                    }, 
+                    "FileExt": {
+                        "type": "String"
+                    }, 
+                    "FolderPath": {
+                        "type": "String"
+                    }
+                },
+                "type": "AzureBlob",
+                "typeProperties": {
+                    "fileName": {
+                        "value": "@{dataset().FileName}.@{dataset().FileExt}",
+                        "type": "Expression"
+                    },
+                    "folderPath": {
+                        "value": "@{dataset().FolderPath}",
+                        "type": "Expression"
+                    }
+                }
+            }
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/', variables('blob-aux-dir'))]",
+            "type": "Microsoft.DataFactory/factories/datasets",
+            "apiVersion": "2017-09-01-preview",
+            "properties": {
+                "mode": "Incremental",
+                "linkedServiceName": {
+                    "referenceName": "[variables('hdi-blob')]",
+                    "type": "LinkedServiceReference"
+                },
+                "parameters": {
+                    "FolderPath": {
+                        "type": "String"
+                    }
+                },
+                "type": "AzureBlob",
+                "typeProperties": {
+                    "folderPath": {
+                        "value": "@{dataset().FolderPath}",
+                        "type": "Expression"
+                    }
+                }
+            }
+        }
+    ]
+}

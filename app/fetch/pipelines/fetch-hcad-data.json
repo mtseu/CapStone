@@ -51,7 +51,7 @@
                                         "source": {
                                             "type": "SqlSource",
                                             "sqlReaderQuery": {
-                                                "value": "@{concat('select * from ', item(), ' where SNAPSHOT_YEAR = ''2016''')}",
+                                                "value": "@{concat('select * from ', item(), ' where SNAPSHOT_YEAR = ''2014''')}",
                                                 "type": "Expression"
                                             }                                        
                                         },
@@ -77,7 +77,8 @@
                                                 "FolderRoot": "[variables('raw-data-dir')]",
                                                 "SOR": "hcad",
                                                 "Env": "[parameters('envName')]",
-                                                "Snapshot" : "@utcnow('yyyy-MM-dd')"
+                                                "Snapshot" : "@utcnow('yyyy-MM-dd')",
+                                                "DataDir" : "@item()"
                                             }
                                         }
                                     ]
@@ -121,7 +122,8 @@
                                                 "FolderRoot": "[variables('raw-data-dir')]",
                                                 "SOR": "hcad",
                                                 "Env": "[parameters('envName')]",
-                                                "Snapshot" : "@utcnow('yyyy-MM-dd')"
+                                                "Snapshot" : "@utcnow('yyyy-MM-dd')",
+                                                "DataDir" : "@substring('dummy', 1, 0)"
                                             }
                                         }
                                     ]

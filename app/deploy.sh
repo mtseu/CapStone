@@ -100,7 +100,7 @@ if [ $1 == "scripts" ] || [ $1 == "all" ] || [ -z $1 ]; then
     upload-blob $STORAGE_ACC $SCRIPTS_CONTAINER "select/PROP.hql"     "./select/hql/PROP.hql"
     upload-blob $STORAGE_ACC $SCRIPTS_CONTAINER "select/PROP_ENT.hql" "./select/hql/PROP_ENT.hql"
     upload-blob $STORAGE_ACC $SCRIPTS_CONTAINER "select/TOTALS.hql"   "./select/hql/TOTALS.hql"
-    upload-blob $STORAGE_ACC $SCRIPTS_CONTAINER "select/TOTALS.hql"   "./select/hql/hcad-all.hql"
+    upload-blob $STORAGE_ACC $SCRIPTS_CONTAINER "select/hcad-all.hql" "./select/hql/hcad-all.hql"
 fi
 
 if [ $1 == "schemas" ] || [ $1 == "all" ] || [ -z $1 ]; then

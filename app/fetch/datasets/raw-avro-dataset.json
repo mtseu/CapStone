@@ -39,6 +39,9 @@
                     },
                     "Snapshot" : {
                         "type" : "String"
+                    },
+                    "DataDir" : {
+                        "type": "String"
                     }
                 },
                 "type": "AzureDataLakeStoreFile",
@@ -47,7 +50,7 @@
                         "value": "@{dataset().FileName}.@{dataset().FileExt}",
                         "type": "Expression"
                     },
-                    "folderPath": "@{concat(dataset().FolderRoot, '/', dataset().Env, '/', dataset().SOR, '/', dataset().Snapshot, '/', dataset().FileName)}",
+                    "folderPath": "@{concat(dataset().FolderRoot, '/', dataset().Env, '/', dataset().SOR, '/', dataset().Snapshot, if(equals(length(dataset().DataDir), 0), '', concat('/', dataset().DataDir)))}",
                     "format": {
                         "type": "AvroFormat"
                     }
