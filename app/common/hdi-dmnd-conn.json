@@ -26,7 +26,8 @@
     },
     "variables": {
         "hdi-conn-ondemand": "HDIConnection",
-        "hdi-blob": "HDIStorageConnection"
+        "hdi-blob": "HDIStorageConnection",
+        "hdi-meta": "HiveMetaStoreConnection"
     },
     "resources": [
         {
@@ -57,6 +58,10 @@
                     "osType": "Linux",
                     "linkedServiceName": {
                         "referenceName": "[variables('hdi-blob')]",
+                        "type": "LinkedServiceReference"
+                    },
+                    "hcatalogLinkedServiceName" : {
+                        "referenceName": "[variables('hdi-meta')]",
                         "type": "LinkedServiceReference"
                     },
                     "tier": "standard",

@@ -64,7 +64,7 @@ if [ $1 == "deploy" ] && [ ! -z $2 ] && [ $2 != "all" ]; then
     exit 0;
 fi
 
-if [ -z $1 ] || [ $1 == "all" ] || [ $1 == "deploy" ] && [ $2 == all ]; then
+if [ -z $1 ] || [ $1 == "all" ] || [ $1 == "deploy" ] && [ $2 == "all" ]; then
     # deploy the data factory itslef 
     deploy "./cap-stone-adf2.json"                       "./cap-stone-adf2-params.json"
 
@@ -73,6 +73,7 @@ if [ -z $1 ] || [ $1 == "all" ] || [ $1 == "deploy" ] && [ $2 == all ]; then
     deploy "./common/hdi-blob-conn.json"                 "./cap-stone-adf2-params.json"
     deploy "./common/hdi-stnd-conn.json"                 "./cap-stone-adf2-params.json"
     deploy "./common/hdi-dmnd-conn.json"                 "./cap-stone-adf2-params.json"
+    deploy "./common/hdi-meta-conn.json"                 "./cap-stone-adf2-params.json"
     deploy "./common/datasets/hdi-aux-dataset.json"      "./cap-stone-adf2-params.json"
 
     # deploy ingestion pipelines with prerequisites``
