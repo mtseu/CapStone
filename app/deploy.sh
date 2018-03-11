@@ -59,12 +59,12 @@ function deploy {
     rm $pars
 }
 
-if [ $1 == "deploy" ] && [ ! -z $2 ] && [ $2 != "all" ]; then
-    deploy $2 "./cap-stone-adf2-params.json"
+if [ "$1" == "deploy" ] && [ ! -z "$2" ] && [ "$2" != "all" ]; then
+    deploy "$2" "./cap-stone-adf2-params.json"
     exit 0;
 fi
 
-if [ -z $1 ] || [ $1 == "all" ] || [ $1 == "deploy" ] && [ $2 == "all" ]; then
+if [ -z "$1" ] || [ "$1" == "all" ] || ( [ "$1" == "deploy" ] && [ "$2" == "all" ] ); then
     # deploy the data factory itslef 
     deploy "./cap-stone-adf2.json"                       "./cap-stone-adf2-params.json"
 
@@ -93,7 +93,7 @@ if [ -z $1 ] || [ $1 == "all" ] || [ $1 == "deploy" ] && [ $2 == "all" ]; then
     deploy "./select/pipelines/select-tcad-data.json"    "./cap-stone-adf2-params.json"
 fi
 
-if [ $1 == "scripts" ] || [ $1 == "all" ] || [ -z $1 ]; then
+if [ "$1" == "scripts" ] || [ "$1" == "all" ] || [ -z "$1" ]; then
     az storage container create \
     --account-name "$STORAGE_ACC" \
     --name "$SCRIPTS_CONTAINER"
@@ -104,7 +104,7 @@ if [ $1 == "scripts" ] || [ $1 == "all" ] || [ -z $1 ]; then
     upload-blob $STORAGE_ACC $SCRIPTS_CONTAINER "select/hcad-all.hql" "./select/hql/hcad-all.hql"
 fi
 
-if [ $1 == "schemas" ] || [ $1 == "all" ] || [ -z $1 ]; then
+if [ "$1" == "schemas" ] || [ "$1" == "all" ] || [ -z "$1" ]; then
     az storage container create \
     --account-name "$STORAGE_ACC" \
     --name "$SCHEMAS_CONTAINER"

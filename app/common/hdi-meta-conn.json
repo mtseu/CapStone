@@ -8,15 +8,15 @@
         },
         "metastoreSqlServer": {
             "type": "string",
-            "defaultValue": "azt-sql.eastus.cloudapp.azure.com"
+            "defaultValue": "msqteamasqlserver.database.windows.net"
         },
         "metastoreDbName": {
             "type": "string",
-            "defaultValue": "hcadb"
+            "defaultValue": "hdiMetastoreTeamA"
         },
         "metastoreDbUser": {
             "type": "string",
-            "defaultValue": "aztuser"
+            "defaultValue": "azt"
         },
         "metastoreDbPassword": {
             "type": "securestring"
