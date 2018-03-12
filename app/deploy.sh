@@ -3,6 +3,7 @@
 STORAGE_ACC="hdibloba"
 SCRIPTS_CONTAINER="scripts"
 SCHEMAS_CONTAINER="schemas"
+SUPPLEM_CONTAINER="supplem"
 RESOURCE_GROUP="msq-hdinsight-team-a"
 DEPLOYMENT=CapStoneTeamADeployment
 
@@ -98,10 +99,12 @@ if [ "$1" == "scripts" ] || [ "$1" == "all" ] || [ -z "$1" ]; then
     --account-name "$STORAGE_ACC" \
     --name "$SCRIPTS_CONTAINER"
 
-    upload-blob $STORAGE_ACC $SCRIPTS_CONTAINER "select/PROP.hql"     "./select/hql/PROP.hql"
-    upload-blob $STORAGE_ACC $SCRIPTS_CONTAINER "select/PROP_ENT.hql" "./select/hql/PROP_ENT.hql"
-    upload-blob $STORAGE_ACC $SCRIPTS_CONTAINER "select/TOTALS.hql"   "./select/hql/TOTALS.hql"
-    upload-blob $STORAGE_ACC $SCRIPTS_CONTAINER "select/hcad-all.hql" "./select/hql/hcad-all.hql"
+    upload-blob $STORAGE_ACC $SCRIPTS_CONTAINER "select/PROP.hql"               "./select/hql/PROP.hql"
+    upload-blob $STORAGE_ACC $SCRIPTS_CONTAINER "select/PROP_ENT.hql"           "./select/hql/PROP_ENT.hql"
+    upload-blob $STORAGE_ACC $SCRIPTS_CONTAINER "select/TOTALS.hql"             "./select/hql/TOTALS.hql"
+    upload-blob $STORAGE_ACC $SCRIPTS_CONTAINER "select/hcad-all.hql"           "./select/hql/hcad-all.hql"
+
+    upload-blob $STORAGE_ACC $SCRIPTS_CONTAINER "produce/calculate-dataset.hql" "./produce/hql/calculate-dataset.hql"
 fi
 
 if [ "$1" == "schemas" ] || [ "$1" == "all" ] || [ -z "$1" ]; then
@@ -116,6 +119,16 @@ if [ "$1" == "schemas" ] || [ "$1" == "all" ] || [ -z "$1" ]; then
     upload-blob $STORAGE_ACC $SCHEMAS_CONTAINER "tcad/prop.avsc"                      "./common/schemas/tcad/prop.avsc"
     upload-blob $STORAGE_ACC $SCHEMAS_CONTAINER "tcad/prop_ent.avsc"                  "./common/schemas/tcad/prop_ent.avsc"
     upload-blob $STORAGE_ACC $SCHEMAS_CONTAINER "tcad/totals.avsc"                    "./common/schemas/tcad/totals.avsc"
+fi
+
+if [ "$1" == "supp" ] || [ "$1" == "all" ] || [ -z "$1" ]; then
+    az storage container create \
+    --account-name "$STORAGE_ACC" \
+    --name "$SUPPLEM_CONTAINER"
+
+    upload-blob $STORAGE_ACC $SUPPLEM_CONTAINER "D_EXEMPTION_DICT.csv"           "./supplemental/D_EXEMPTION_DICT.csv"
+    upload-blob $STORAGE_ACC $SUPPLEM_CONTAINER "D_HARIS_NEIGHBORHOOD_DICT.tsv"  "./supplemental/D_HARIS_NEIGHBORHOOD_DICT.tsv"
+    upload-blob $STORAGE_ACC $SUPPLEM_CONTAINER "D_TARVIS_JURISDICTION_DICT.csv" "./supplemental/D_TARVIS_JURISDICTION_DICT.csv"
 fi
 
 exit 0
