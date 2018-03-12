@@ -1,0 +1,222 @@
+{
+  "type" : "record",
+  "name" : "ClientLibraryJob",
+  "namespace" : "HybridDelivery",
+  "fields" : [ {
+    "name" : "ACCOUNT",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "TAX_YEAR",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "MAILTO",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "MAIL_ADDR_1",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "MAIL_ADDR_2",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "MAIL_CITY",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "MAIL_STATE",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "MAIL_ZIP",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "MAIL_COUNTRY",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "UNDELIVERABLE",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "STR_PFX",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "STR_NUM",
+    "type" : [ "int", "null" ]
+  }, {
+    "name" : "STR_NUM_SFX",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "STR_NAME",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "STR_SFX",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "STR_SFX_DIR",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "STR_UNIT",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "SITE_ADDR_1",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "SITE_ADDR_2",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "SITE_ADDR_3",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "STATE_CLASS",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "SCHOOL_DIST",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "MAP_FACET",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "KEY_MAP",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "NEIGHBORHOOD_CODE",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "NEIGHBORHOOD_GROUP",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "MARKET_AREA_1",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "MARKET_AREA_1_DSCR",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "MARKET_AREA_2",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "MARKET_AREA_2_DSCR",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "ECON_AREA",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "ECON_BLD_CLASS",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "CENTER_CODE",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "YR_IMPR",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "YR_ANNEXED",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "SPLT_DT",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "DSC_CD",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "NXT_BUILDING",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "TOTAL_BUILDING_AREA",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "TOTAL_LAND_AREA",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "ACREAGE",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "CAP_ACCOUNT",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "SHARED_CAD_CODE",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "LAND_VALUE",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "IMPROVEMENT_VALUE",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "EXTRA_FEATURES_VALUE",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "AG_VALUE",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "ASSESSED_VALUE",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "TOTAL_APPRAISED_VALUE",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "TOTAL_MARKET_VALUE",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "PRIOR_LND_VALUE",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "PRIOR_IMPR_VALUE",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "PRIOR_X_FEATURES_VALUE",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "PRIOR_AG_VALUE",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "PRIOR_TOTAL_APPRAISED_VALUE",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "PRIOR_TOTAL_MARKET_VALUE",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "NEW_CONSTRUCTION_VALUE",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "TOTAL_RCN_VALUE",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "VALUE_STATUS",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "NOTICED",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "NOTICE_DATE",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "PROTESTED",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "CERTIFIED_DATE",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "LAST_INSPECTED_DATE",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "LAST_INSPECTED_BY",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "NEW_OWNER_DATE",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "LEGAL_DSCR_1",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "LEGAL_DSCR_2",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "LEGAL_DSCR_3",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "LEGAL_DSCR_4",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "JURS",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "SNAPSHOT_YEAR",
+    "type" : [ "string", "null" ]
+  } ]
+}

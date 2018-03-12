@@ -1,0 +1,150 @@
+{
+  "type" : "record",
+  "name" : "ClientLibraryJob",
+  "namespace" : "HybridDelivery",
+  "fields" : [ {
+    "name" : "RP_TYPE",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "TAX_DIST",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "TAX_DISTRICT_NAME",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "PRIOR_YR_RATE",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "CURRENT_YR_RATE",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "ABT",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "APD",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "APO",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "APR",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "DIS",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "HIS",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "LIH",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "MCL",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "OVR",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "PAR",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "PDS",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "PEX",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "POL",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "POV",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "PRO",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "RES",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "SOL",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "SSA",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "SSD",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "STT",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "STX",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "SUR",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "TOT",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "V11",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "V12",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "V13",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "V14",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "V21",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "V22",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "V23",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "V24",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "VCH",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "VS1",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "VS2",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "VS3",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "VS4",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "VTX",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "ESP",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "GCC",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "ODR",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "SPV",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "UND",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "SNAPSHOT_YEAR",
+    "type" : [ "string", "null" ]
+  } ]
+}

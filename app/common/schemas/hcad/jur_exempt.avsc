@@ -1,0 +1,21 @@
+{
+  "type" : "record",
+  "name" : "ClientLibraryJob",
+  "namespace" : "HybridDelivery",
+  "fields" : [ {
+    "name" : "ACCOUNT",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "TAX_DISTRICT",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "EXEMPT_CAT",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "EXEMPT_VAL",
+    "type" : [ "string", "null" ]
+  }, {
+    "name" : "SNAPSHOT_YEAR",
+    "type" : [ "string", "null" ]
+  } ]
+}
