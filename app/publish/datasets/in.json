@@ -1,0 +1,375 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "factoryName": {
+            "type": "string",
+            "defaultValue": "CapStoneADF"
+        },
+        "prepDir": {
+            "type": "string",
+            "defaultValue": "/data/prep"
+        },
+        "envName": {
+            "type": "string",
+            "defaultValue": "msq-hdinsight-team-a"
+        }
+    },
+    "variables": {
+        "adls-conn": "ADLSConnection"
+    },
+    "resources": [
+        {
+            "name": "[concat(parameters('factoryName'), '/', 'D_JURISDICTION_IN')]",
+            "type": "Microsoft.DataFactory/factories/datasets",
+            "apiVersion": "2017-09-01-preview",
+            "properties": {
+                "linkedServiceName": {
+                    "referenceName": "[variables('adls-conn')]",
+                    "type": "LinkedServiceReference"
+                },
+                "type": "AzureDataLakeStoreFile",
+                "structure": [
+                    {
+                        "name": "jurisdiction_id",
+                        "type": "String"
+                    },
+                    {
+                        "name": "jurisdiction_code",
+                        "type": "String"
+                    },
+                    {
+                        "name": "jurisdiction_name",
+                        "type": "String"
+                    },
+                    {
+                        "name": "tax_rate",
+                        "type": "Double"
+                    },
+                    {
+                        "name": "tax_year",
+                        "type": "String"
+                    },
+                    {
+                        "name": "dataset",
+                        "type": "String"
+                    }
+                ],
+                "typeProperties": {
+                    "format": {
+                        "type": "AvroFormat"
+                    },
+                    "folderPath": "[concat(parameters('prepDir'), '/', parameters('envName'), '/D_JURISDICTION')]"
+                }
+            }
+        },
+        {            
+            "name": "[concat(parameters('factoryName'), '/', 'D_JURISDICTION_EXEMPT_IN')]",
+            "type": "Microsoft.DataFactory/factories/datasets",
+            "apiVersion": "2017-09-01-preview",
+            "properties": {
+                "linkedServiceName": {
+                    "referenceName": "[variables('adls-conn')]",
+                    "type": "LinkedServiceReference"
+                },
+                "type": "AzureDataLakeStoreFile",
+                "structure": [
+                    {
+                        "name": "account_id",
+                        "type": "String"
+                    },
+                    {
+                        "name": "jurisdiction_id",
+                        "type": "String"
+                    },
+                    {
+                        "name": "exempt_code",
+                        "type": "String"
+                    },
+                    {
+                        "name": "exempt_value",
+                        "type": "Double"
+                    },
+                    {
+                        "name": "tax_year",
+                        "type": "String"
+                    },
+                    {
+                        "name": "dataset",
+                        "type": "String"
+                    },
+                    {
+                        "name": "exempt_name",
+                        "type": "String"
+                    }
+                ],
+                "typeProperties": {
+                    "format": {
+                        "type": "AvroFormat"
+                    },
+                    "folderPath": "[concat(parameters('prepDir'), '/', parameters('envName'), '/D_JURISDICTION_EXEMPT')]"
+                }
+            }
+        },
+        {            
+            "name": "[concat(parameters('factoryName'), '/', 'D_JURISDICTION_TAX_VALUES_IN')]",
+            "type": "Microsoft.DataFactory/factories/datasets",
+            "apiVersion": "2017-09-01-preview",
+            "properties": {
+                "linkedServiceName": {
+                    "referenceName": "[variables('adls-conn')]",
+                    "type": "LinkedServiceReference"
+                },
+                "type": "AzureDataLakeStoreFile",
+                "structure": [
+                    {
+                        "name": "account_id",
+                        "type": "String"
+                    },
+                    {
+                        "name": "jurisdiction_id",
+                        "type": "String"
+                    },
+                    {
+                        "name": "appraised_value",
+                        "type": "Double"
+                    },
+                    {
+                        "name": "taxable_value",
+                        "type": "Double"
+                    },
+                    {
+                        "name": "taxes",
+                        "type": "Double"
+                    },
+                    {
+                        "name": "tax_year",
+                        "type": "String"
+                    },
+                    {
+                        "name": "dataset",
+                        "type": "String"
+                    }
+                ],
+                "typeProperties": {
+                    "format": {
+                        "type": "AvroFormat"
+                    },
+                    "folderPath": "[concat(parameters('prepDir'), '/', parameters('envName'), '/D_JURISDICTION_TAX_VALUES')]"
+                }
+            }
+        },
+        {            
+            "name": "[concat(parameters('factoryName'), '/', 'D_OWNER_IN')]",
+            "type": "Microsoft.DataFactory/factories/datasets",
+            "apiVersion": "2017-09-01-preview",
+            "properties": {
+                "linkedServiceName": {
+                    "referenceName": "[variables('adls-conn')]",
+                    "type": "LinkedServiceReference"
+                },
+                "type": "AzureDataLakeStoreFile",
+                "structure": [
+                    {
+                        "name": "owner_id",
+                        "type": "String"
+                    },
+                    {
+                        "name": "name",
+                        "type": "String"
+                    },
+                    {
+                        "name": "country",
+                        "type": "String"
+                    },
+                    {
+                        "name": "state",
+                        "type": "String"
+                    },
+                    {
+                        "name": "city",
+                        "type": "String"
+                    },
+                    {
+                        "name": "zip",
+                        "type": "String"
+                    },
+                    {
+                        "name": "address",
+                        "type": "String"
+                    },
+                    {
+                        "name": "tax_year",
+                        "type": "String"
+                    },
+                    {
+                        "name": "dataset",
+                        "type": "String"
+                    }
+                ],
+                "typeProperties": {
+                    "format": {
+                        "type": "AvroFormat"
+                    },
+                    "folderPath": "[concat(parameters('prepDir'), '/', parameters('envName'), '/D_OWNER')]"
+                }
+            }
+        },
+        {            
+            "name": "[concat(parameters('factoryName'), '/', 'D_PROPERTY_IN')]",
+            "type": "Microsoft.DataFactory/factories/datasets",
+            "apiVersion": "2017-09-01-preview",
+            "properties": {
+                "linkedServiceName": {
+                    "referenceName": "[variables('adls-conn')]",
+                    "type": "LinkedServiceReference"
+                },
+                "type": "AzureDataLakeStoreFile",
+                "structure": [
+                    {
+                        "name": "account_id",
+                        "type": "String"
+                    },
+                    {
+                        "name": "owner_id",
+                        "type": "String"
+                    },
+                    {
+                        "name": "property_description",
+                        "type": "String"
+                    },
+                    {
+                        "name": "city",
+                        "type": "String"
+                    },
+                    {
+                        "name": "zip",
+                        "type": "String"
+                    },
+                    {
+                        "name": "address",
+                        "type": "String"
+                    },
+                    {
+                        "name": "year_built",
+                        "type": "String"
+                    },
+                    {
+                        "name": "total_land_area",
+                        "type": "Double"
+                    },
+                    {
+                        "name": "total_building_area",
+                        "type": "Double"
+                    },
+                    {
+                        "name": "land_value",
+                        "type": "Double"
+                    },
+                    {
+                        "name": "improvement_value",
+                        "type": "Double"
+                    },
+                    {
+                        "name": "extra_features_value",
+                        "type": "Double"
+                    },
+                    {
+                        "name": "assessed_value",
+                        "type": "Double"
+                    },
+                    {
+                        "name": "appraised_value",
+                        "type": "Double"
+                    },
+                    {
+                        "name": "tax_year",
+                        "type": "String"
+                    },
+                    {
+                        "name": "dataset",
+                        "type": "String"
+                    },
+                    {
+                        "name": "total_taxes",
+                        "type": "Double"
+                    }
+                ],
+                "typeProperties": {
+                    "format": {
+                        "type": "AvroFormat"
+                    },
+                    "folderPath": "[concat(parameters('prepDir'), '/', parameters('envName'), '/D_PROPERTY')]"
+                }
+            }
+        },
+        {            
+            "name": "[concat(parameters('factoryName'), '/', 'D_PROPERTY_GROUPS_IN')]",
+            "type": "Microsoft.DataFactory/factories/datasets",
+            "apiVersion": "2017-09-01-preview",
+            "properties": {
+                "linkedServiceName": {
+                    "referenceName": "[variables('adls-conn')]",
+                    "type": "LinkedServiceReference"
+                },
+                "type": "AzureDataLakeStoreFile",
+                "structure": [
+                    {
+                        "name": "group_id",
+                        "type": "String"
+                    },
+                    {
+                        "name": "group_name",
+                        "type": "String"
+                    },
+                    {
+                        "name": "group_type",
+                        "type": "String"
+                    },
+                    {
+                        "name": "tax_year",
+                        "type": "String"
+                    },
+                    {
+                        "name": "dataset",
+                        "type": "String"
+                    }
+                ],
+                "typeProperties": {
+                    "format": {
+                        "type": "AvroFormat"
+                    },
+                    "folderPath": "[concat(parameters('prepDir'), '/', parameters('envName'), '/D_PROPERTY_GROUPS')]"
+                }
+            }
+        },
+        {            
+            "name": "[concat(parameters('factoryName'), '/', 'B_PROPERTY_GROUPS_MAPPING_IN')]",
+            "type": "Microsoft.DataFactory/factories/datasets",
+            "apiVersion": "2017-09-01-preview",
+            "properties": {
+                "linkedServiceName": {
+                    "referenceName": "[variables('adls-conn')]",
+                    "type": "LinkedServiceReference"
+                },
+                "type": "AzureDataLakeStoreFile",
+                "structure": [
+                    {
+                        "name": "account_id",
+                        "type": "String"
+                    },
+                    {
+                        "name": "group_id",
+                        "type": "String"
+                    }
+                ],
+                "typeProperties": {
+                    "format": {
+                        "type": "AvroFormat"
+                    },
+                    "folderPath": "[concat(parameters('prepDir'), '/', parameters('envName'), '/B_PROPERTY_GROUPS_MAPPING')]"
+                }
+            }
+        }
+    ]
+}

@@ -1,0 +1,335 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "factoryName": {
+            "type": "string",
+            "defaultValue": "CapStoneADF"
+        }       
+    },
+    "variables": {
+        "sql-conn": "PublishedDBConnection"
+    },
+    "resources": [
+        {            
+            "name": "[concat(parameters('factoryName'), '/', 'D_JURISDICTION_OUT')]",
+            "type": "Microsoft.DataFactory/factories/datasets",
+            "apiVersion": "2017-09-01-preview",
+            "properties": {
+                "linkedServiceName": {
+                    "referenceName": "[variables('sql-conn')]",
+                    "type": "LinkedServiceReference"
+                },
+                "type": "AzureSqlTable",
+                "type": "AzureSqlTable",
+                "structure": [
+                    {
+                        "name": "JURISDICTION_ID",
+                        "type": "String"
+                    },
+                    {
+                        "name": "CODE",
+                        "type": "String"
+                    },
+                    {
+                        "name": "JURISDICTION_NAME",
+                        "type": "String"
+                    },
+                    {
+                        "name": "TAX_RATE",
+                        "type": "Decimal"
+                    },
+                    {
+                        "name": "TAX_YEAR",
+                        "type": "String"
+                    },
+                    {
+                        "name": "DATASET",
+                        "type": "String"
+                    }
+                ],
+                "typeProperties": {
+                    "tableName": "dbo.D_JURISDICTION"
+                }
+            }
+        },
+        {            
+            "name": "[concat(parameters('factoryName'), '/', 'D_JURISDICTION_EXEMPT_OUT')]",
+            "type": "Microsoft.DataFactory/factories/datasets",
+            "apiVersion": "2017-09-01-preview",
+            "properties": {
+                "linkedServiceName": {
+                    "referenceName": "[variables('sql-conn')]",
+                    "type": "LinkedServiceReference"
+                },
+                "type": "AzureSqlTable",
+                "structure": [
+                    {
+                        "name": "ACCOUNT_ID",
+                        "type": "String"
+                    },
+                    {
+                        "name": "JURISDICTION_ID",
+                        "type": "String"
+                    },
+                    {
+                        "name": "EXEMPT_CODE",
+                        "type": "String"
+                    },
+                    {
+                        "name": "EXEMPT_VALUE",
+                        "type": "Decimal"
+                    }
+                ],
+                "typeProperties": {
+                    "tableName": "dbo.D_JURISDICTION_EXEMPT"
+                }
+            }
+        },
+        {            
+            "name": "[concat(parameters('factoryName'), '/', 'D_JURISDICTION_TAX_VALUES_OUT')]",
+            "type": "Microsoft.DataFactory/factories/datasets",
+            "apiVersion": "2017-09-01-preview",
+            "properties": {
+                "linkedServiceName": {
+                    "referenceName": "[variables('sql-conn')]",
+                    "type": "LinkedServiceReference"
+                },
+                "type": "AzureSqlTable",
+                "structure": [
+                    {
+                        "name": "ACCOUNT_ID",
+                        "type": "String"
+                    },
+                    {
+                        "name": "JURISDICTION_ID",
+                        "type": "String"
+                    },
+                    {
+                        "name": "APPRAISED_VALUE",
+                        "type": "Decimal"
+                    },
+                    {
+                        "name": "TAXABLE_VALUE",
+                        "type": "Decimal"
+                    },
+                    {
+                        "name": "TAXES",
+                        "type": "Decimal"
+                    },
+                    {
+                        "name": "TAX_YEAR",
+                        "type": "String"
+                    },
+                    {
+                        "name": "DATASET",
+                        "type": "String"
+                    }
+                ],
+                "typeProperties": {
+                    "tableName": "dbo.D_JURISDICTION_TAX_VALUES"
+                }
+            }
+        },
+        {            
+            "name": "[concat(parameters('factoryName'), '/', 'D_OWNER_OUT')]",
+            "type": "Microsoft.DataFactory/factories/datasets",
+            "apiVersion": "2017-09-01-preview",
+            "properties": {
+                "linkedServiceName": {
+                    "referenceName": "[variables('sql-conn')]",
+                    "type": "LinkedServiceReference"
+                },
+                "type": "AzureSqlTable",
+                "structure": [
+                    {
+                        "name": "OWNER_ID",
+                        "type": "String"
+                    },
+                    {
+                        "name": "NAME",
+                        "type": "String"
+                    },
+                    {
+                        "name": "COUNTRY",
+                        "type": "String"
+                    },
+                    {
+                        "name": "STATE",
+                        "type": "String"
+                    },
+                    {
+                        "name": "CITY",
+                        "type": "String"
+                    },
+                    {
+                        "name": "ZIP",
+                        "type": "String"
+                    },
+                    {
+                        "name": "ADDRESS",
+                        "type": "String"
+                    },
+                    {
+                        "name": "TAX_YEAR",
+                        "type": "String"
+                    },
+                    {
+                        "name": "DATASET",
+                        "type": "String"
+                    }
+                ],
+                "typeProperties": {
+                    "tableName": "dbo.D_OWNER"
+                }
+            }
+        },
+        {            
+            "name": "[concat(parameters('factoryName'), '/', 'D_PROPERTY_OUT')]",
+            "type": "Microsoft.DataFactory/factories/datasets",
+            "apiVersion": "2017-09-01-preview",
+            "properties": {
+                "linkedServiceName": {
+                    "referenceName": "[variables('sql-conn')]",
+                    "type": "LinkedServiceReference"
+                },
+                "type": "AzureSqlTable",
+                "structure": [
+                    {
+                        "name": "ACCOUNT_ID",
+                        "type": "String"
+                    },
+                    {
+                        "name": "OWNER_ID",
+                        "type": "String"
+                    },
+                    {
+                        "name": "PROPERTY_DESCRIPTION",
+                        "type": "String"
+                    },
+                    {
+                        "name": "CITY",
+                        "type": "String"
+                    },
+                    {
+                        "name": "ZIP",
+                        "type": "String"
+                    },
+                    {
+                        "name": "ADDRESS",
+                        "type": "String"
+                    },
+                    {
+                        "name": "YEAR_BUILT",
+                        "type": "String"
+                    },
+                    {
+                        "name": "TOTAL_LAND_AREA",
+                        "type": "Decimal"
+                    },
+                    {
+                        "name": "TOTAL_BUILDING_AREA",
+                        "type": "Decimal"
+                    },
+                    {
+                        "name": "LAND_VALUE",
+                        "type": "Decimal"
+                    },
+                    {
+                        "name": "IMPROVEMENT_VALUE",
+                        "type": "Decimal"
+                    },
+                    {
+                        "name": "EXTRA_FEATURES_VALUE",
+                        "type": "Decimal"
+                    },
+                    {
+                        "name": "ASSESSED_VALUE",
+                        "type": "Decimal"
+                    },
+                    {
+                        "name": "APPRAISED_VALUE",
+                        "type": "Decimal"
+                    },
+                    {
+                        "name": "TAX_YEAR",
+                        "type": "String"
+                    },
+                    {
+                        "name": "DATASET",
+                        "type": "String"
+                    },
+                    {
+                        "name": "TOTAL_TAXES",
+                        "type": "Decimal"
+                    }
+                ],
+                "typeProperties": {
+                    "tableName": "dbo.D_PROPERTY"
+                }
+            }
+        },
+        {            
+            "name": "[concat(parameters('factoryName'), '/', 'D_PROPERTY_GROUPS_OUT')]",
+            "type": "Microsoft.DataFactory/factories/datasets",
+            "apiVersion": "2017-09-01-preview",
+            "properties": {
+                "linkedServiceName": {
+                    "referenceName": "[variables('sql-conn')]",
+                    "type": "LinkedServiceReference"
+                },
+                "type": "AzureSqlTable",
+                "structure": [
+                    {
+                        "name": "GROUP_ID",
+                        "type": "String"
+                    },
+                    {
+                        "name": "GROUP_NAME",
+                        "type": "String"
+                    },
+                    {
+                        "name": "GROUP_TYPE",
+                        "type": "String"
+                    },
+                    {
+                        "name": "TAX_YEAR",
+                        "type": "String"
+                    },
+                    {
+                        "name": "DATASET",
+                        "type": "String"
+                    }
+                ],
+                "typeProperties": {
+                    "tableName": "dbo.D_PROPERTY_GROUPS"
+                }
+            }
+        },
+        {            
+            "name": "[concat(parameters('factoryName'), '/', 'B_PROPERTY_GROUPS_MAPPING_OUT')]",
+            "type": "Microsoft.DataFactory/factories/datasets",
+            "apiVersion": "2017-09-01-preview",
+            "properties": {
+                "linkedServiceName": {
+                    "referenceName": "[variables('sql-conn')]",
+                    "type": "LinkedServiceReference"
+                },
+                "type": "AzureSqlTable",
+                "structure": [
+                    {
+                        "name": "ACCOUNT_ID",
+                        "type": "String"
+                    },
+                    {
+                        "name": "GROUP_ID",
+                        "type": "String"
+                    }
+                ],
+                "typeProperties": {
+                    "tableName": "dbo.B_PROPERTY_GROUPS_MAPPING"
+                }
+            }
+        }
+    ]
+}

@@ -1,0 +1,321 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "factoryName": {
+            "type": "string",
+            "defaultValue": "CapStoneADF"
+        }        
+    },
+    "variables": {        
+        "parallel-copies": "10"
+    },
+    "resources": [
+        {
+            "name": "[concat(parameters('factoryName'), '/publish-data')]",
+            "type": "Microsoft.DataFactory/factories/pipelines",
+            "apiVersion": "2017-09-01-preview",
+            "properties": {
+                "mode": "Incremental",
+                "activities": [
+                    {
+                        "name": "Copy_D_JURISDICTION",
+                        "type": "Copy",
+                        "policy": {
+                            "timeout": "7.00:00:00",
+                            "retry": 0,
+                            "retryIntervalInSeconds": 30,
+                            "secureOutput": false
+                        },
+                        "typeProperties": {
+                            "source": {
+                                "type": "AzureDataLakeStoreSource",
+                                "recursive": true
+                            },
+                            "sink": {
+                                "type": "SqlSink",
+                                "writeBatchSize": 10000
+                            },
+                            "enableStaging": false,
+                            "parallelCopies": {
+                                "value": "[variables('parallel-copies')]",
+                                "type": "Expression"
+                            },
+                            "cloudDataMovementUnits": 0,
+                            "translator": {
+                                "type": "TabularTranslator",
+                                "columnMappings": "jurisdiction_id: JURISDICTION_ID, jurisdiction_code: CODE, jurisdiction_name: JURISDICTION_NAME, tax_rate: TAX_RATE, tax_year: TAX_YEAR, dataset: DATASET"
+                            }
+                        },
+                        "inputs": [
+                            {
+                                "referenceName": "D_JURISDICTION_IN",
+                                "type": "DatasetReference"
+                            }
+                        ],
+                        "outputs": [
+                            {
+                                "referenceName": "D_JURISDICTION_OUT",
+                                "type": "DatasetReference"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Copy_D_JURISDICTION_EXEMPT",
+                        "type": "Copy",
+                        "policy": {
+                            "timeout": "7.00:00:00",
+                            "retry": 0,
+                            "retryIntervalInSeconds": 30,
+                            "secureOutput": false
+                        },
+                        "typeProperties": {
+                            "source": {
+                                "type": "AzureDataLakeStoreSource",
+                                "recursive": true
+                            },
+                            "sink": {
+                                "type": "SqlSink",
+                                "writeBatchSize": 10000
+                            },
+                            "enableStaging": false,
+                            "parallelCopies": {
+                                "value": "[variables('parallel-copies')]",
+                                "type": "Expression"
+                            },
+                            "cloudDataMovementUnits": 0,
+                            "translator": {
+                                "type": "TabularTranslator",
+                                "columnMappings": "account_id: ACCOUNT_ID, jurisdiction_id: JURISDICTION_ID, exempt_code: EXEMPT_CODE, exempt_value: EXEMPT_VALUE"
+                            }
+                        },
+                        "inputs": [
+                            {
+                                "referenceName": "D_JURISDICTION_EXEMPT_IN",
+                                "type": "DatasetReference"
+                            }
+                        ],
+                        "outputs": [
+                            {
+                                "referenceName": "D_JURISDICTION_EXEMPT_OUT",
+                                "type": "DatasetReference"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Copy_D_JURISDICTION_TAX_VALUES",
+                        "type": "Copy",
+                        "policy": {
+                            "timeout": "7.00:00:00",
+                            "retry": 0,
+                            "retryIntervalInSeconds": 30,
+                            "secureOutput": false
+                        },
+                        "typeProperties": {
+                            "source": {
+                                "type": "AzureDataLakeStoreSource",
+                                "recursive": true
+                            },
+                            "sink": {
+                                "type": "SqlSink",
+                                "writeBatchSize": 10000
+                            },
+                            "enableStaging": false,
+                            "parallelCopies": {
+                                "value": "[variables('parallel-copies')]",
+                                "type": "Expression"
+                            },
+                            "cloudDataMovementUnits": 0,
+                            "translator": {
+                                "type": "TabularTranslator",
+                                "columnMappings": "account_id: ACCOUNT_ID, jurisdiction_id: JURISDICTION_ID, appraised_value: APPRAISED_VALUE, taxable_value: TAXABLE_VALUE, taxes: TAXES, tax_year: TAX_YEAR, dataset: DATASET"
+                            }
+                        },
+                        "inputs": [
+                            {
+                                "referenceName": "D_JURISDICTION_TAX_VALUES_IN",
+                                "type": "DatasetReference"
+                            }
+                        ],
+                        "outputs": [
+                            {
+                                "referenceName": "D_JURISDICTION_TAX_VALUES_OUT",
+                                "type": "DatasetReference"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Copy_D_OWNER",
+                        "type": "Copy",
+                        "policy": {
+                            "timeout": "7.00:00:00",
+                            "retry": 0,
+                            "retryIntervalInSeconds": 30,
+                            "secureOutput": false
+                        },
+                        "typeProperties": {
+                            "source": {
+                                "type": "AzureDataLakeStoreSource",
+                                "recursive": true
+                            },
+                            "sink": {
+                                "type": "SqlSink",
+                                "writeBatchSize": 10000
+                            },
+                            "enableStaging": false,
+                            "parallelCopies": {
+                                "value": "[variables('parallel-copies')]",
+                                "type": "Expression"
+                            },
+                            "cloudDataMovementUnits": 0,
+                            "translator": {
+                                "type": "TabularTranslator",
+                                "columnMappings": "owner_id: OWNER_ID, name: NAME, country: COUNTRY, state: STATE, city: CITY, zip: ZIP, address: ADDRESS, tax_year: TAX_YEAR, dataset: DATASET"
+                            }
+                        },
+                        "inputs": [
+                            {
+                                "referenceName": "D_OWNER_IN",
+                                "type": "DatasetReference"
+                            }
+                        ],
+                        "outputs": [
+                            {
+                                "referenceName": "D_OWNER_OUT",
+                                "type": "DatasetReference"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Copy_D_PROPERTY",
+                        "type": "Copy",
+                        "policy": {
+                            "timeout": "7.00:00:00",
+                            "retry": 0,
+                            "retryIntervalInSeconds": 30,
+                            "secureOutput": false
+                        },
+                        "typeProperties": {
+                            "source": {
+                                "type": "AzureDataLakeStoreSource",
+                                "recursive": true
+                            },
+                            "sink": {
+                                "type": "SqlSink",
+                                "writeBatchSize": 10000
+                            },
+                            "enableStaging": false,
+                            "parallelCopies": {
+                                "value": "[variables('parallel-copies')]",
+                                "type": "Expression"
+                            },
+                            "cloudDataMovementUnits": 0,
+                            "translator": {
+                                "type": "TabularTranslator",
+                                "columnMappings": "account_id: ACCOUNT_ID, owner_id: OWNER_ID, property_description: PROPERTY_DESCRIPTION, city: CITY, zip: ZIP, address: ADDRESS, year_built: YEAR_BUILT, total_land_area: TOTAL_LAND_AREA, total_building_area: TOTAL_BUILDING_AREA, land_value: LAND_VALUE, improvement_value: IMPROVEMENT_VALUE, extra_features_value: EXTRA_FEATURES_VALUE, assessed_value: ASSESSED_VALUE, appraised_value: APPRAISED_VALUE, tax_year: TAX_YEAR, dataset: DATASET, total_taxes: TOTAL_TAXES"
+                            }
+                        },
+                        "inputs": [
+                            {
+                                "referenceName": "D_PROPERTY_IN",
+                                "type": "DatasetReference"
+                            }
+                        ],
+                        "outputs": [
+                            {
+                                "referenceName": "D_PROPERTY_OUT",
+                                "type": "DatasetReference"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Copy_D_PROPERTY_GROUPS",
+                        "type": "Copy",
+                        "policy": {
+                            "timeout": "7.00:00:00",
+                            "retry": 0,
+                            "retryIntervalInSeconds": 30,
+                            "secureOutput": false
+                        },
+                        "typeProperties": {
+                            "source": {
+                                "type": "AzureDataLakeStoreSource",
+                                "recursive": true
+                            },
+                            "sink": {
+                                "type": "SqlSink",
+                                "writeBatchSize": 10000
+                            },
+                            "enableStaging": false,
+                            "parallelCopies": {
+                                "value": "[variables('parallel-copies')]",
+                                "type": "Expression"
+                            },
+                            "cloudDataMovementUnits": 0,
+                            "translator": {
+                                "type": "TabularTranslator",
+                                "columnMappings": "group_id: GROUP_ID, group_name: GROUP_NAME, group_type: GROUP_TYPE, tax_year: TAX_YEAR, dataset: DATASET"
+                            }
+                        },
+                        "inputs": [
+                            {
+                                "referenceName": "D_PROPERTY_GROUPS_IN",
+                                "type": "DatasetReference"
+                            }
+                        ],
+                        "outputs": [
+                            {
+                                "referenceName": "D_PROPERTY_GROUPS_OUT",
+                                "type": "DatasetReference"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Copy_B_PROPERTY_GROUPS_MAPPING",
+                        "type": "Copy",
+                        "policy": {
+                            "timeout": "7.00:00:00",
+                            "retry": 0,
+                            "retryIntervalInSeconds": 30,
+                            "secureOutput": false
+                        },
+                        "typeProperties": {
+                            "source": {
+                                "type": "AzureDataLakeStoreSource",
+                                "recursive": true
+                            },
+                            "sink": {
+                                "type": "SqlSink",
+                                "writeBatchSize": 10000
+                            },
+                            "enableStaging": false,
+                            "parallelCopies": {
+                                "value": "[variables('parallel-copies')]",
+                                "type": "Expression"
+                            },
+                            "cloudDataMovementUnits": 0,
+                            "translator": {
+                                "type": "TabularTranslator",
+                                "columnMappings": "account_id: ACCOUNT_ID, group_id: GROUP_ID"
+                            }
+                        },
+                        "inputs": [
+                            {
+                                "referenceName": "B_PROPERTY_GROUPS_MAPPING_IN",
+                                "type": "DatasetReference"
+                            }
+                        ],
+                        "outputs": [
+                            {
+                                "referenceName": "B_PROPERTY_GROUPS_MAPPING_OUT",
+                                "type": "DatasetReference"
+                            }
+                        ]
+                    }
+                ],
+                "parameters": {                   
+                }
+            }
+        }
+    ]
+}        

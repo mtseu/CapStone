@@ -102,6 +102,13 @@ if [ -z "$1" ] || [ "$1" == "all" ] || ( [ "$1" == "deploy" ] && [ "$2" == "all"
     # deploy producer
     deploy "./produce/pipelines/produce-cap-stone.json"    "./cap-stone-adf2-params.json"
 
+    
+    # deploy publisher
+    deploy "./publish/connections/sql.json"                "./cap-stone-adf2-params.json"
+    deploy "./publish/datasets/in.json"                    "./cap-stone-adf2-params.json"
+    deploy "./publish/datasets/out.json"                   "./cap-stone-adf2-params.json"
+    deploy "./publish/pipelines/publish.json"              "./cap-stone-adf2-params.json"
+
     # deploy launcher pipeline
     deploy "./run-all.json"    "./cap-stone-adf2-params.json"
 fi

@@ -1,0 +1,45 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "factoryName": {
+            "type": "string",
+            "defaultValue": "CapStoneADF"
+        },
+        "publishSqlServer": {
+            "type": "string",
+            "defaultValue": "msqteamasqlserver.database.windows.net"
+        },
+        "publishDbName": {
+            "type": "string",
+            "defaultValue": "capstone"
+        },
+        "publishDbUser": {
+            "type": "string",
+            "defaultValue": "azt"
+        },
+        "publishDbPassword": {
+            "type": "securestring"
+        }
+    },
+    "variables": {
+        "db-conn" : "PublishedDBConnection"
+    },
+    "resources": [
+        {
+            "name": "[concat(parameters('factoryName'), '/', variables('db-conn'))]",
+            "type": "Microsoft.DataFactory/factories/linkedServices",
+            "apiVersion": "2017-09-01-preview",
+            "properties": {
+                "mode": "Incremental",
+                "type": "AzureSqlDatabase",
+                "typeProperties": {
+                    "connectionString": {
+                        "type": "SecureString",
+                        "value": "[concat('Data Source=', parameters('publishSqlServer'), ';Initial Catalog=', parameters('publishDbName'),';Integrated Security=False;User ID=', parameters('publishDbUser'),';Password=', parameters('publishDbPassword'),';')]"
+                    }
+                }
+            }
+        }
+    ]
+}

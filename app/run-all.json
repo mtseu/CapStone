@@ -223,6 +223,25 @@
                                   ]
                               }
                          ]
+                    },
+                    {
+                        "type": "ExecutePipeline",
+                        "name": "Run-Publish",
+                        "typeProperties": {
+                          "pipeline": {
+                            "referenceName": "publish-data",
+                            "type": "PipelineReference"
+                          },                          
+                          "waitOnCompletion": true
+                        },
+                        "dependsOn": [
+                              {
+                                  "activity": "Run-Produce",
+                                  "dependencyConditions": [
+                                      "Succeeded"
+                                  ]
+                              }
+                         ]
                     }
                 ],
                 "parameters": {
