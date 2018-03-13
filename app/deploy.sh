@@ -101,6 +101,9 @@ if [ -z "$1" ] || [ "$1" == "all" ] || ( [ "$1" == "deploy" ] && [ "$2" == "all"
 
     # deploy producer
     deploy "./produce/pipelines/produce-cap-stone.json"    "./cap-stone-adf2-params.json"
+
+    # deploy launcher pipeline
+    deploy "./run-all.json"    "./cap-stone-adf2-params.json"
 fi
 
 if [ "$1" == "scripts" ] || [ "$1" == "all" ] || [ -z "$1" ]; then

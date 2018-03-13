@@ -78,7 +78,7 @@
                                                 "FolderRoot": "[variables('raw-data-dir')]",
                                                 "SOR": "tcad",
                                                 "Env": "[parameters('envName')]",
-                                                "Snapshot" : "@utcnow('yyyy-MM-dd')"
+                                                "Snapshot" : "@pipeline().parameters.SnapshotDir"
                                             }
                                         }
                                     ]
@@ -91,6 +91,14 @@
                     "FileList": {
                         "type": "String",
                         "defaultValue": "[ createArray('ABS_SUBD', 'AGENT', 'APPR_HDR', 'ARB', 'ARBITRATION', 'COUNTRY', 'ENTITY', 'IMP_ATR', 'IMP_DET', 'IMP_INFO', 'LAND_DET', 'LAWSUIT', 'MOBILE_HOME_INFO', 'PROP', 'PROP_ENT', 'STATE_CD', 'TOTALS', 'UDI')]"
+                    },
+                    "SnapshotYear": {
+                        "type": "String",
+                        "defaultValue": "2017"
+                    },
+                    "SnapshotDir": {
+                        "type": "String",
+                        "defaultValue": "YYYY-MM-DD"
                     }
                 }
             }

@@ -1,0 +1,281 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "factoryName": {
+            "type": "string",
+            "defaultValue": "CapStoneADF"
+        },
+        "adlsAccountName": {
+            "type": "string",
+            "defaultValue": "edapadls"
+        },
+        "principalId": {
+            "type": "string"
+        },
+        "principalKey": {
+            "type": "securestring"
+        },
+        "teamResourceGroupName" : {
+            "type": "string",
+            "defaultValue": "msq-hdinsight-team-a"
+        },
+        "sharedResourceGroupName" : {
+            "type": "string",
+            "defaultValue": "azure-training-shared"
+        },
+        "prepDir": {
+            "type": "string",
+            "defaultValue": "/data/prep"
+        },
+        "stgDir": {
+            "type": "string",
+            "defaultValue": "/data/stage"
+        },
+        "envName" : {
+            "type": "string"
+        },
+        "hdiStandaloneUser": {
+            "type": "string",
+            "defaultValue": "admin"
+        },
+        "hdiStandalonePassword": {
+            "type": "securestring"
+        },
+        "hcadSqlServer": {
+            "type": "string",
+            "defaultValue": "azt-sql.eastus.cloudapp.azure.com"
+        },
+        "hcadDbName": {
+            "type": "string",
+            "defaultValue": "hcadb"
+        },
+        "hcadDbUser": {
+            "type": "string",
+            "defaultValue": "aztuser"
+        },
+        "hcadDbPassword": {
+            "type": "securestring"
+        },
+        "hdiLinkedService": {
+            "type": "string",
+            "defaultValue": "HadoopConnection"
+        }
+    },
+    "variables": {
+        "factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]",
+        "hdi-conn-standalone": "HadoopConnection",
+        "hdi-conn-ondemand": "HDIConnection",
+        "hdi-conn": "[parameters('hdiLinkedService')]",
+        "hdi-blob": "HDIStorageConnection",
+        "adl-uri":"[concat( 'adl://', parameters('adlsAccountName'), '.azuredatalakestore.net') ]"
+    },
+    "resources": [
+        {
+            "name": "[concat(parameters('factoryName'), '/run-all-capstone')]",
+            "type": "Microsoft.DataFactory/factories/pipelines",
+            "apiVersion": "2017-09-01-preview",
+            "properties": {
+                "mode": "Incremental",
+                "activities": [
+                    {
+                        "type": "ExecutePipeline",
+                        "name": "Run-Fetch-HCAD",
+                        "typeProperties": {
+                          "pipeline": {
+                            "referenceName": "fetch-hcad-data",
+                            "type": "PipelineReference"
+                          },
+                          "parameters": {
+                            "SnapshotYear": {
+                              "value": "@pipeline().parameters.SnapshotYear",
+                              "type": "Expression"
+                            },
+                            "SnapshotDir": {
+                              "value": "@pipeline().parameters.SnapshotDir",
+                              "type": "Expression"
+                            }
+                          },
+                          "waitOnCompletion": true
+                        }
+                    },
+                    {
+                        "type": "ExecutePipeline",
+                        "name": "Run-Fetch-TCAD",
+                        "typeProperties": {
+                          "pipeline": {
+                            "referenceName": "fetch-tcad-data",
+                            "type": "PipelineReference"
+                          },
+                          "parameters": {
+                            "SnapshotYear": {
+                              "value": "@pipeline().parameters.SnapshotYear",
+                              "type": "Expression"
+                            },
+                            "SnapshotDir": {
+                              "value": "@pipeline().parameters.SnapshotDir",
+                              "type": "Expression"
+                            }
+                          },
+                          "waitOnCompletion": true
+                        }
+                    },
+                    {
+                        "type": "ExecutePipeline",
+                        "name": "Run-Select-HCAD",
+                        "typeProperties": {
+                          "pipeline": {
+                            "referenceName": "select-hcad-data",
+                            "type": "PipelineReference"
+                          },
+                          "parameters": {
+                            "Snapshot": {
+                              "value": "@pipeline().parameters.SnapshotDir",
+                              "type": "Expression"
+                            }
+                          },
+                          "waitOnCompletion": true
+                        },
+                        "dependsOn": [
+                              {
+                                  "activity": "Run-Fetch-HCAD",
+                                  "dependencyConditions": [
+                                      "Succeeded"
+                                  ]
+                              }
+                         ]
+                    },
+                    {
+                        "type": "ExecutePipeline",
+                        "name": "Run-Select-TCAD",
+                        "typeProperties": {
+                          "pipeline": {
+                            "referenceName": "select-tcad-data",
+                            "type": "PipelineReference"
+                          },
+                          "parameters": {
+                            "Snapshot": {
+                              "value": "@pipeline().parameters.SnapshotDir",
+                              "type": "Expression"
+                            }
+                          },
+                          "waitOnCompletion": true
+                        },
+                        "dependsOn": [
+                              {
+                                  "activity": "Run-Fetch-TCAD",
+                                  "dependencyConditions": [
+                                      "Succeeded"
+                                  ]
+                              }
+                         ]
+                    },
+                    {
+                        "type": "ExecutePipeline",
+                        "name": "Run-Select-Supplemental",
+                        "typeProperties": {
+                          "pipeline": {
+                            "referenceName": "select-supp-data",
+                            "type": "PipelineReference"
+                          },
+                          "parameters": {
+                            "Snapshot": {
+                              "value": "@pipeline().parameters.SnapshotDir",
+                              "type": "Expression"
+                            }
+                          },
+                          "waitOnCompletion": true
+                        }
+                    },
+                    {
+                        "type": "ExecutePipeline",
+                        "name": "Run-Produce",
+                        "typeProperties": {
+                          "pipeline": {
+                            "referenceName": "produce-data",
+                            "type": "PipelineReference"
+                          },
+                          "parameters": {
+                            "Snapshot": {
+                              "value": "@pipeline().parameters.SnapshotDir",
+                              "type": "Expression"
+                            }
+                          },
+                          "waitOnCompletion": true
+                        },
+                        "dependsOn": [
+                              {
+                                  "activity": "Run-Select-HCAD",
+                                  "dependencyConditions": [
+                                      "Succeeded"
+                                  ]
+                              },
+                              {
+                                  "activity": "Run-Select-TCAD",
+                                  "dependencyConditions": [
+                                      "Succeeded"
+                                  ]
+                              },
+                              {
+                                  "activity": "Run-Select-Supplemental",
+                                  "dependencyConditions": [
+                                      "Succeeded"
+                                  ]
+                              }
+                         ]
+                    }
+                ],
+                "parameters": {
+                    "SnapshotYear": {
+                        "type": "String",
+                        "defaultValue": "2017"
+                    },
+                    "SnapshotDir": {
+                        "type": "String",
+                        "defaultValue": "YYYY-MM-DD"
+                    }
+                }
+            }
+        },
+        {
+            "name": "[concat(parameters('factoryName'), '/MainLaunchCapStone')]",
+            "type": "Microsoft.DataFactory/factories/pipelines",
+            "apiVersion": "2017-09-01-preview",
+            "dependsOn": [
+                "run-all-capstone"
+            ],
+            "properties": {
+                "mode": "Incremental",
+                "activities": [
+                    {
+                        "type": "ExecutePipeline",
+                        "name": "launch-CapStone",
+                        "typeProperties": {
+                          "pipeline": {
+                            "referenceName": "run-all-capstone",
+                            "type": "PipelineReference"
+                          },
+                          "parameters": {
+                            "SnapshotYear": {
+                              "value": "@pipeline().parameters.SnapshotYear",
+                              "type": "Expression"
+                            },
+                            "SnapshotDir": {
+                              "value": "@utcnow('yyyy-MM-dd')",
+                              "type": "Expression"
+                            }
+                          },
+                          "waitOnCompletion": true
+                        }
+                    }
+                ],
+                "parameters": {
+                    "SnapshotYear": {
+                        "type": "String",
+                        "defaultValue": "2017"
+                    }
+                }
+            }
+        }
+    ]
+}        
