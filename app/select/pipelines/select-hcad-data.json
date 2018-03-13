@@ -56,13 +56,18 @@
         },
         "hcadDbPassword": {
             "type": "securestring"
+        },
+        "hdiLinkedService": {
+            "type": "string",
+            "defaultValue": "HadoopConnection"
         }
     },
     "variables": {
         "factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]",
         "adls-conn": "ADLSConnection",
         "hdi-conn-standalone": "HadoopConnection",
-        "hdi-conn": "[variables('hdi-conn-standalone')]",
+        "hdi-conn-ondemand": "HDIConnection",
+        "hdi-conn": "[parameters('hdiLinkedService')]",
         "hdi-blob": "HDIStorageConnection",
         "adl-uri":"[concat( 'adl://', parameters('adlsAccountName'), '.azuredatalakestore.net') ]",
         "hcad-ext-dataset": "HcadSrcTable",
@@ -77,55 +82,6 @@
             "properties": {
                 "mode": "Incremental",
                 "activities": [
-                    {
-                        "name": "CopySchema",
-                        "type": "Copy",
-                        "dependsOn": [],
-                        "policy": {
-                            "timeout": "7.00:00:00",
-                            "retry": 0,
-                            "retryIntervalInSeconds": 30
-                        },
-                        "typeProperties": {
-                            "source": {
-                                "type": "AzureDataLakeStoreSource"
-                            },
-                            "sink": {
-                                "type": "AzureDataLakeStoreSink",
-                                "recursive": false
-                            }
-                        },
-                        "inputs": [
-                            {
-                                "referenceName": "[variables('raw-avro-dataset')]",
-                                "type": "DatasetReference",
-                                "parameters": {
-                                    "FileName": "*",
-                                    "FileExt" : "avsc",
-                                    "FolderRoot": "[variables('raw-data-dir')]",
-                                    "SOR": "hcad",
-                                    "Env": "[parameters('envName')]",
-                                    "Snapshot" : "@{pipeline().parameters.Snapshot}",
-                                    "DataDir" : "@substring('dummy', 1, 0)"
-                                }
-                            }
-                        ],
-                        "outputs": [
-                            {
-                                "referenceName": "[variables('raw-avro-dataset')]",
-                                "type": "DatasetReference",
-                                "parameters": {
-                                    "FileName": "@substring('dummy', 1, 0)",
-                                    "FileExt" : "@substring('dummy', 1, 0)",
-                                    "FolderRoot": "[variables('raw-data-dir')]",
-                                    "SOR": "hcad",
-                                    "Env": "[parameters('envName')]",
-                                    "Snapshot" : "@{pipeline().parameters.Snapshot}",
-                                    "DataDir" : "@substring('dummy', 1, 0)"
-                                }
-                            }
-                        ]
-                    },
                     {
                         "name": "Select-All-HCAD",
                         "description": "description",

@@ -54,7 +54,7 @@ DROP TABLE IF EXISTS stg_hcad_jur_exempt;
 
 CREATE EXTERNAL TABLE raw_hcad_jur_exempt
 STORED AS AVRO
-LOCATION '${hiveconf:raw_dir}/jur_tax_jur_exempt'
+LOCATION '${hiveconf:raw_dir}/jur_exempt'
 TBLPROPERTIES ('avro.schema.url'='${hiveconf:raw_dir}/jur_exempt.avsc');
 
 CREATE TABLE stg_hcad_jur_exempt

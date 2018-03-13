@@ -48,6 +48,9 @@
         "stgDir": {
             "value": "/data/stage"
         },
+        "prepDir": {
+            "value": "/data/prep"
+        },
         "hdiStorageAccountName": {
             "value": "hdibloba"
         },
@@ -103,6 +106,9 @@
                 },
                 "secretName": "metastore-team-a-password"
             }
+        },
+        "hdiLinkedService": {
+            "value": "HadoopConnection"
         }
     }
 }
