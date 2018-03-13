@@ -244,7 +244,7 @@ EXEMPTS AS (
         ACCOUNT_ID
         , JURISDICTION_ID
         , EXEMPT_CODE
-        , EXEMPT_VALUE
+        , CAST(EXEMPT_VALUE AS DOUBLE)           AS EXEMPT_VALUE
         , '2017'                                 AS TAX_YEAR
         , 'Harris'                               AS DATASET
     FROM HARIS_EXEMPTS
@@ -253,7 +253,7 @@ EXEMPTS AS (
         ACCOUNT_ID
         , JURISDICTION_ID
         , EXEMPT_CODE
-        , EXEMPT_VALUE
+        , CAST(EXEMPT_VALUE AS DOUBLE)           AS EXEMPT_VALUE
         , '2017'                                 AS TAX_YEAR
         , 'Travis'                               AS DATASET
     FROM TRAVIS_EXEMPTS
@@ -322,9 +322,9 @@ TRAVIS_TAXES AS (
 SELECT
     ACCOUNT_ID
     , JURISDICTION_ID
-    , APPRAISED_VALUE
-    , TAXABLE_VALUE
-    , TAXES
+    , CAST(APPRAISED_VALUE AS DOUBLE)           AS APPRAISED_VALUE
+    , CAST(TAXABLE_VALUE AS DOUBLE)             AS TAXABLE_VALUE
+    , CAST(TAXES AS DOUBLE)                     AS TAXES    
     , '2017'    AS TAX_YEAR
     , 'Harris'   AS DATASET
 FROM HARIS_TAXES 
@@ -332,9 +332,9 @@ UNION ALL
 SELECT
     ACCOUNT_ID
     , JURISDICTION_ID
-    , APPRAISED_VALUE
-    , TAXABLE_VALUE
-    , TAXES
+    , CAST(APPRAISED_VALUE AS DOUBLE)           AS APPRAISED_VALUE
+    , CAST(TAXABLE_VALUE AS DOUBLE)             AS TAXABLE_VALUE
+    , CAST(TAXES AS DOUBLE)                     AS TAXES    
     , '2017'    AS TAX_YEAR
     , 'Travis'  AS DATASET
 FROM TRAVIS_TAXES
@@ -404,13 +404,13 @@ SELECT
     , a.SITE_ADDR_3                                                                     AS ZIP
     , a.SITE_ADDR_1                                                                     AS ADDRESS
     , a.YR_IMPR                                                                         AS YEAR_BUILT
-    , CAST(a.TOTAL_LAND_AREA AS DECIMAL)                                                AS TOTAL_LAND_AREA
-    , CAST(a.TOTAL_BUILDING_AREA AS DECIMAL)                                            AS TOTAL_BUILDING_AREA
-    , CAST(a.LAND_VALUE AS DECIMAL)                                                     AS LAND_VALUE
-    , CAST(a.IMPROVEMENT_VALUE AS DECIMAL)                                              AS IMPROVEMENT_VALUE
-    , CAST(a.EXTRA_FEATURES_VALUE AS DECIMAL)                                           AS EXTRA_FEATURES_VALUE
-    , CAST(a.ASSESSED_VALUE AS DECIMAL)                                                 AS ASSESSED_VALUE
-    , CAST(a.TOTAL_APPRAISED_VALUE AS DECIMAL)                                          AS APPRAISED_VALUE
+    , CAST(a.TOTAL_LAND_AREA AS DOUBLE)                                                 AS TOTAL_LAND_AREA
+    , CAST(a.TOTAL_BUILDING_AREA AS DOUBLE)                                             AS TOTAL_BUILDING_AREA
+    , CAST(a.LAND_VALUE AS DOUBLE)                                                      AS LAND_VALUE
+    , CAST(a.IMPROVEMENT_VALUE AS DOUBLE)                                               AS IMPROVEMENT_VALUE
+    , CAST(a.EXTRA_FEATURES_VALUE AS DOUBLE)                                            AS EXTRA_FEATURES_VALUE
+    , CAST(a.ASSESSED_VALUE AS DOUBLE)                                                  AS ASSESSED_VALUE
+    , CAST(a.TOTAL_APPRAISED_VALUE AS DOUBLE)                                           AS APPRAISED_VALUE
     , '2017'                                                                            AS TAX_YEAR
     , 'Harris'                                                                          AS DATASET
     , t.TOTAL_TAXES                                                                     AS TOTAL_TAXES
@@ -440,13 +440,13 @@ SELECT
     , CONCAT_WS(' ', p.SITUS_NUM, p.SITUS_UNIT, p.SITUS_STREET_PREFX, 
         p.SITUS_STREET, p.SITUS_STREET_SUFFIX)                                          AS ADDRESS
     , NULL                                                                              AS YEAR_BUILT
-    , p.LAND_ACRES                                                                      AS TOTAL_LAND_AREA
-    , NULL                                                                              AS TOTAL_BUILDING_AREA
-    , p.LAND_HSTD_VAL + p.LAND_NON_HSTD_VAL                                             AS LAND_VALUE
-    , p.IMPRV_HSTD_VAL + p.IMPRV_NON_HSTD_VAL                                           AS IMPROVEMENT_VALUE
-    , NULL                                                                              AS EXTRA_FEATURES_VALUE
-    , p.ASSESSED_VAL                                                                    AS ASSESSED_VALUE
-    , p.APPRAISED_VAL                                                                   AS APPRAISED_VALUE
+    , CAST(p.LAND_ACRES AS DOUBLE)                                                      AS TOTAL_LAND_AREA
+    , CAST(NULL AS DOUBLE)                                                              AS TOTAL_BUILDING_AREA
+    , CAST(p.LAND_HSTD_VAL + p.LAND_NON_HSTD_VAL AS DOUBLE)                             AS LAND_VALUE
+    , CAST(p.IMPRV_HSTD_VAL + p.IMPRV_NON_HSTD_VAL AS DOUBLE)                           AS IMPROVEMENT_VALUE
+    , CAST(NULL AS DOUBLE)                                                              AS EXTRA_FEATURES_VALUE
+    , CAST(p.ASSESSED_VAL AS DOUBLE)                                                    AS ASSESSED_VALUE
+    , CAST(p.APPRAISED_VAL AS DOUBLE)                                                   AS APPRAISED_VALUE
     , CAST(p.PROP_VAL_YR AS STRING)                                                     AS TAX_YEAR
     , 'Travis'                                                                          AS DATASET
     , t.TOTAL_TAXES                                                                     AS TOTAL_TAXES
