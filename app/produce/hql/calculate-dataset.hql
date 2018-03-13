@@ -2,54 +2,57 @@
 --  CONCAT("00", SUBSTR(CONCAT('0000000000000000',
 --      TRIM(ID)
 --  ), -16)) AS SYNTEIC__ID
--- 11 - Haris Property
+-- 11 - Harris Property
 -- 21 - Travis Property
--- 12 - Haris Jurisdiction
+-- 12 - Harris Jurisdiction
 -- 22 - Travis Jurisdiction
--- 13 - Haris Owner
+-- 13 - Harris Owner
 -- 23 - Travis Owner
 
 -- Supplimental 
 -- DROP TABLE IF EXISTS D_TARVIS_JURISDICTION_DICT;
-CREATE EXTERNAL TABLE D_TARVIS_JURISDICTION_DICT (
-    id                        STRING
-    , code                    STRING
-    , jurisdiction_name       STRING
-    , tax_rate                STRING
-) 
-ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.OpenCSVSerde'
-STORED AS TEXTFILE
-LOCATION 'hdfs://nameservice1/data/Stage/lsia/supplemental/D_TARVIS_JURISDICTION'
-TBLPROPERTIES("separatorChar" = ",", "skip.header.line.count"="0")
-;
+-- CREATE EXTERNAL TABLE D_TARVIS_JURISDICTION_DICT (
+--     id                        STRING
+--     , code                    STRING
+--     , jurisdiction_name       STRING
+--     , tax_rate                STRING
+-- ) 
+-- ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.OpenCSVSerde'
+-- STORED AS TEXTFILE
+-- LOCATION 'hdfs://nameservice1/data/Stage/lsia/supplemental/D_TARVIS_JURISDICTION'
+-- TBLPROPERTIES("separatorChar" = ",", "skip.header.line.count"="0")
+-- ;
 
 -- DROP TABLE IF EXISTS D_EXEMPTION_DICT;
-CREATE EXTERNAL D_EXEMPTION_DICT (
-    exempt_code                STRING
-    , prop_ent_field           STRING
-    , exempt_description       STRING
-) 
-ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.OpenCSVSerde'
-STORED AS TEXTFILE
-LOCATION 'hdfs://nameservice1/data/Stage/lsia/supplemental/D_EXEMPTION'
-TBLPROPERTIES("separatorChar" = ",", "skip.header.line.count"="0")
-;
+-- CREATE EXTERNAL D_EXEMPTION_DICT (
+--     exempt_code                STRING
+--     , prop_ent_field           STRING
+--     , exempt_description       STRING
+-- ) 
+-- ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.OpenCSVSerde'
+-- STORED AS TEXTFILE
+-- LOCATION 'hdfs://nameservice1/data/Stage/lsia/supplemental/D_EXEMPTION'
+-- TBLPROPERTIES("separatorChar" = ",", "skip.header.line.count"="0")
+-- ;
 
 -- DROP TABLE IF EXISTS D_HARIS_NEIGHBORHOOD_DICT;
-CREATE EXTERNAL D_HARIS_NEIGHBORHOOD_DICT (
-    neighborhood STRING
-    , code STRING
-    , description STRING
-) 
-ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.OpenCSVSerde'
-STORED AS TEXTFILE
-LOCATION 'hdfs://nameservice1/data/Stage/lsia/supplemental/D_HARIS_NEIGHBORHOOD'
-TBLPROPERTIES("separatorChar" = "\t", "skip.header.line.count"="1")
-;
+-- CREATE EXTERNAL D_HARIS_NEIGHBORHOOD_DICT (
+--     neighborhood STRING
+--     , code STRING
+--     , description STRING
+-- ) 
+-- ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.OpenCSVSerde'
+-- STORED AS TEXTFILE
+-- LOCATION 'hdfs://nameservice1/data/Stage/lsia/supplemental/D_HARIS_NEIGHBORHOOD'
+-- TBLPROPERTIES("separatorChar" = "\t", "skip.header.line.count"="1")
+-- ;
 
 
 DROP TABLE IF EXISTS D_JURISDICTION;
-CREATE TABLE D_JURISDICTION AS 
+CREATE TABLE D_JURISDICTION
+STORED AS AVRO
+LOCATION '${hiveconf:prp_dir}/D_JURISDICTION'
+AS
 SELECT 
     CONCAT("12", SUBSTR(CONCAT('0000000000000000', 
         ROW_NUMBER() OVER (ORDER BY TAX_DIST)
@@ -59,8 +62,8 @@ SELECT
     , CAST(CURRENT_YR_RATE AS DOUBLE)           AS TAX_RATE
     -- , SNAPSHOT_YEAR AS TAX_YEAR
     , '2017'                                    AS TAX_YEAR
-    , 'Haris'                                   AS DATASET
-FROM hcad_jur_tax_dist_percent_rate
+    , 'Harris'                                  AS DATASET
+FROM stg_hcad_jur_tax_dist_percent_rate
 UNION ALL 
 SELECT 
     CONCAT("22", SUBSTR(CONCAT('0000000000000000', 
@@ -75,7 +78,10 @@ FROM D_TARVIS_JURISDICTION_DICT
 ;
 
 DROP TABLE IF EXISTS D_JURISDICTION_EXEMPT;
-CREATE TABLE D_JURISDICTION_EXEMPT AS
+CREATE TABLE D_JURISDICTION_EXEMPT 
+STORED AS AVRO
+LOCATION '${hiveconf:prp_dir}/D_JURISDICTION_EXEMPT'
+AS
 WITH 
 HARIS_EXEMPTS AS (
     SELECT
@@ -84,10 +90,10 @@ HARIS_EXEMPTS AS (
         ), -16))                                   AS ACCOUNT_ID
         , j.JURISDICTION_ID                        AS JURISDICTION_ID
         , e.EXEMPT_CAT                             AS EXEMPT_CODE
-        , e.EXEMPT_VAL                             AS EXEMPT_VALUE
-    FROM HCAD_JUR_EXEMPT e
+        , CAST(e.EXEMPT_VAL AS DECIMAL)            AS EXEMPT_VALUE
+    FROM stg_HCAD_JUR_EXEMPT e
     LEFT JOIN D_JURISDICTION j
-        ON e.TAX_DISTRICT = j.JURISDICTION_CODE AND j.DATASET = 'Haris'
+        ON e.TAX_DISTRICT = j.JURISDICTION_CODE AND j.DATASET = 'Harris'
 ),
 
 TRAVIS_EXEMPTS_TRANSPOSED AS (
@@ -96,7 +102,7 @@ TRAVIS_EXEMPTS_TRANSPOSED AS (
         , ENTITY_ID                              AS JURISDICTION_ID
         ,'ABT'                                   AS EXEMPT_CODE
         , AB_AMT                                 AS EXEMPT_VALUE
-    FROM TCAD_PROP_ENT
+    FROM stg_TCAD_PROP_ENT
         WHERE AB_AMT IS NOT NULL AND CAST(AB_AMT AS INT) <> 0
     UNION ALL
     SELECT 
@@ -104,7 +110,7 @@ TRAVIS_EXEMPTS_TRANSPOSED AS (
         , ENTITY_ID                              AS JURISDICTION_ID
         ,'DIS'                                   AS EXEMPT_CODE
         , DP_AMT                                 AS EXEMPT_VALUE
-    FROM TCAD_PROP_ENT
+    FROM stg_TCAD_PROP_ENT
         WHERE DP_AMT IS NOT NULL AND CAST(DP_AMT AS INT) <> 0
     UNION ALL
     SELECT 
@@ -112,7 +118,7 @@ TRAVIS_EXEMPTS_TRANSPOSED AS (
         , ENTITY_ID                              AS JURISDICTION_ID
         ,'HIS'                                   AS EXEMPT_CODE
         , HT_AMT                                 AS EXEMPT_VALUE
-    FROM TCAD_PROP_ENT
+    FROM stg_TCAD_PROP_ENT
         WHERE HT_AMT IS NOT NULL AND CAST(HT_AMT AS INT) <> 0
     UNION ALL
     SELECT 
@@ -120,7 +126,7 @@ TRAVIS_EXEMPTS_TRANSPOSED AS (
         , ENTITY_ID                              AS JURISDICTION_ID
         ,'LIH'                                   AS EXEMPT_CODE
         , PRO_AMT                                AS EXEMPT_VALUE
-    FROM TCAD_PROP_ENT
+    FROM stg_TCAD_PROP_ENT
         WHERE PRO_AMT IS NOT NULL AND CAST(PRO_AMT AS INT) <> 0
     UNION ALL
     SELECT 
@@ -128,7 +134,7 @@ TRAVIS_EXEMPTS_TRANSPOSED AS (
         , ENTITY_ID                              AS JURISDICTION_ID
         ,'OVR'                                   AS EXEMPT_CODE
         , PRO_AMT                                AS EXEMPT_VALUE
-    FROM TCAD_PROP_ENT
+    FROM stg_TCAD_PROP_ENT
         WHERE PRO_AMT IS NOT NULL AND CAST(PRO_AMT AS INT) <> 0
     UNION ALL
     SELECT 
@@ -136,7 +142,7 @@ TRAVIS_EXEMPTS_TRANSPOSED AS (
         , ENTITY_ID                              AS JURISDICTION_ID
         ,'LIH'                                   AS EXEMPT_CODE
         , OV65_AMT                               AS EXEMPT_VALUE
-    FROM TCAD_PROP_ENT
+    FROM stg_TCAD_PROP_ENT
         WHERE OV65_AMT IS NOT NULL AND CAST(OV65_AMT AS INT) <> 0
     UNION ALL
     SELECT 
@@ -144,7 +150,7 @@ TRAVIS_EXEMPTS_TRANSPOSED AS (
         , ENTITY_ID                              AS JURISDICTION_ID
         ,'POL'                                   AS EXEMPT_CODE
         , PC_AMT                                 AS EXEMPT_VALUE
-    FROM TCAD_PROP_ENT
+    FROM stg_TCAD_PROP_ENT
         WHERE PC_AMT IS NOT NULL AND CAST(PC_AMT AS INT) <> 0
     UNION ALL
     SELECT 
@@ -152,7 +158,7 @@ TRAVIS_EXEMPTS_TRANSPOSED AS (
         , ENTITY_ID                              AS JURISDICTION_ID
         ,'RES'                                   AS EXEMPT_CODE
         , HS_AMT                                 AS EXEMPT_VALUE
-    FROM TCAD_PROP_ENT
+    FROM stg_TCAD_PROP_ENT
         WHERE HS_AMT IS NOT NULL AND CAST(HS_AMT AS INT) <> 0
     UNION ALL
     SELECT 
@@ -160,7 +166,7 @@ TRAVIS_EXEMPTS_TRANSPOSED AS (
         , ENTITY_ID                              AS JURISDICTION_ID
         ,'SOL'                                   AS EXEMPT_CODE
         , SO_AMT                                 AS EXEMPT_VALUE
-    FROM TCAD_PROP_ENT
+    FROM stg_TCAD_PROP_ENT
         WHERE SO_AMT IS NOT NULL AND CAST(SO_AMT AS INT) <> 0
     UNION ALL
     SELECT 
@@ -168,7 +174,7 @@ TRAVIS_EXEMPTS_TRANSPOSED AS (
         , ENTITY_ID                              AS JURISDICTION_ID
         ,'VTX'                                   AS EXEMPT_CODE
         , DV_AMT                                 AS EXEMPT_VALUE
-    FROM TCAD_PROP_ENT
+    FROM stg_TCAD_PROP_ENT
         WHERE DV_AMT IS NOT NULL AND CAST(DV_AMT AS INT) <> 0 
     UNION ALL
     SELECT 
@@ -176,7 +182,7 @@ TRAVIS_EXEMPTS_TRANSPOSED AS (
         , ENTITY_ID                              AS JURISDICTION_ID
         ,'RES'                                   AS EXEMPT_CODE
         , HS_AMT                                 AS EXEMPT_VALUE
-    FROM TCAD_PROP_ENT
+    FROM stg_TCAD_PROP_ENT
         WHERE HS_AMT IS NOT NULL AND CAST(HS_AMT AS INT) <> 0 
     UNION ALL
     SELECT 
@@ -184,7 +190,7 @@ TRAVIS_EXEMPTS_TRANSPOSED AS (
         , ENTITY_ID                              AS JURISDICTION_ID
         ,'EN'                                    AS EXEMPT_CODE
         , EN_AMT                                 AS EXEMPT_VALUE
-    FROM TCAD_PROP_ENT
+    FROM stg_TCAD_PROP_ENT
         WHERE EN_AMT IS NOT NULL AND CAST(EN_AMT AS INT) <> 0 
     UNION ALL
     SELECT 
@@ -192,7 +198,7 @@ TRAVIS_EXEMPTS_TRANSPOSED AS (
         , ENTITY_ID                              AS JURISDICTION_ID
         ,'FR'                                    AS EXEMPT_CODE
         , FR_AMT                                 AS EXEMPT_VALUE
-    FROM TCAD_PROP_ENT
+    FROM stg_TCAD_PROP_ENT
         WHERE FR_AMT IS NOT NULL AND CAST(FR_AMT AS INT) <> 0 
         UNION ALL
     SELECT 
@@ -200,7 +206,7 @@ TRAVIS_EXEMPTS_TRANSPOSED AS (
         , ENTITY_ID                              AS JURISDICTION_ID
         ,'EX366'                                 AS EXEMPT_CODE
         , EX366_AMT                              AS EXEMPT_VALUE
-    FROM TCAD_PROP_ENT
+    FROM stg_TCAD_PROP_ENT
         WHERE EX366_AMT IS NOT NULL AND CAST(EX366_AMT AS INT) <> 0 
         UNION ALL
     SELECT 
@@ -208,7 +214,7 @@ TRAVIS_EXEMPTS_TRANSPOSED AS (
         , ENTITY_ID                              AS JURISDICTION_ID
         ,'LVE'                                   AS EXEMPT_CODE
         , LVE_AMT                                AS EXEMPT_VALUE
-    FROM TCAD_PROP_ENT
+    FROM stg_TCAD_PROP_ENT
         WHERE LVE_AMT IS NOT NULL AND CAST(LVE_AMT AS INT) <> 0
         UNION ALL
     SELECT 
@@ -216,7 +222,7 @@ TRAVIS_EXEMPTS_TRANSPOSED AS (
         , ENTITY_ID                              AS JURISDICTION_ID
         ,'ECO'                                   AS EXEMPT_CODE
         , LVE_AMT                                AS EXEMPT_VALUE
-    FROM TCAD_PROP_ENT
+    FROM stg_TCAD_PROP_ENT
         WHERE ECO_AMT IS NOT NULL AND CAST(ECO_AMT AS INT) <> 0
 ),
 
@@ -240,7 +246,7 @@ EXEMPTS AS (
         , EXEMPT_CODE
         , EXEMPT_VALUE
         , '2017'                                 AS TAX_YEAR
-        , 'Haris'                                AS DATASET
+        , 'Harris'                               AS DATASET
     FROM HARIS_EXEMPTS
     UNION ALL
     SELECT 
@@ -269,6 +275,8 @@ WHERE e.EXEMPT_VALUE IS NOT NULL
 
 DROP TABLE IF EXISTS D_JURISDICTION_TAX_VALUES;
 CREATE TABLE D_JURISDICTION_TAX_VALUES
+STORED AS AVRO
+LOCATION '${hiveconf:prp_dir}/D_JURISDICTION_TAX_VALUES'
 AS
 WITH 
 HARIS_TAXES AS (
@@ -277,13 +285,13 @@ HARIS_TAXES AS (
             TRIM(v.ACCOUNT)
         ), -16))                                                                                    AS ACCOUNT_ID
         , j.JURISDICTION_ID                                                                         AS JURISDICTION_ID
-        , v.APPRAISED_VALUE                                                                         AS APPRAISED_VALUE
-        , v.APPRAISED_VALUE - IF(e.EXEMPT_VALUE IS NOT NULL, e.EXEMPT_VALUE, 0)                     AS TAXABLE_VALUE
-        , (v.APPRAISED_VALUE - IF(e.EXEMPT_VALUE IS NOT NULL, e.EXEMPT_VALUE, 0)) 
+        , CAST(v.APPRAISED_VALUE AS DECIMAL)                                                        AS APPRAISED_VALUE
+        , CAST(v.APPRAISED_VALUE AS DECIMAL)  - IF(e.EXEMPT_VALUE IS NOT NULL, e.EXEMPT_VALUE, 0)   AS TAXABLE_VALUE
+        , (CAST(v.APPRAISED_VALUE AS DECIMAL) - IF(e.EXEMPT_VALUE IS NOT NULL, e.EXEMPT_VALUE, 0)) 
             * IF(j.TAX_RATE IS NOT NULL, j.TAX_RATE, 0) / 100                                       AS TAXES
-    FROM HCAD_JUR_VALUE v
+    FROM stg_HCAD_JUR_VALUE v
     LEFT JOIN D_JURISDICTION j
-        ON v.TAX_DISTRICT = j.JURISDICTION_CODE AND j.DATASET = 'Haris'
+        ON v.TAX_DISTRICT = j.JURISDICTION_CODE AND j.DATASET = 'Harris'
     LEFT JOIN D_JURISDICTION_EXEMPT e
         ON CONCAT("11", SUBSTR(CONCAT('0000000000000000',
             TRIM(v.ACCOUNT)
@@ -303,7 +311,7 @@ TRAVIS_TAXES AS (
         , e.TAXABLE_VAL                                                                             AS TAXABLE_VALUE
         , IF(e.TAXABLE_VAL IS NOT NULL, e.TAXABLE_VAL, 0)
             * IF(j.TAX_RATE IS NOT NULL, j.TAX_RATE, 0) / 100                                       AS TAXES
-    FROM TCAD_PROP_ENT e
+    FROM stg_TCAD_PROP_ENT e
     LEFT JOIN D_JURISDICTION j
         -- Should you do code here? 
         ON CONCAT("22", SUBSTR(CONCAT('0000000000000000',
@@ -318,7 +326,7 @@ SELECT
     , TAXABLE_VALUE
     , TAXES
     , '2017'    AS TAX_YEAR
-    , 'Haris'   AS DATASET
+    , 'Harris'   AS DATASET
 FROM HARIS_TAXES 
 UNION ALL
 SELECT
@@ -334,6 +342,8 @@ FROM TRAVIS_TAXES
 
 DROP TABLE IF EXISTS D_OWNER;
 CREATE TABLE D_OWNER 
+STORED AS AVRO
+LOCATION '${hiveconf:prp_dir}/D_OWNER'
 AS 
 SELECT
     CONCAT("13", SUBSTR(CONCAT('0000000000000000', 
@@ -346,8 +356,8 @@ SELECT
     , MAIL_ZIP                                              AS ZIP
     , CONCAT_WS(' ', MAIL_ADDR_1, MAIL_ADDR_2)              AS ADDRESS
     , '2017'                                                AS TAX_YEAR
-    , 'Haris'                                               AS DATASET
-FROM HCAD_REAL_ACCT
+    , 'Harris'                                              AS DATASET
+FROM stg_HCAD_REAL_ACCT
 GROUP BY
     MAILTO
     , MAIL_COUNTRY
@@ -368,11 +378,13 @@ SELECT DISTINCT
     , CONCAT_WS(' ', PY_ADDR_LINE1, PY_ADDR_LINE2, PY_ADDR_LINE3)   AS ADDRESS
     , '2017'                                                        AS TAX_YEAR
     , 'Travis'                                                      AS DATASET
-FROM TCAD_PROP
+FROM stg_TCAD_PROP
 ;
 
 DROP TABLE IF EXISTS D_PROPERTY;
 CREATE TABLE D_PROPERTY 
+STORED AS AVRO
+LOCATION '${hiveconf:prp_dir}/D_PROPERTY'
 AS
 WITH TAXES AS (
     SELECT 
@@ -392,17 +404,17 @@ SELECT
     , a.SITE_ADDR_3                                                                     AS ZIP
     , a.SITE_ADDR_1                                                                     AS ADDRESS
     , a.YR_IMPR                                                                         AS YEAR_BUILT
-    , a.TOTAL_LAND_AREA                                                                 AS TOTAL_LAND_AREA
-    , a.TOTAL_BUILDING_AREA                                                             AS TOTAL_BUILDING_AREA
-    , a.LAND_VALUE                                                                      AS LAND_VALUE
-    , a.IMPROVEMENT_VALUE                                                               AS IMPROVEMENT_VALUE
-    , a.EXTRA_FEATURES_VALUE                                                            AS EXTRA_FEATURES_VALUE
-    , a.ASSESSED_VALUE                                                                  AS ASSESSED_VALUE
-    , a.TOTAL_APPRAISED_VALUE                                                           AS APPRAISED_VALUE
+    , CAST(a.TOTAL_LAND_AREA AS DECIMAL)                                                AS TOTAL_LAND_AREA
+    , CAST(a.TOTAL_BUILDING_AREA AS DECIMAL)                                            AS TOTAL_BUILDING_AREA
+    , CAST(a.LAND_VALUE AS DECIMAL)                                                     AS LAND_VALUE
+    , CAST(a.IMPROVEMENT_VALUE AS DECIMAL)                                              AS IMPROVEMENT_VALUE
+    , CAST(a.EXTRA_FEATURES_VALUE AS DECIMAL)                                           AS EXTRA_FEATURES_VALUE
+    , CAST(a.ASSESSED_VALUE AS DECIMAL)                                                 AS ASSESSED_VALUE
+    , CAST(a.TOTAL_APPRAISED_VALUE AS DECIMAL)                                          AS APPRAISED_VALUE
     , '2017'                                                                            AS TAX_YEAR
-    , 'Haris'                                                                           AS DATASET
+    , 'Harris'                                                                          AS DATASET
     , t.TOTAL_TAXES                                                                     AS TOTAL_TAXES
-FROM HCAD_REAL_ACCT a
+FROM stg_HCAD_REAL_ACCT a
 LEFT JOIN D_OWNER o
     ON a.MAILTO = o.NAME
     AND a.MAIL_COUNTRY = o.COUNTRY
@@ -435,14 +447,15 @@ SELECT
     , NULL                                                                              AS EXTRA_FEATURES_VALUE
     , p.ASSESSED_VAL                                                                    AS ASSESSED_VALUE
     , p.APPRAISED_VAL                                                                   AS APPRAISED_VALUE
-    , p.PROP_VAL_YR                                                                     AS TAX_YEAR
+    , CAST(p.PROP_VAL_YR AS STRING)                                                     AS TAX_YEAR
     , 'Travis'                                                                          AS DATASET
     , t.TOTAL_TAXES                                                                     AS TOTAL_TAXES
-FROM TCAD_PROP p
+FROM stg_TCAD_PROP p
 LEFT JOIN TAXES t
     ON CONCAT("21", SUBSTR(CONCAT('0000000000000000', 
         CAST(p.PROP_ID AS STRING)
-    ), -16)) = t.ACCOUNT_ID;
+    ), -16)) = t.ACCOUNT_ID
+;
 
 -- X4 - Zip
 -- X5 - Street
@@ -450,6 +463,8 @@ LEFT JOIN TAXES t
 -- X7 - School 
 DROP TABLE IF EXISTS D_PROPERTY_GROUPS;
 CREATE TABLE D_PROPERTY_GROUPS
+STORED AS AVRO
+LOCATION '${hiveconf:prp_dir}/D_PROPERTY_GROUPS'
 AS 
 -- Zip
 SELECT
@@ -459,8 +474,8 @@ SELECT
     , SITE_ADDR_3                                           AS GROUP_NAME
     , 'By ZIP'                                              AS GROUP_TYPE
     , '2017'                                                AS TAX_YEAR
-    , 'Haris'                                               AS DATASET
-FROM HCAD_REAL_ACCT
+    , 'Harris'                                              AS DATASET
+FROM stg_HCAD_REAL_ACCT
 GROUP BY
     SITE_ADDR_3
 UNION ALL
@@ -472,7 +487,7 @@ SELECT
     , 'By ZIP'                                              AS GROUP_TYPE
     , '2017'                                                AS TAX_YEAR
     , 'Travis'                                              AS DATASET
-FROM TCAD_PROP
+FROM stg_TCAD_PROP
 GROUP BY
     SITUS_ZIP
 -- Street
@@ -484,8 +499,8 @@ SELECT
     , STR_NAME                                              AS GROUP_NAME
     , 'By Street'                                           AS GROUP_TYPE
     , '2017'                                                AS TAX_YEAR
-    , 'Haris'                                               AS DATASET
-FROM HCAD_REAL_ACCT
+    , 'Harris'                                              AS DATASET
+FROM stg_HCAD_REAL_ACCT
 GROUP BY
     STR_NAME
 UNION ALL
@@ -497,7 +512,7 @@ SELECT
     , 'By Street'                                          AS GROUP_TYPE
     , '2017'                                               AS TAX_YEAR
     , 'Travis'                                             AS DATASET
-FROM TCAD_PROP
+FROM stg_TCAD_PROP
 GROUP BY
     SITUS_STREET
 -- Neighborhood
@@ -509,7 +524,7 @@ SELECT
     , TRIM(CONCAT_WS(' ', collect_list(DESCRIPTION)))       AS GROUP_NAME
     , 'By Neighborhood'                                     AS GROUP_TYPE
     , '2017'                                                AS TAX_YEAR
-    , 'Haris'                                               AS DATASET
+    , 'Harris'                                              AS DATASET
 FROM D_HARIS_NEIGHBORHOOD_DICT
 GROUP BY NEIGHBORHOOD, CODE
 UNION ALL
@@ -521,7 +536,7 @@ SELECT
     , 'By Neighborhood'                                    AS GROUP_TYPE
     , '2017'                                               AS TAX_YEAR
     , 'Travis'                                             AS DATASET
-FROM TCAD_PROP
+FROM stg_TCAD_PROP
 GROUP BY
     HOOD_CD
 -- School
@@ -533,14 +548,16 @@ SELECT
     , SCHOOL_DIST                                          AS GROUP_NAME
     , 'By School'                                          AS GROUP_TYPE
     , '2017'                                               AS TAX_YEAR
-    , 'Haris'                                              AS DATASET
-FROM HCAD_REAL_ACCT
+    , 'Harris'                                             AS DATASET
+FROM stg_HCAD_REAL_ACCT
 GROUP BY
     SCHOOL_DIST
 ;
 
 DROP TABLE IF EXISTS B_PROPERTY_GROUPS_MAPPING;
 CREATE TABLE B_PROPERTY_GROUPS_MAPPING
+STORED AS AVRO
+LOCATION '${hiveconf:prp_dir}/B_PROPERTY_GROUPS_MAPPING'
 AS 
 SELECT 
     p.ACCOUNT_ID
@@ -554,16 +571,16 @@ SELECT
             TRIM(a.ACCOUNT)
         ), -16))                                                                        AS ACCOUNT_ID
     , g.GROUP_ID
-FROM HCAD_REAL_ACCT a
+FROM stg_HCAD_REAL_ACCT a
 JOIN D_PROPERTY_GROUPS g
-    ON a.STR_NAME = g.GROUP_NAME AND g.GROUP_TYPE = 'By Street' AND g.DATASET = 'Haris'
+    ON a.STR_NAME = g.GROUP_NAME AND g.GROUP_TYPE = 'By Street' AND g.DATASET = 'Harris'
 UNION ALL
 SELECT 
     CONCAT("21", SUBSTR(CONCAT('0000000000000000', 
         CAST(p.PROP_ID AS STRING)
     ), -16))                                                                            AS ACCOUNT_ID
     , g.GROUP_ID
-FROM TCAD_PROP p
+FROM stg_TCAD_PROP p
 JOIN D_PROPERTY_GROUPS g
     ON p.SITUS_STREET = g.GROUP_NAME AND g.GROUP_TYPE = 'By Street' AND g.DATASET = 'Travis'
 UNION ALL
@@ -574,7 +591,7 @@ SELECT
     , CONCAT("16", SUBSTR(CONCAT('0000000000000000', 
         CAST(ROW_NUMBER() OVER(ORDER BY NEIGHBORHOOD, CODE) AS STRING)
     ), -16))                                                                            AS GROUP_ID
-FROM HCAD_REAL_ACCT a
+FROM stg_HCAD_REAL_ACCT a
 JOIN D_HARIS_NEIGHBORHOOD_DICT g
     ON a.NEIGHBORHOOD_CODE = g.NEIGHBORHOOD AND a.NEIGHBORHOOD_GROUP = g.CODE
 UNION ALL
@@ -583,7 +600,7 @@ SELECT
         CAST(p.PROP_ID AS STRING)
     ), -16))                                                                           AS ACCOUNT_ID
     , g.GROUP_ID
-FROM TCAD_PROP p
+FROM stg_TCAD_PROP p
 JOIN D_PROPERTY_GROUPS g
     ON p.HOOD_CD = g.GROUP_NAME AND g.GROUP_TYPE = 'By Neighborhood' AND g.DATASET = 'Travis'
 UNION ALL
@@ -592,7 +609,7 @@ SELECT
             TRIM(a.ACCOUNT)
         ), -16))                                                                       AS ACCOUNT_ID
     , g.GROUP_ID
-FROM HCAD_REAL_ACCT a
+FROM stg_HCAD_REAL_ACCT a
 JOIN D_PROPERTY_GROUPS g
-    ON a.SCHOOL_DIST = g.GROUP_NAME AND g.GROUP_TYPE = 'By School' AND g.DATASET = 'Haris'
+    ON a.SCHOOL_DIST = g.GROUP_NAME AND g.GROUP_TYPE = 'By School' AND g.DATASET = 'Harris'
 ;

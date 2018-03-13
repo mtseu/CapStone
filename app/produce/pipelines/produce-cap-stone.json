@@ -24,9 +24,9 @@
             "type": "string",
             "defaultValue": "azure-training-shared"
         },
-        "rawDir": {
+        "prepDir": {
             "type": "string",
-            "defaultValue": "/data/raw"
+            "defaultValue": "/data/prep"
         },
         "stgDir": {
             "type": "string",
@@ -64,22 +64,22 @@
     },
     "variables": {
         "factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]",
-        "adls-conn": "ADLSConnection",
         "hdi-conn-standalone": "HadoopConnection",
+        "hdi-conn-ondemand": "HDIConnection",
         "hdi-conn": "[parameters('hdiLinkedService')]",
         "hdi-blob": "HDIStorageConnection",
         "adl-uri":"[concat( 'adl://', parameters('adlsAccountName'), '.azuredatalakestore.net') ]"
     },
     "resources": [
         {
-            "name": "[concat(parameters('factoryName'), '/select-tcad-data')]",
+            "name": "[concat(parameters('factoryName'), '/produce-data')]",
             "type": "Microsoft.DataFactory/factories/pipelines",
             "apiVersion": "2017-09-01-preview",
             "properties": {
                 "mode": "Incremental",
                 "activities": [
                     {
-                        "name": "Sel-TCAD-PROP",
+                        "name": "Run-Producer",
                         "description": "description",
                         "type": "HDInsightHive",
                         "linkedServiceName": {
@@ -87,75 +87,17 @@
                             "type": "LinkedServiceReference"
                         },
                         "typeProperties": {
-                            "scriptPath": "scripts/select/PROP.hql",
+                            "scriptPath": "scripts/produce/calculate-dataset.hql",
                             "scriptLinkedService": {
                                 "referenceName": "[variables('hdi-blob')]",
                                 "type": "LinkedServiceReference"
                             },
                             "defines": {
-                                "raw_dir": "@{pipeline().parameters.RawDir}/@{pipeline().parameters.Snapshot}",
-                                "stg_dir": "@{pipeline().parameters.StgDir}/@{pipeline().parameters.Snapshot}"
+                                "stg_dir": "@{pipeline().parameters.StgDir}/@{pipeline().parameters.Snapshot}",
+                                "prp_dir": "@{pipeline().parameters.PrepDir}"
                             },
                             "getDebugInfo": "Failure"
                         }   
-                    },
-                    {
-                        "name": "Sel-TCAD-PROP_ENT",
-                        "description": "description",
-                        "type": "HDInsightHive",
-                        "linkedServiceName": {
-                            "referenceName": "[variables('hdi-conn')]",
-                            "type": "LinkedServiceReference"
-                        },
-                        "typeProperties": {
-                            "scriptPath": "scripts/select/PROP_ENT.hql",
-                            "scriptLinkedService": {
-                                "referenceName": "[variables('hdi-blob')]",
-                                "type": "LinkedServiceReference"
-                            },
-                            "defines": {
-                                "raw_dir": "@{pipeline().parameters.RawDir}/@{pipeline().parameters.Snapshot}",
-                                "stg_dir": "@{pipeline().parameters.StgDir}/@{pipeline().parameters.Snapshot}"
-                            },
-                            "getDebugInfo": "Failure"
-                        },
-                        "dependsOn": [
-                            {
-                                "activity": "Sel-TCAD-PROP",
-                                "dependencyConditions": [
-                                    "Completed"
-                                ]
-                            }
-                        ]   
-                    },
-                    {
-                        "name": "Sel-TCAD-TOTALS",
-                        "description": "description",
-                        "type": "HDInsightHive",
-                        "linkedServiceName": {
-                            "referenceName": "[variables('hdi-conn')]",
-                            "type": "LinkedServiceReference"
-                        },
-                        "typeProperties": {
-                            "scriptPath": "scripts/select/TOTALS.hql",
-                            "scriptLinkedService": {
-                                "referenceName": "[variables('hdi-blob')]",
-                                "type": "LinkedServiceReference"
-                            },
-                            "defines": {
-                                "raw_dir": "@{pipeline().parameters.RawDir}/@{pipeline().parameters.Snapshot}",
-                                "stg_dir": "@{pipeline().parameters.StgDir}/@{pipeline().parameters.Snapshot}"
-                            },
-                            "getDebugInfo": "Failure"
-                        },
-                        "dependsOn": [
-                            {
-                                "activity": "Sel-TCAD-PROP_ENT",
-                                "dependencyConditions": [
-                                    "Completed"
-                                ]
-                            }
-                        ]   
                     }
                 ],
                 "parameters": {
@@ -163,9 +105,9 @@
                         "type": "String",
                         "defaultValue": ""
                     },
-                    "RawDir": {
+                    "PrepDir": {
                         "type": "String",
-                        "defaultValue": "[concat(variables('adl-uri'), parameters('rawDir'), '/', parameters('envName'), '/tcad/')]"
+                        "defaultValue": "[concat(variables('adl-uri'), parameters('prepDir'), '/', parameters('envName'))]"
                     },
                     "StgDir": {
                         "type": "String",

@@ -1,0 +1,149 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "factoryName": {
+            "type": "string",
+            "defaultValue": "CapStoneADF"
+        },
+        "stgDir": {
+            "type": "string",
+            "defaultValue": "/data/stage"
+        },
+        "adlsAccountName": {
+            "type": "string",
+            "defaultValue": "edapadls"
+        },
+        "envName" : {
+            "type": "string"
+        },
+        "hdiLinkedService": {
+            "type": "string",
+            "defaultValue": "HadoopConnection"
+        }
+    },
+    "variables": {
+        "suppl-files-container": "supplem",
+        "stg-data-dir": "[parameters('stgDir')]",
+        "blob-aux-file": "AuxiliaryFile",
+        "adls-file-dataset": "ADLSSomeFile",
+        "hdi-conn": "[parameters('hdiLinkedService')]",
+        "hdi-blob": "HDIStorageConnection",
+        "adl-uri":"[concat( 'adl://', parameters('adlsAccountName'), '.azuredatalakestore.net') ]"
+    },
+    "resources": [
+        {
+            "name": "[concat(parameters('factoryName'), '/select-supp-data')]",
+            "type": "Microsoft.DataFactory/factories/pipelines",
+            "apiVersion": "2017-09-01-preview",
+            "properties": {
+                "activities": [
+                    {
+                        "name": "for-each-file",
+                        "type": "ForEach",
+                        "typeProperties": {
+                            "items": { 
+                                "value": "@pipeline().parameters.FileList",
+                                "type": "Expression"
+                            },
+                            "activities": [
+                                {
+                                    "name": "CopySupplementalTables",
+                                    "type": "Copy",
+                                    "dependsOn": [],
+                                    "policy": {
+                                        "timeout": "7.00:00:00",
+                                        "retry": 0,
+                                        "retryIntervalInSeconds": 30
+                                    },
+                                    "typeProperties": {
+                                        "source": {
+                                            "type": "BlobSource",
+                                            "recursive": true
+                                        },
+                                        "sink": {
+                                            "type": "AzureDataLakeStoreSink"
+                                        },
+                                        "enableStaging": false,
+                                        "cloudDataMovementUnits": 0
+                                    },
+                                    "inputs": [
+                                        {
+                                            "referenceName": "[variables('blob-aux-file')]",
+                                            "type": "DatasetReference",
+                                            "parameters": {
+                                                "FileName": "@{item().File}",
+                                                "FileExt" : "@{item().Ext}",
+                                                "FolderPath": "[variables('suppl-files-container')]"
+                                            }
+                                        }
+                                    ],
+                                    "outputs": [
+                                        {
+                                            "referenceName": "[variables('adls-file-dataset')]",
+                                            "type": "DatasetReference",
+                                            "parameters": {
+                                                "FolderRoot": "[variables('stg-data-dir')]",
+                                                "Env": "[parameters('envName')]",
+                                                "Snapshot" : "@{pipeline().parameters.Snapshot}",
+                                                "DataDir": "@{item().File}",
+                                                "FileName": "@{item().File}",
+                                                "FileExt" : "@{item().Ext}"
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "name": "Create supplemental tables",
+                        "description": "description",
+                        "type": "HDInsightHive",
+                        "dependsOn": [
+                            {
+                                "activity": "for-each-file",
+                                "dependencyConditions": [
+                                    "Succeeded"
+                                ]
+                            }
+                        ],
+                        "linkedServiceName": {
+                            "referenceName": "[variables('hdi-conn')]",
+                            "type": "LinkedServiceReference"
+                        },
+                        "typeProperties": {
+                            "scriptPath": "scripts/select/supplemental.hql",
+                            "scriptLinkedService": {
+                                "referenceName": "[variables('hdi-blob')]",
+                                "type": "LinkedServiceReference"
+                            },
+                            "defines": {
+                                "stg_dir": "@{pipeline().parameters.StgDir}/@{pipeline().parameters.Snapshot}"
+                            },
+                            "getDebugInfo": "Failure"
+                        }   
+                    }
+                ],
+                "parameters": {
+                    "Snapshot": {
+                        "type": "String",
+                        "defaultValue": ""
+                    },
+                    "FileList": {
+                        "type": "String",
+                        "defaultValue": [ 
+                            { "File": "D_EXEMPTION_DICT", "Ext": "csv"}, 
+                            { "File": "D_HARIS_NEIGHBORHOOD_DICT", "Ext": "tsv"}, 
+                            { "File": "D_TARVIS_JURISDICTION_DICT", "Ext": "csv"} 
+                        ]
+                    },
+                    "StgDir": {
+                        "type": "String",
+                        "defaultValue": "[concat(variables('adl-uri'), parameters('stgDir'), '/', parameters('envName'))]"
+                    }
+                }
+            }
+        }
+    ]
+}

@@ -39,7 +39,7 @@
                 "typeProperties": {
                     "clusterType": "hadoop",
                     "clusterSize": 1,
-                    "timeToLive": "00:05:00",
+                    "timeToLive": "00:15:00",
                     "coreConfiguration": {
                         "fs.adl.oauth2.access.token.provider.type": "ClientCredential", 
                         "fs.adl.oauth2.client.id": "[parameters('principalId')]", 
