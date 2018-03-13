@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "factoryName": {
-            "value": "CapStoneADFTeamA"
+            "value": "CapStoneADFTeamAv2"
         },
         "dataFactoryLocation": {
             "value": "EastUS2"
@@ -111,7 +111,7 @@
             "value": "msqteamasqlserver.database.windows.net"
         },
         "publishDbName": {
-            "value": "hdiMetastoreTeamA"
+            "value": "capstone2"
         },
         "publishDbUser": {
             "value": "azt"
