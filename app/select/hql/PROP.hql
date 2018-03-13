@@ -834,4 +834,4 @@ CREATE EXTERNAL TABLE stg_tcad_prop (
 STORED AS AVRO
 LOCATION '${hiveconf:stg_dir}/PROP';
 
-INSERT OVERWRITE TABLE  stg_tcad_prop SELECT * FROM raw_tcad_prop;
+INSERT OVERWRITE TABLE  stg_tcad_prop SELECT * FROM raw_tcad_prop WHERE trim(prop_type_cd) = 'R';

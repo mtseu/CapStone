@@ -352,4 +352,8 @@ CREATE EXTERNAL TABLE stg_tcad_prop_ent (
 STORED AS AVRO
 LOCATION '${hiveconf:stg_dir}/PROP_ENT';
 
-INSERT OVERWRITE TABLE  stg_tcad_prop_ent SELECT * FROM raw_tcad_prop_ent;
+INSERT OVERWRITE TABLE  stg_tcad_prop_ent 
+SELECT e.* FROM raw_tcad_prop_ent e
+LEFT SEMI JOIN stg_tcad_prop p 
+ON e.prop_id = p.prop_id
+;
