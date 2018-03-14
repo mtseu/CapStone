@@ -311,9 +311,394 @@
                                 "type": "DatasetReference"
                             }
                         ]
+                    },                    
+                    {
+                        "name": "Create_D_JURISDICTION_JURISDICTION_ID_Index",
+                        "type": "SqlServerStoredProcedure",
+                        "dependsOn": [
+                            {
+                                "activity": "Copy_D_JURISDICTION",
+                                "dependencyConditions": [
+                                    "Succeeded"
+                                ]
+                            }
+                        ],
+                        "policy": {
+                            "timeout": "7.00:00:00",
+                            "retry": 0,
+                            "retryIntervalInSeconds": 30,
+                            "secureOutput": false
+                        },
+                        "typeProperties": {
+                            "storedProcedureName": "dbo.create_index",
+                            "storedProcedureParameters": {
+                                "column": {
+                                    "value": "JURISDICTION_ID",
+                                    "type": "String"
+                                },
+                                "table": {
+                                    "value": "D_JURISDICTION",
+                                    "type": "String"
+                                }
+                            }
+                        },
+                        "linkedServiceName": {
+                            "referenceName": "PublishedDBConnection",
+                            "type": "LinkedServiceReference"
+                        }
+                    },
+                    {
+                        "name": "Create_D_JURISDICTION_EXEMPT_ACCOUNT_ID_Index",
+                        "type": "SqlServerStoredProcedure",
+                        "dependsOn": [
+                            {
+                                "activity": "Copy_D_JURISDICTION_EXEMPT",
+                                "dependencyConditions": [
+                                    "Succeeded"
+                                ]
+                            }
+                        ],
+                        "policy": {
+                            "timeout": "7.00:00:00",
+                            "retry": 0,
+                            "retryIntervalInSeconds": 30,
+                            "secureOutput": false
+                        },
+                        "typeProperties": {
+                            "storedProcedureName": "dbo.create_index",
+                            "storedProcedureParameters": {
+                                "column": {
+                                    "value": "ACCOUNT_ID",
+                                    "type": "String"
+                                },
+                                "table": {
+                                    "value": "D_JURISDICTION_EXEMPT",
+                                    "type": "String"
+                                }
+                            }
+                        },
+                        "linkedServiceName": {
+                            "referenceName": "PublishedDBConnection",
+                            "type": "LinkedServiceReference"
+                        }
+                    },
+                    {
+                        "name": "Create_D_JURISDICTION_EXEMPT_JURISDICTION_ID_Index",
+                        "type": "SqlServerStoredProcedure",
+                        "dependsOn": [
+                            {
+                                "activity": "Copy_D_JURISDICTION_EXEMPT",
+                                "dependencyConditions": [
+                                    "Succeeded"
+                                ]
+                            }
+                        ],
+                        "policy": {
+                            "timeout": "7.00:00:00",
+                            "retry": 0,
+                            "retryIntervalInSeconds": 30,
+                            "secureOutput": false
+                        },
+                        "typeProperties": {
+                            "storedProcedureName": "dbo.create_index",
+                            "storedProcedureParameters": {
+                                "column": {
+                                    "value": "JURISDICTION_ID",
+                                    "type": "String"
+                                },
+                                "table": {
+                                    "value": "D_JURISDICTION_EXEMPT",
+                                    "type": "String"
+                                }
+                            }
+                        },
+                        "linkedServiceName": {
+                            "referenceName": "PublishedDBConnection",
+                            "type": "LinkedServiceReference"
+                        }
+                    },
+                    {
+                        "name": "Create_F_JURISDICTION_TAX_VALUES_ACCOUNT_ID_Index",
+                        "type": "SqlServerStoredProcedure",
+                        "dependsOn": [
+                            {
+                                "activity": "Copy_F_JURISDICTION_TAX_VALUES",
+                                "dependencyConditions": [
+                                    "Succeeded"
+                                ]
+                            }
+                        ],
+                        "policy": {
+                            "timeout": "7.00:00:00",
+                            "retry": 0,
+                            "retryIntervalInSeconds": 30,
+                            "secureOutput": false
+                        },
+                        "typeProperties": {
+                            "storedProcedureName": "dbo.create_index",
+                            "storedProcedureParameters": {
+                                "column": {
+                                    "value": "ACCOUNT_ID",
+                                    "type": "String"
+                                },
+                                "table": {
+                                    "value": "F_JURISDICTION_TAX_VALUES",
+                                    "type": "String"
+                                }
+                            }
+                        },
+                        "linkedServiceName": {
+                            "referenceName": "PublishedDBConnection",
+                            "type": "LinkedServiceReference"
+                        }
+                    },
+                    {
+                        "name": "Create_F_JURISDICTION_TAX_VALUES_JURISDICTION_ID_Index",
+                        "type": "SqlServerStoredProcedure",
+                        "dependsOn": [
+                            {
+                                "activity": "Copy_F_JURISDICTION_TAX_VALUES",
+                                "dependencyConditions": [
+                                    "Succeeded"
+                                ]
+                            }
+                        ],
+                        "policy": {
+                            "timeout": "7.00:00:00",
+                            "retry": 0,
+                            "retryIntervalInSeconds": 30,
+                            "secureOutput": false
+                        },
+                        "typeProperties": {
+                            "storedProcedureName": "dbo.create_index",
+                            "storedProcedureParameters": {
+                                "column": {
+                                    "value": "JURISDICTION_ID",
+                                    "type": "String"
+                                },
+                                "table": {
+                                    "value": "F_JURISDICTION_TAX_VALUES",
+                                    "type": "String"
+                                }
+                            }
+                        },
+                        "linkedServiceName": {
+                            "referenceName": "PublishedDBConnection",
+                            "type": "LinkedServiceReference"
+                        }
+                    },
+                    {
+                        "name": "Create_D_OWNER_OWNER_ID_Index",
+                        "type": "SqlServerStoredProcedure",
+                        "dependsOn": [
+                            {
+                                "activity": "Copy_D_OWNER",
+                                "dependencyConditions": [
+                                    "Succeeded"
+                                ]
+                            }
+                        ],
+                        "policy": {
+                            "timeout": "7.00:00:00",
+                            "retry": 0,
+                            "retryIntervalInSeconds": 30,
+                            "secureOutput": false
+                        },
+                        "typeProperties": {
+                            "storedProcedureName": "dbo.create_index",
+                            "storedProcedureParameters": {
+                                "column": {
+                                    "value": "OWNER_ID",
+                                    "type": "String"
+                                },
+                                "table": {
+                                    "value": "D_OWNER",
+                                    "type": "String"
+                                }
+                            }
+                        },
+                        "linkedServiceName": {
+                            "referenceName": "PublishedDBConnection",
+                            "type": "LinkedServiceReference"
+                        }
+                    },
+                    {
+                        "name": "Create_D_PROPERTY_ACCOUNT_ID_Index",
+                        "type": "SqlServerStoredProcedure",
+                        "dependsOn": [
+                            {
+                                "activity": "Copy_D_PROPERTY",
+                                "dependencyConditions": [
+                                    "Succeeded"
+                                ]
+                            }
+                        ],
+                        "policy": {
+                            "timeout": "7.00:00:00",
+                            "retry": 0,
+                            "retryIntervalInSeconds": 30,
+                            "secureOutput": false
+                        },
+                        "typeProperties": {
+                            "storedProcedureName": "dbo.create_index",
+                            "storedProcedureParameters": {
+                                "column": {
+                                    "value": "ACCOUNT_ID",
+                                    "type": "String"
+                                },
+                                "table": {
+                                    "value": "D_PROPERTY",
+                                    "type": "String"
+                                }
+                            }
+                        },
+                        "linkedServiceName": {
+                            "referenceName": "PublishedDBConnection",
+                            "type": "LinkedServiceReference"
+                        }
+                    },
+                    {
+                        "name": "Create_D_PROPERTY_OWNER_ID_Index",
+                        "type": "SqlServerStoredProcedure",
+                        "dependsOn": [
+                            {
+                                "activity": "Copy_D_PROPERTY",
+                                "dependencyConditions": [
+                                    "Succeeded"
+                                ]
+                            }
+                        ],
+                        "policy": {
+                            "timeout": "7.00:00:00",
+                            "retry": 0,
+                            "retryIntervalInSeconds": 30,
+                            "secureOutput": false
+                        },
+                        "typeProperties": {
+                            "storedProcedureName": "dbo.create_index",
+                            "storedProcedureParameters": {
+                                "column": {
+                                    "value": "OWNER_ID",
+                                    "type": "String"
+                                },
+                                "table": {
+                                    "value": "D_PROPERTY",
+                                    "type": "String"
+                                }
+                            }
+                        },
+                        "linkedServiceName": {
+                            "referenceName": "PublishedDBConnection",
+                            "type": "LinkedServiceReference"
+                        }
+                    },
+                    {
+                        "name": "Create_D_PROPERTY_GROUPS_GROUP_ID_Index",
+                        "type": "SqlServerStoredProcedure",
+                        "dependsOn": [
+                            {
+                                "activity": "Copy_D_PROPERTY_GROUPS",
+                                "dependencyConditions": [
+                                    "Succeeded"
+                                ]
+                            }
+                        ],
+                        "policy": {
+                            "timeout": "7.00:00:00",
+                            "retry": 0,
+                            "retryIntervalInSeconds": 30,
+                            "secureOutput": false
+                        },
+                        "typeProperties": {
+                            "storedProcedureName": "dbo.create_index",
+                            "storedProcedureParameters": {
+                                "column": {
+                                    "value": "GROUP_ID",
+                                    "type": "String"
+                                },
+                                "table": {
+                                    "value": "D_PROPERTY_GROUPS",
+                                    "type": "String"
+                                }
+                            }
+                        },
+                        "linkedServiceName": {
+                            "referenceName": "PublishedDBConnection",
+                            "type": "LinkedServiceReference"
+                        }
+                    },
+                    {
+                        "name": "Create_B_PROPERTY_GROUPS_MAPPING_GROUP_ID_Index",
+                        "type": "SqlServerStoredProcedure",
+                        "dependsOn": [
+                            {
+                                "activity": "Copy_B_PROPERTY_GROUPS_MAPPING",
+                                "dependencyConditions": [
+                                    "Succeeded"
+                                ]
+                            }
+                        ],
+                        "policy": {
+                            "timeout": "7.00:00:00",
+                            "retry": 0,
+                            "retryIntervalInSeconds": 30,
+                            "secureOutput": false
+                        },
+                        "typeProperties": {
+                            "storedProcedureName": "dbo.create_index",
+                            "storedProcedureParameters": {
+                                "column": {
+                                    "value": "GROUP_ID",
+                                    "type": "String"
+                                },
+                                "table": {
+                                    "value": "B_PROPERTY_GROUPS_MAPPING",
+                                    "type": "String"
+                                }
+                            }
+                        },
+                        "linkedServiceName": {
+                            "referenceName": "PublishedDBConnection",
+                            "type": "LinkedServiceReference"
+                        }
+                    },
+                    {
+                        "name": "Create_B_PROPERTY_GROUPS_MAPPING_ACCOUNT_ID_Index",
+                        "type": "SqlServerStoredProcedure",
+                        "dependsOn": [
+                            {
+                                "activity": "Copy_B_PROPERTY_GROUPS_MAPPING",
+                                "dependencyConditions": [
+                                    "Succeeded"
+                                ]
+                            }
+                        ],
+                        "policy": {
+                            "timeout": "7.00:00:00",
+                            "retry": 0,
+                            "retryIntervalInSeconds": 30,
+                            "secureOutput": false
+                        },
+                        "typeProperties": {
+                            "storedProcedureName": "dbo.create_index",
+                            "storedProcedureParameters": {
+                                "column": {
+                                    "value": "ACCOUNT_ID",
+                                    "type": "String"
+                                },
+                                "table": {
+                                    "value": "B_PROPERTY_GROUPS_MAPPING",
+                                    "type": "String"
+                                }
+                            }
+                        },
+                        "linkedServiceName": {
+                            "referenceName": "PublishedDBConnection",
+                            "type": "LinkedServiceReference"
+                        }
                     }
                 ],
-                "parameters": {                   
+                "parameters": {
                 }
             }
         }

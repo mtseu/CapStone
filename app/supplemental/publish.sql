@@ -1,3 +1,21 @@
+IF (OBJECT_ID('create_index') IS NOT NULL)
+    DROP PROCEDURE [dbo].[create_index]
+GO;
+
+CREATE PROC [dbo].[create_index]
+    @table VARCHAR(256),
+    @column VARCHAR(50)
+AS BEGIN
+    DECLARE @sql NVARCHAR(1024);
+    SET @sql = 'DROP INDEX IF EXISTS [' + @column + '_index] ON [' + @table + '];';
+    PRINT @sql;
+    EXEC sp_executesql @sql;
+    SET @sql = 'CREATE NONCLUSTERED INDEX [' + @column + '_index] ON [' + @table + '] (' + @column + ');';
+    PRINT @sql;
+    EXEC sp_executesql @sql;
+END
+GO;
+
 DROP TABLE [D_JURISDICTION];
 CREATE TABLE [D_JURISDICTION] (
      JURISDICTION_ID        VARCHAR(500)
@@ -15,7 +33,7 @@ CREATE TABLE [D_JURISDICTION_EXEMPT] (
     , EXEMPT_CODE           VARCHAR(500)
     , EXEMPT_VALUE          DECIMAL(15)
 );
- 
+
 DROP TABLE [F_JURISDICTION_TAX_VALUES]; 
 CREATE TABLE [F_JURISDICTION_TAX_VALUES] (
     ACCOUNT_ID              VARCHAR(500)
