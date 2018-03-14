@@ -135,7 +135,8 @@
                         "defaultValue": [ 
                             { "File": "D_EXEMPTION_DICT", "Ext": "csv"}, 
                             { "File": "D_HARIS_NEIGHBORHOOD_DICT", "Ext": "tsv"}, 
-                            { "File": "D_TARVIS_JURISDICTION_DICT", "Ext": "csv"} 
+                            { "File": "D_TARVIS_JURISDICTION_DICT", "Ext": "csv"},
+                            { "File": "D_STATES_CD_DICT", "Ext": "tsv"}
                         ]
                     },
                     "StgDir": {

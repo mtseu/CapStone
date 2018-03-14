@@ -39,3 +39,15 @@ STORED AS TEXTFILE
 LOCATION '${hiveconf:stg_dir}/D_HARIS_NEIGHBORHOOD_DICT'
 TBLPROPERTIES("separatorChar" = "\t", "skip.header.line.count"="1")
 ;
+
+DROP TABLE IF EXISTS D_STATES_CD_DICT;
+CREATE EXTERNAL TABLE D_STATES_CD_DICT (
+      hcode STRING
+    , tcode STRING
+    , description STRING
+) 
+ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.OpenCSVSerde'
+STORED AS TEXTFILE
+LOCATION '${hiveconf:stg_dir}/D_STATES_CD_DICT'
+TBLPROPERTIES("separatorChar" = "\t", "skip.header.line.count"="1")
+;
