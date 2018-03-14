@@ -152,6 +152,7 @@ if [ "$1" == "supp" ] || [ "$1" == "all" ] || [ -z "$1" ]; then
     upload-blob $STORAGE_ACC $SUPPLEM_CONTAINER "D_EXEMPTION_DICT.csv"           "./supplemental/D_EXEMPTION_DICT.csv"
     upload-blob $STORAGE_ACC $SUPPLEM_CONTAINER "D_HARIS_NEIGHBORHOOD_DICT.tsv"  "./supplemental/D_HARIS_NEIGHBORHOOD_DICT.tsv"
     upload-blob $STORAGE_ACC $SUPPLEM_CONTAINER "D_TARVIS_JURISDICTION_DICT.csv" "./supplemental/D_TARVIS_JURISDICTION_DICT.csv"
+    upload-blob $STORAGE_ACC $SUPPLEM_CONTAINER "D_STATES_CD_DICT.tsv"           "./supplemental/D_STATES_CD_DICT.tsv"
 fi
 
 exit 0
