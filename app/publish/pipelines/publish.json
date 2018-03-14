@@ -212,7 +212,7 @@
                             "cloudDataMovementUnits": 0,
                             "translator": {
                                 "type": "TabularTranslator",
-                                "columnMappings": "account_id: ACCOUNT_ID, owner_id: OWNER_ID, property_description: PROPERTY_DESCRIPTION, city: CITY, zip: ZIP, address: ADDRESS, year_built: YEAR_BUILT, total_land_area: TOTAL_LAND_AREA, total_building_area: TOTAL_BUILDING_AREA, land_value: LAND_VALUE, improvement_value: IMPROVEMENT_VALUE, extra_features_value: EXTRA_FEATURES_VALUE, assessed_value: ASSESSED_VALUE, appraised_value: APPRAISED_VALUE, tax_year: TAX_YEAR, dataset: DATASET, total_taxes: TOTAL_TAXES"
+                                "columnMappings": "account_id: ACCOUNT_ID, owner_id: OWNER_ID, property_description: PROPERTY_DESCRIPTION, city: CITY, zip: ZIP, address: ADDRESS, year_built: YEAR_BUILT, property_type: PROPERTY_TYPE, total_land_area: TOTAL_LAND_AREA, total_building_area: TOTAL_BUILDING_AREA, land_value: LAND_VALUE, improvement_value: IMPROVEMENT_VALUE, extra_features_value: EXTRA_FEATURES_VALUE, assessed_value: ASSESSED_VALUE, appraised_value: APPRAISED_VALUE, tax_year: TAX_YEAR, dataset: DATASET, total_taxes: TOTAL_TAXES"
                             }
                         },
                         "inputs": [

@@ -112,7 +112,7 @@
             }
         },
         {            
-            "name": "[concat(parameters('factoryName'), '/', 'D_JURISDICTION_TAX_VALUES_IN')]",
+            "name": "[concat(parameters('factoryName'), '/', 'F_JURISDICTION_TAX_VALUES_IN')]",
             "type": "Microsoft.DataFactory/factories/datasets",
             "apiVersion": "2017-09-01-preview",
             "properties": {
@@ -155,7 +155,7 @@
                     "format": {
                         "type": "AvroFormat"
                     },
-                    "folderPath": "[concat(parameters('prepDir'), '/', parameters('envName'), '/D_JURISDICTION_TAX_VALUES')]"
+                    "folderPath": "[concat(parameters('prepDir'), '/', parameters('envName'), '/F_JURISDICTION_TAX_VALUES')]"
                 }
             }
         },
@@ -252,6 +252,10 @@
                     },
                     {
                         "name": "year_built",
+                        "type": "String"
+                    },
+                    {
+                        "name": "property_type",
                         "type": "String"
                     },
                     {

@@ -87,7 +87,7 @@
             }
         },
         {            
-            "name": "[concat(parameters('factoryName'), '/', 'D_JURISDICTION_TAX_VALUES_OUT')]",
+            "name": "[concat(parameters('factoryName'), '/', 'F_JURISDICTION_TAX_VALUES_OUT')]",
             "type": "Microsoft.DataFactory/factories/datasets",
             "apiVersion": "2017-09-01-preview",
             "properties": {
@@ -127,7 +127,7 @@
                     }
                 ],
                 "typeProperties": {
-                    "tableName": "dbo.D_JURISDICTION_TAX_VALUES"
+                    "tableName": "dbo.F_JURISDICTION_TAX_VALUES"
                 }
             }
         },
@@ -223,6 +223,10 @@
                         "name": "YEAR_BUILT",
                         "type": "String"
                     },
+                    {
+                        "name": "PROPERTY_TYPE",
+                        "type": "String"
+                    },                    
                     {
                         "name": "TOTAL_LAND_AREA",
                         "type": "Decimal"

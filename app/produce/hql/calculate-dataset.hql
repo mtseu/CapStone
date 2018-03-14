@@ -273,10 +273,10 @@ LEFT JOIN D_EXEMPTION_DICT c
 WHERE e.EXEMPT_VALUE IS NOT NULL
 ;
 
-DROP TABLE IF EXISTS D_JURISDICTION_TAX_VALUES;
-CREATE TABLE D_JURISDICTION_TAX_VALUES
+DROP TABLE IF EXISTS F_JURISDICTION_TAX_VALUES;
+CREATE TABLE F_JURISDICTION_TAX_VALUES
 STORED AS AVRO
-LOCATION '${hiveconf:prp_dir}/D_JURISDICTION_TAX_VALUES'
+LOCATION '${hiveconf:prp_dir}/F_JURISDICTION_TAX_VALUES'
 AS
 WITH 
 HARIS_TAXES AS (
@@ -390,7 +390,7 @@ WITH TAXES AS (
     SELECT 
         ACCOUNT_ID
         , SUM(TAXES) AS TOTAL_TAXES
-    FROM D_JURISDICTION_TAX_VALUES 
+    FROM F_JURISDICTION_TAX_VALUES 
     GROUP BY ACCOUNT_ID
 )
 
@@ -404,6 +404,7 @@ SELECT
     , a.SITE_ADDR_3                                                                     AS ZIP
     , a.SITE_ADDR_1                                                                     AS ADDRESS
     , a.YR_IMPR                                                                         AS YEAR_BUILT
+    , c.DESCRIPTION                                                                     AS PROPERTY_TYPE
     , CAST(a.TOTAL_LAND_AREA AS DOUBLE)                                                 AS TOTAL_LAND_AREA
     , CAST(a.TOTAL_BUILDING_AREA AS DOUBLE)                                             AS TOTAL_BUILDING_AREA
     , CAST(a.LAND_VALUE AS DOUBLE)                                                      AS LAND_VALUE
@@ -422,6 +423,8 @@ LEFT JOIN D_OWNER o
     AND a.MAIL_CITY = o.CITY 
     AND a.MAIL_ZIP = o.ZIP
     AND CONCAT_WS(' ', a.MAIL_ADDR_1, a.MAIL_ADDR_2) = o.ADDRESS
+LEFT JOIN D_STATES_CD_DICT c 
+    ON TRIM(a.STATE_CLASS) = TRIM(c.HCODE)
 LEFT JOIN TAXES t
     ON CONCAT("11", SUBSTR(CONCAT('0000000000000000', 
             TRIM(a.ACCOUNT)
@@ -440,6 +443,7 @@ SELECT
     , CONCAT_WS(' ', p.SITUS_NUM, p.SITUS_UNIT, p.SITUS_STREET_PREFX, 
         p.SITUS_STREET, p.SITUS_STREET_SUFFIX)                                          AS ADDRESS
     , NULL                                                                              AS YEAR_BUILT
+    , c.DESCRIPTION                                                                     AS PROPERTY_TYPE
     , CAST(p.LAND_ACRES AS DOUBLE)                                                      AS TOTAL_LAND_AREA
     , CAST(NULL AS DOUBLE)                                                              AS TOTAL_BUILDING_AREA
     , CAST(p.LAND_HSTD_VAL + p.LAND_NON_HSTD_VAL AS DOUBLE)                             AS LAND_VALUE
@@ -451,6 +455,8 @@ SELECT
     , 'Travis'                                                                          AS DATASET
     , t.TOTAL_TAXES                                                                     AS TOTAL_TAXES
 FROM stg_TCAD_PROP p
+LEFT JOIN D_STATES_CD_DICT c
+    ON TRIM(p.IMPRV_STATE_CD) = TRIM(c.TCODE)
 LEFT JOIN TAXES t
     ON CONCAT("21", SUBSTR(CONCAT('0000000000000000', 
         CAST(p.PROP_ID AS STRING)
