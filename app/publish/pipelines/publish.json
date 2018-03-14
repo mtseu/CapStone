@@ -103,7 +103,7 @@
                         ]
                     },
                     {
-                        "name": "Copy_D_JURISDICTION_TAX_VALUES",
+                        "name": "Copy_F_JURISDICTION_TAX_VALUES",
                         "type": "Copy",
                         "policy": {
                             "timeout": "7.00:00:00",
@@ -133,13 +133,13 @@
                         },
                         "inputs": [
                             {
-                                "referenceName": "D_JURISDICTION_TAX_VALUES_IN",
+                                "referenceName": "F_JURISDICTION_TAX_VALUES_IN",
                                 "type": "DatasetReference"
                             }
                         ],
                         "outputs": [
                             {
-                                "referenceName": "D_JURISDICTION_TAX_VALUES_OUT",
+                                "referenceName": "F_JURISDICTION_TAX_VALUES_OUT",
                                 "type": "DatasetReference"
                             }
                         ]

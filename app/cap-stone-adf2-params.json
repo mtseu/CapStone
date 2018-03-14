@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "factoryName": {
-            "value": "CapStoneADFTeamAv2"
+            "value": "CapStoneADFTeamAv3"
         },
         "dataFactoryLocation": {
             "value": "EastUS2"
@@ -111,7 +111,7 @@
             "value": "msqteamasqlserver.database.windows.net"
         },
         "publishDbName": {
-            "value": "capstone2"
+            "value": "capstone3"
         },
         "publishDbUser": {
             "value": "azt"
