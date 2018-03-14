@@ -1,0 +1,92 @@
+Harris Code	Travis Code	Description
+1D		Real, Qualified Agricultural Land
+1D1		Real, Qualified Agricultural Land
+A1	A1	Real, Residential, Single-Family
+A2	A2	Real, Residential, Mobile Homes
+A3		Real, Residential, Auxiliary Buildings
+	A3	SINGLE FAMILY RESIDENCE DETAILS
+A4		Real, Residential, 1/2 Duplex
+	A4	Condos
+	A5	Condos Details
+	A9	HS Commercial Highest & Best Use
+B1	B1	Real, Residential, Multi-Family
+B2	B2	Real, Residential, Two-Family
+B3	B3	Real, Residential, Three-Family
+B4	B4	Real, Residential, Four- or More-Family
+C1	C1	Real, Vacant Lots/Tracts (In City)
+C2	C2	Real, Vacant Commercial
+C3		Real, Vacant Lots/Tracts (Not in City)
+	D1	Acreage (AG)
+D2		Real, Unqualified Agricultural Land
+	D2	Acreage (non-AG)
+	D3	AG
+E1		Real, Farm & Ranch Improved
+	E1	Farm and Ranch Impr
+	E2	Farm and Ranch Impr MH
+	E3	Farm and Ranch Impr Misc
+F1	F1	Real, Commercial
+F2	F2	Real, Industrial
+	F3	Commercial Details
+	F4	Commercial Condo
+	F5	Commercial res Conversion
+	G1	Mineral
+	G2	Mineral
+	G3	Mineral
+HH		Subdivision Header
+J1	J1	Real & Tangible Personal, Utility Water Systems
+J2	J2	Gas Companies
+J3	J3	Electric Companies
+J4	J4	Telephone Companies
+J5	J5	Railroads
+J6	J6	Pipelines
+	J7	Utility (Cable)
+	J8	Utility (Other)
+	J9	Utility (not coded)
+	L1	Commercial PP
+	L2	Industrial Major Manufacturing PP
+	L3	Mineral
+	M1	Tangible Personal Prop MH
+	M2	Non-Income Producing Tangible PP
+M3		Personal Prop. Mobile Home
+	N	Mineral
+	N1	Intangible PP
+	N2	RR Rolling Stock
+O1	O1	Inventory Vacant
+O2		Inventory Improved
+	S1	Special Inventory
+TMBR		Real, Qualified Agricultural Land
+U0		Unknown
+	X	Totally Exempt Property
+X1		Other Exempt (Government)
+X2		Other Exempt (Charitable)
+X3		Other Exempt (Religious)
+X4		Other Exempt (Cemetery)
+X7		Other Exempt (Historical)
+XA		Public Property for Housing Indigent Persons
+XB		Income Producing Personal Property (<$500)
+XC		Mineral Interest (<$500)
+XD		Improving Property for Housing w/ Volunteer Labor
+XE		Community Housing Development Organizations
+XF		Assisting Ambulatory Health Care Centers
+XG		Primarily Performing Charitable Functions
+XH		Developing Model Colonia Subdivisions
+XI		Youth Spiritual, Mental and Physical Development
+XJ		Private Schools
+XL		Economic Development Services to Local Community
+XM		Marine Cargo Containers
+XN		Motor Vehicles Leased for Personal Use
+XO		Moter Vehicles for Income Production and Personal Use
+XP		Offshore Drilling Equipment Not In Use
+XQ		Intracoastal Waterway Dredge Disposal Site
+XR		Nonprofit Water or Wastewater Corporations
+XS		Raw Cocoa and Green Coffee Held in Harris County
+XT		Limitation on Taxes in Certain Municipalities
+XU		Miscellaneous Exemptions
+XV		Other Exempt (Incl Public, Religious, Charitable)
+	Y	Mineral
+Z0		Condo - Without Improvements
+Z1		Condo - Apartment Conversion
+Z2		Condo - Fee Simple Townhouse
+Z3		Condo - Townhouse (2+ stories)
+Z4		Condo - Apartment Style
+Z5		Condo - High Rise
