@@ -597,7 +597,7 @@
                         "type": "SqlServerStoredProcedure",
                         "dependsOn": [
                             {
-                                "activity": "Copy_D_JURISDICTION_EXEMPT",
+                                "activity": "Copy_D_PROPERTY_GROUPS",
                                 "dependencyConditions": [
                                     "Succeeded"
                                 ]
