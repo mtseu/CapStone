@@ -24,7 +24,8 @@
     },
     "variables": {
         "hcad-conn" : "HcadSqlConnection",
-        "ir": "team-a-ir"
+        "ir": "team-a-ir",
+        "factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
     },
     "resources": [
         {
@@ -40,6 +41,9 @@
             "name": "[concat(parameters('factoryName'), '/', variables('hcad-conn'))]",
             "type": "Microsoft.DataFactory/factories/linkedServices",
             "apiVersion": "2017-09-01-preview",
+            "dependsOn": [
+                "[concat(variables('factoryId'), '/integrationRuntimes/', variables('ir'))]"
+            ],
             "properties": {
                 "mode":"Incremental",
                 "type": "SqlServer",
