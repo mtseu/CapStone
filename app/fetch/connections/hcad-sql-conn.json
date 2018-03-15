@@ -23,9 +23,19 @@
         }
     },
     "variables": {
-        "hcad-conn" : "HcadSqlConnection"
+        "hcad-conn" : "HcadSqlConnection",
+        "ir": "team-a-ir"
     },
     "resources": [
+        {
+            "name": "[concat(parameters('factoryName'), '/', variables('ir'))]",
+            "type": "Microsoft.DataFactory/factories/integrationRuntimes",
+            "apiVersion": "2017-09-01-preview",
+            "properties": {
+                "type": "SelfHosted",
+                "description": "self-hosted"
+            }
+        },
         {
             "name": "[concat(parameters('factoryName'), '/', variables('hcad-conn'))]",
             "type": "Microsoft.DataFactory/factories/linkedServices",
@@ -38,6 +48,10 @@
                         "type": "SecureString",
                         "value": "[concat('Data Source=', parameters('hcadSqlServer'), ';Initial Catalog=', parameters('hcadDbName'),';Integrated Security=False;User ID=', parameters('hcadDbUser'),';Password=', parameters('hcadDbPassword'),';')]"
                     }
+                },
+                "connectVia": {
+                    "referenceName": "team-a-ir",
+                    "type": "IntegrationRuntimeReference"
                 }
             }
         }
